@@ -172,7 +172,7 @@ public abstract class FabricLanguageProvider implements DataProvider {
          * @param value The value of the entry.
          */
         default void add(Identifier identifier, String value) {
-            add(identifier.toTranslationKey(), value);
+            add(identifier.toString(), value);
         }
 
         /**
