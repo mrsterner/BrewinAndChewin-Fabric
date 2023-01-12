@@ -4,7 +4,6 @@ import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCStatusEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WallTorchBlock;
