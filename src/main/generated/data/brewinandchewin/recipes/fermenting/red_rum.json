@@ -1,0 +1,29 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "minecraft:crimson_fungus"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:shroomlight"
+    }
+  ],
+  "liquid": {
+    "item": "brewinandchewin:bloody_mary"
+  },
+  "result": {
+    "item": "brewinandchewin:red_rum"
+  },
+  "temperature": 5
+}

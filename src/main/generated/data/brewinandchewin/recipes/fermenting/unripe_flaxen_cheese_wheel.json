@@ -1,0 +1,26 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "minecraft:honeycomb"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "liquid": {
+    "item": "minecraft:milk_bucket"
+  },
+  "result": {
+    "item": "brewinandchewin:unripe_flaxen_cheese_wheel"
+  },
+  "temperature": 4
+}

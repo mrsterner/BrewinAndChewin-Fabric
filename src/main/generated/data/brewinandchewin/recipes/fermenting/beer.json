@@ -1,0 +1,26 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "liquid": {
+    "item": "minecraft:water_bucket"
+  },
+  "result": {
+    "item": "brewinandchewin:beer"
+  },
+  "temperature": 3
+}

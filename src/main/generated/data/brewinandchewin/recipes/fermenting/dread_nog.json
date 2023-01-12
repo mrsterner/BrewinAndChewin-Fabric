@@ -1,0 +1,29 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "minecraft:turtle_egg"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  ],
+  "liquid": {
+    "item": "brewinandchewin:egg_grog"
+  },
+  "result": {
+    "item": "brewinandchewin:dread_nog"
+  },
+  "temperature": 1
+}

@@ -1,0 +1,26 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "liquid": {
+    "item": "minecraft:honey_bottle"
+  },
+  "result": {
+    "item": "brewinandchewin:mead"
+  },
+  "temperature": 3
+}

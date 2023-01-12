@@ -1,0 +1,29 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "farmersdelight:rice"
+    },
+    {
+      "item": "farmersdelight:rice"
+    },
+    {
+      "item": "farmersdelight:rice"
+    },
+    {
+      "item": "farmersdelight:rice"
+    }
+  ],
+  "liquid": {
+    "item": "minecraft:water_bucket"
+  },
+  "result": {
+    "item": "brewinandchewin:rice_wine"
+  },
+  "temperature": 3
+}

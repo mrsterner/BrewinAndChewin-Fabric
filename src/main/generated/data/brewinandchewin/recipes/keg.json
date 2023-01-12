@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "h": {
+      "item": "minecraft:honeycomb"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "p": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "ipi",
+    "ihi",
+    "ppp"
+  ],
+  "result": {
+    "item": "brewinandchewin:keg"
+  }
+}

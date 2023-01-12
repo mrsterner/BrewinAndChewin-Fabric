@@ -1,0 +1,29 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "minecraft:sea_pickle"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "minecraft:seagrass"
+    }
+  ],
+  "liquid": {
+    "item": "brewinandchewin:vodka"
+  },
+  "result": {
+    "item": "brewinandchewin:salty_folly"
+  },
+  "temperature": 2
+}

@@ -1,0 +1,29 @@
+{
+  "type": "brewinandchewin:fermenting",
+  "container": {
+    "item": "brewinandchewin:tankard"
+  },
+  "cookingtime": 12000,
+  "experience": 0.6,
+  "ingredients": [
+    {
+      "item": "farmersdelight:tomato"
+    },
+    {
+      "item": "farmersdelight:tomato"
+    },
+    {
+      "item": "farmersdelight:cabbage_leaf"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "liquid": {
+    "item": "brewinandchewin:vodka"
+  },
+  "result": {
+    "item": "brewinandchewin:bloody_mary"
+  },
+  "temperature": 4
+}
