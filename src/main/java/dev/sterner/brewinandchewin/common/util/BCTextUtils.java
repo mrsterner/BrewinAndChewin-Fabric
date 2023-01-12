@@ -14,6 +14,7 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
@@ -21,13 +22,13 @@ import java.util.Map;
 
 public class BCTextUtils
 {
-    private static final MutableText NO_EFFECTS = (Text.translatable("effect.none")).formatted(Formatting.GRAY);
+    private static final MutableText NO_EFFECTS = (new TranslatableText("effect.none")).formatted(Formatting.GRAY);
 
     /**
      * Syntactic sugar for custom translation keys. Always prefixed with the mod's ID in lang files (e.g. farmersdelight.your.key.here).
      */
     public static MutableText getTranslation(String key, Object... args) {
-        return Text.translatable(BrewinAndChewin.MODID + "." + key, args);
+        return new TranslatableText(BrewinAndChewin.MODID + "." + key, args);
     }
 
     /**
@@ -46,7 +47,7 @@ public class BCTextUtils
         } else {
             for (Pair<StatusEffectInstance, Float> effectPair : effectList) {
                 StatusEffectInstance instance = effectPair.getFirst();
-                MutableText iformattabletextcomponent = Text.translatable(instance.getTranslationKey());
+                MutableText iformattabletextcomponent = new TranslatableText(instance.getTranslationKey());
                 StatusEffect effect = instance.getEffectType();
                 Map<EntityAttribute, EntityAttributeModifier> attributeMap = effect.getAttributeModifiers();
                 if (!attributeMap.isEmpty()) {
@@ -58,11 +59,11 @@ public class BCTextUtils
                 }
 
                 if (instance.getAmplifier() > 0) {
-                    iformattabletextcomponent = Text.translatable("potion.withAmplifier", iformattabletextcomponent, Text.translatable("potion.potency." + instance.getAmplifier()));
+                    iformattabletextcomponent = new TranslatableText("potion.withAmplifier", iformattabletextcomponent, new TranslatableText("potion.potency." + instance.getAmplifier()));
                 }
 
                 if (instance.getDuration() > 20) {
-                    iformattabletextcomponent = Text.translatable("potion.withDuration", iformattabletextcomponent, StatusEffectUtil.durationToString(instance, durationFactor));
+                    iformattabletextcomponent = new TranslatableText("potion.withDuration", iformattabletextcomponent, StatusEffectUtil.durationToString(instance, durationFactor));
                 }
 
                 lores.add(iformattabletextcomponent.formatted(effect.getCategory().getFormatting()));
@@ -70,8 +71,8 @@ public class BCTextUtils
         }
 
         if (!attributeList.isEmpty()) {
-            lores.add(Text.empty());
-            lores.add((Text.translatable("potion.whenDrank")).formatted(Formatting.DARK_PURPLE));
+            lores.add(Text.of(""));
+            lores.add((new TranslatableText("potion.whenDrank")).formatted(Formatting.DARK_PURPLE));
 
             for (Pair<EntityAttribute, EntityAttributeModifier> pair : attributeList) {
                 EntityAttributeModifier modifier = pair.getSecond();
@@ -84,10 +85,10 @@ public class BCTextUtils
                 }
 
                 if (amount > 0.0D) {
-                    lores.add((Text.translatable("attribute.modifier.plus." + modifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(formattedAmount), Text.translatable(pair.getFirst().getTranslationKey()))).formatted(Formatting.BLUE));
+                    lores.add((new TranslatableText("attribute.modifier.plus." + modifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(formattedAmount), new TranslatableText(pair.getFirst().getTranslationKey()))).formatted(Formatting.BLUE));
                 } else if (amount < 0.0D) {
                     formattedAmount = formattedAmount * -1.0D;
-                    lores.add((Text.translatable("attribute.modifier.take." + modifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(formattedAmount), Text.translatable(pair.getFirst().getTranslationKey()))).formatted(Formatting.RED));
+                    lores.add((new TranslatableText("attribute.modifier.take." + modifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(formattedAmount), new TranslatableText(pair.getFirst().getTranslationKey()))).formatted(Formatting.RED));
                 }
             }
         }

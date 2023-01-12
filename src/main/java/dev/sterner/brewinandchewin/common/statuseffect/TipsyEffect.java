@@ -6,7 +6,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.util.math.random.Random;
+
+import java.util.Random;
 
 public class TipsyEffect extends StatusEffect {
     public TipsyEffect(StatusEffectCategory statusEffectCategory, int color) {
