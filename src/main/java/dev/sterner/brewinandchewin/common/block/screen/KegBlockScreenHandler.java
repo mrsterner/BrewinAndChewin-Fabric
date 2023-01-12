@@ -24,7 +24,7 @@ import java.util.Objects;
 import static net.fabricmc.api.EnvType.CLIENT;
 
 public class KegBlockScreenHandler extends ScreenHandler {
-    private static final int INV_INDEX_MEAL_DISPLAY = 6;
+    private static final int INV_INDEX_MEAL_DISPLAY = 5;
     private static final int INV_INDEX_CONTAINER_INPUT = INV_INDEX_MEAL_DISPLAY + 1;
     private static final int INV_INDEX_OUTPUT = INV_INDEX_CONTAINER_INPUT + 1;
     private static final int INV_INDEX_START_PLAYER_INV = INV_INDEX_OUTPUT + 1;
