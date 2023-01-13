@@ -7,7 +7,6 @@
     "HungerManagerMixin"
   ],
   "client": [
-    "BlockRenderManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

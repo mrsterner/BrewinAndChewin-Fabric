@@ -1,5 +1,6 @@
 package dev.sterner.brewinandchewin;
 
+import com.nhoryzon.mc.farmersdelight.registry.LootFunctionsRegistry;
 import dev.sterner.brewinandchewin.common.loot.CopyMealFunction;
 import dev.sterner.brewinandchewin.common.registry.*;
 import net.fabricmc.api.ModInitializer;
@@ -22,6 +23,8 @@ public class BrewinAndChewin implements ModInitializer {
 		BCRecipeTypes.init();
 		BCScreenHandlerTypes.init();
 
-		Registry.register(Registry.LOOT_FUNCTION_TYPE, new Identifier(CopyMealFunction.ID.toString()), new LootFunctionType(new CopyMealFunction.Serializer()));
+
+		//Registry.register(Registry.LOOT_FUNCTION_TYPE, new Identifier(CopyMealFunction.ID.toString()), new LootFunctionType(new CopyMealFunction.Serializer()));
+
 	}
 }

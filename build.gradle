@@ -44,8 +44,15 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+
+	modApi "dev.architectury:architectury-fabric:6.4.62"
+	modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
 	modImplementation "curse.maven:farmersdelightfabric-482834:${project.delight_version}"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+	modImplementation "curse.maven:roughly-enough-items-310111:${project.rei_version}"
+	modImplementation "curse.maven:roughly-enough-resources-325625:${project.rer_version}"
 }
 
 processResources {
