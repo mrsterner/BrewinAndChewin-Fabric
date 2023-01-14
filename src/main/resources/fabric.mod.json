@@ -26,6 +26,9 @@
     ],
     "fabric-datagen" : [
       "dev.sterner.brewinandchewin.datagen.BCDatagen"
+    ],
+    "rei_client": [
+      "dev.sterner.brewinandchewin.client.integration.rei.BCREIPlugin"
     ]
   },
   "mixins": [

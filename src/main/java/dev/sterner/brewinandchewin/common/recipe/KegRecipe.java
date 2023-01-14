@@ -80,6 +80,11 @@ public class KegRecipe implements Recipe<Inventory>{
     }
 
     @Override
+    public DefaultedList<Ingredient> getIngredients() {
+        return ingredientList;
+    }
+
+    @Override
     public ItemStack craft(Inventory inventory) {
         return output.copy();
     }
