@@ -5,6 +5,7 @@ import dev.sterner.brewinandchewin.client.integration.rei.fermenting.FermentingR
 import dev.sterner.brewinandchewin.client.integration.rei.fermenting.FermentingRecipeDisplay;
 import dev.sterner.brewinandchewin.client.screen.KegScreen;
 import dev.sterner.brewinandchewin.common.recipe.KegRecipe;
+import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -13,6 +14,7 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 
 public class BCREIPlugin implements REIClientPlugin {
     public static final CategoryIdentifier<FermentingRecipeDisplay> FERMENTING = CategoryIdentifier.of(BrewinAndChewin.MODID, "fermenting");
@@ -27,6 +29,7 @@ public class BCREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
+        registry.addWorkstations(BCREIPlugin.FERMENTING, EntryStacks.of(BCObjects.KEG));
         registry.add(new FermentingRecipeCategory());
     }
 
@@ -37,6 +40,6 @@ public class BCREIPlugin implements REIClientPlugin {
 
     @Override
     public void registerScreens(ScreenRegistry registry) {
-        registry.registerContainerClickArea(new Rectangle(89, 25, 24, 17), KegScreen.class, FERMENTING);
+        registry.registerContainerClickArea(new Rectangle(78, 45, 31, 7), KegScreen.class, FERMENTING);
     }
 }

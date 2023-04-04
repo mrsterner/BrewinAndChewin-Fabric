@@ -49,7 +49,7 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> {
     }
 
     private void renderTemperatureTooltip(MatrixStack ms, int mouseX, int mouseY) {
-        if (this.isPointWithinBounds(77, 39, 27, 4, mouseX, mouseY)) {
+        if (this.isPointWithinBounds(77, 39, 33, 4, mouseX, mouseY)) {
             List<Text> tooltip = new ArrayList<>();
             MutableText key = null;
             int i = this.handler.getTemperature();

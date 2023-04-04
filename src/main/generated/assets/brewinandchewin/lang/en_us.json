@@ -50,5 +50,6 @@
   "item.brewinandchewin.tankard": "Tankard",
   "item.brewinandchewin.vodka": "Vodka",
   "item.brewinandchewin.withering_dross": "Withering Dross",
-  "itemGroup.brewinandchewin": "Brewin' and Chewin'"
+  "itemGroup.brewinandchewin": "Brewin' and Chewin'",
+  "brewinandchewin.rei.fermenting" : "Fermenting"
 }
