@@ -6,7 +6,6 @@ import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
-import me.shedaniel.rei.api.client.gui.widgets.Arrow;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
@@ -14,18 +13,17 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FermentingRecipeCategory implements DisplayCategory<FermentingRecipeDisplay> {
-    private static final java.awt.Rectangle FRIGID_BAR = new java.awt.Rectangle(77, 39, 6, 4);
-    private static final java.awt.Rectangle COLD_BAR = new java.awt.Rectangle(83, 39, 7, 4);
-    private static final java.awt.Rectangle WARM_BAR = new java.awt.Rectangle(96, 39, 7, 4);
-    private static final java.awt.Rectangle HOT_BAR = new java.awt.Rectangle(103, 39, 7, 4);
-    private static final Identifier GUI_TEXTURE = new Identifier(BrewinAndChewin.MODID, "textures/gui/keg.png");
+    private static final java.awt.Rectangle FRIGID_BAR = new java.awt.Rectangle(48, 23, 6, 4);
+    private static final java.awt.Rectangle COLD_BAR = new java.awt.Rectangle(54, 23, 7, 4);
+    private static final java.awt.Rectangle WARM_BAR = new java.awt.Rectangle(67, 23, 7, 4);
+    private static final java.awt.Rectangle HOT_BAR = new java.awt.Rectangle(74, 23, 7, 4);
+    private static final Identifier GUI_TEXTURE = new Identifier(BrewinAndChewin.MODID, "textures/gui/jei/keg.png");
 
     @Override
     public CategoryIdentifier<? extends FermentingRecipeDisplay> getCategoryIdentifier() {
@@ -34,7 +32,7 @@ public class FermentingRecipeCategory implements DisplayCategory<FermentingRecip
 
     @Override
     public Text getTitle() {
-        return Text.translatable(BrewinAndChewin.MODID, "rei.fermenting");
+        return Text.translatable(BrewinAndChewin.MODID + ".rei.fermenting");
     }
 
     @Override
@@ -71,23 +69,19 @@ public class FermentingRecipeCategory implements DisplayCategory<FermentingRecip
                 .entries(display.getOutputEntries().get(0)).markOutput().disableBackground());
 
 
-        if (temp < -4 && temp > -9) {
-            widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
-                    new Rectangle(bgBounds.x + COLD_BAR.x, bgBounds.y + COLD_BAR.y, 17, 15), 182, 0));
-        }
-        if (temp < -8) {
+        if (temp <= 2) {
             widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
                     new Rectangle(bgBounds.x + COLD_BAR.x, bgBounds.y + COLD_BAR.y, COLD_BAR.width, COLD_BAR.height), 182, 0));
+        }
+        if (temp <= 1) {
             widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
                     new Rectangle(bgBounds.x + FRIGID_BAR.x, bgBounds.y + FRIGID_BAR.y, COLD_BAR.width, COLD_BAR.height), 176, 0));
         }
-        if (temp > 4 && temp < 9) {
+        if (temp >= 4) {
             widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
                     new Rectangle(bgBounds.x + WARM_BAR.x, bgBounds.y + WARM_BAR.y, WARM_BAR.width, WARM_BAR.height), 195, 0));
         }
-        if (temp > 8) {
-            widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
-                    new Rectangle(bgBounds.x + WARM_BAR.x, bgBounds.y + WARM_BAR.y, WARM_BAR.width, WARM_BAR.height), 195, 0));
+        if (temp >= 5) {
             widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
                     new Rectangle(bgBounds.x + HOT_BAR.x, bgBounds.y + HOT_BAR.y, HOT_BAR.width, HOT_BAR.height), 202, 0));
         }
