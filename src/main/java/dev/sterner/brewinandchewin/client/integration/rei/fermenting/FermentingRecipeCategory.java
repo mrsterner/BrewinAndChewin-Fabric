@@ -6,7 +6,6 @@ import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
-import me.shedaniel.rei.api.client.gui.widgets.Arrow;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
@@ -14,7 +13,6 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -76,8 +74,6 @@ public class FermentingRecipeCategory implements DisplayCategory<FermentingRecip
                     new Rectangle(bgBounds.x + COLD_BAR.x, bgBounds.y + COLD_BAR.y, COLD_BAR.width, COLD_BAR.height), 182, 0));
         }
         if (temp <= 1) {
-            /*widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
-                    new Rectangle(bgBounds.x + COLD_BAR.x, bgBounds.y + COLD_BAR.y, COLD_BAR.width, COLD_BAR.height), 182, 0));*/
             widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
                     new Rectangle(bgBounds.x + FRIGID_BAR.x, bgBounds.y + FRIGID_BAR.y, COLD_BAR.width, COLD_BAR.height), 176, 0));
         }
@@ -86,13 +82,9 @@ public class FermentingRecipeCategory implements DisplayCategory<FermentingRecip
                     new Rectangle(bgBounds.x + WARM_BAR.x, bgBounds.y + WARM_BAR.y, WARM_BAR.width, WARM_BAR.height), 195, 0));
         }
         if (temp >= 5) {
-            /*widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
-                    new Rectangle(bgBounds.x + WARM_BAR.x, bgBounds.y + WARM_BAR.y, WARM_BAR.width, WARM_BAR.height), 195, 0));*/
             widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
                     new Rectangle(bgBounds.x + HOT_BAR.x, bgBounds.y + HOT_BAR.y, HOT_BAR.width, HOT_BAR.height), 202, 0));
         }
-
-        //Arrow fermentArrow = Widgets.a
 
         /*
         widgets.add(Widgets.createTexturedWidget(GUI_TEXTURE,
