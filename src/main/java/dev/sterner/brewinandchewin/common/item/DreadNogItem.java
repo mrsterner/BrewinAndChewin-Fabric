@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class DreadNogItem extends BoozeItem{
+public class DreadNogItem extends BoozeItem {
     public DreadNogItem(int potency, int duration, Settings settings) {
         super(potency, duration, settings);
     }
@@ -17,8 +17,7 @@ public class DreadNogItem extends BoozeItem{
         StatusEffectInstance badOmenEffect = consumer.getStatusEffect(StatusEffects.BAD_OMEN);
         if (!consumer.hasStatusEffect(StatusEffects.BAD_OMEN)) {
             consumer.addStatusEffect(new StatusEffectInstance(StatusEffects.BAD_OMEN, 12000, 0), consumer);
-        }
-        else if (badOmenEffect != null && badOmenEffect.getAmplifier() < 2) {
+        } else if (badOmenEffect != null && badOmenEffect.getAmplifier() < 2) {
             consumer.addStatusEffect(new StatusEffectInstance(StatusEffects.BAD_OMEN, 12000, badOmenEffect.getAmplifier() + 1), consumer);
         }
         if (consumer.hasStatusEffect(BCStatusEffects.TIPSY)) {

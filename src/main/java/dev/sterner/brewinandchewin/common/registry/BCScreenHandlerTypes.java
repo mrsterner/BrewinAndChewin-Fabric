@@ -2,10 +2,7 @@ package dev.sterner.brewinandchewin.common.registry;
 
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.screen.KegBlockScreenHandler;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 

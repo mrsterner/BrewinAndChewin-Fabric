@@ -51,7 +51,7 @@ public class KegRecipeBookComponent extends RecipeBookWidget {
             }
 
             if (!containerStack.isEmpty()) {
-                this.ghostSlots.addSlot(Ingredient.ofStacks(containerStack), ((Slot)slots.get(6)).x, ((Slot)slots.get(6)).y);
+                this.ghostSlots.addSlot(Ingredient.ofStacks(containerStack), slots.get(6).x, slots.get(6).y);
             }
         }
 

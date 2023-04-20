@@ -30,7 +30,7 @@ public class BoozeItem extends DrinkableItem {
     public void affectConsumer(ItemStack stack, World world, LivingEntity user) {
         if (user.hasStatusEffect(BCStatusEffects.TIPSY)) {
             StatusEffectInstance effect = user.getStatusEffect(BCStatusEffects.TIPSY);
-            if(effect != null){
+            if (effect != null) {
                 if (effect.getAmplifier() == 8) {
                     user.addStatusEffect(new StatusEffectInstance(BCStatusEffects.TIPSY, effect.getDuration() + (duration * 600), effect.getAmplifier() + 1), user);
                 }

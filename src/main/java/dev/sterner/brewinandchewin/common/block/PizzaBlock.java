@@ -44,10 +44,10 @@ public class PizzaBlock extends Block {
     }
 
 
-	/*@Override
-	public RenderShape getRenderShape(BlockState state) {
-		return RenderShape.MODEL;
-	}*/
+    /*@Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
+    }*/
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -65,7 +65,8 @@ public class PizzaBlock extends Block {
         ItemStack heldStack = player.getStackInHand(hand);
         if (!player.getInventory().insertStack(serving)) {
             player.dropItem(serving, false);
-        } if (true) {
+        }
+        if (true) {
             if (world.getBlockState(pos).get(SERVINGS) == 0) {
                 world.removeBlock(pos, false);
             } else if (world.getBlockState(pos).get(SERVINGS) > 0) {

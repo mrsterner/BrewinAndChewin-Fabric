@@ -1,8 +1,5 @@
 package dev.sterner.brewinandchewin.common.registry;
 
-import com.nhoryzon.mc.farmersdelight.loot.function.CopyMealFunctionSerializer;
-import com.nhoryzon.mc.farmersdelight.loot.function.CopySkilletFunctionSerializer;
-import com.nhoryzon.mc.farmersdelight.loot.function.SmokerCookFunctionSerializer;
 import dev.sterner.brewinandchewin.common.loot.CopyDrinkFunction;
 import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootFunction;

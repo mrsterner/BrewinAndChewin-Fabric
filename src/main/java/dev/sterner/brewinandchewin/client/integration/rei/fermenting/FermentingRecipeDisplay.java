@@ -58,11 +58,11 @@ public class FermentingRecipeDisplay extends BasicDisplay {
         return cookTime;
     }
 
-    public int getTemp(){
+    public int getTemp() {
         return temp;
     }
 
-    public EntryIngredient getLiquid(){
+    public EntryIngredient getLiquid() {
         return EntryIngredient.of(liquid);
     }
 }

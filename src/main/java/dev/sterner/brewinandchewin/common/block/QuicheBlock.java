@@ -68,7 +68,7 @@ public class QuicheBlock extends Block {
         if (!playerIn.canConsume(false)) {
             return ActionResult.PASS;
         } else {
-            ItemStack sliceStack = new ItemStack((ItemConvertible) BCObjects.QUICHE_SLICE);
+            ItemStack sliceStack = new ItemStack(BCObjects.QUICHE_SLICE);
             FoodComponent sliceFood = sliceStack.getItem().getFoodComponent();
             playerIn.getHungerManager().eat(sliceStack.getItem(), sliceStack);
             if (sliceStack.getItem().isFood() && sliceFood != null) {
@@ -80,9 +80,9 @@ public class QuicheBlock extends Block {
                 }
             }
 
-            int bites = (Integer)state.get(BITES);
+            int bites = state.get(BITES);
             if (bites > 0) {
-                level.setBlockState(pos, (BlockState)state.with(BITES, bites - 1), 3);
+                level.setBlockState(pos, state.with(BITES, bites - 1), 3);
             } else {
                 level.removeBlock(pos, false);
             }
@@ -93,14 +93,14 @@ public class QuicheBlock extends Block {
     }
 
     protected ActionResult cutSlice(World level, BlockPos pos, BlockState state) {
-        int bites = (Integer)state.get(BITES);
+        int bites = state.get(BITES);
         if (bites > 0) {
-            level.setBlockState(pos, (BlockState)state.with(BITES, bites - 1), 3);
+            level.setBlockState(pos, state.with(BITES, bites - 1), 3);
         } else {
             level.removeBlock(pos, false);
         }
 
-        ItemScatterer.spawn(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack((ItemConvertible) BCObjects.QUICHE_SLICE));
+        ItemScatterer.spawn(level, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BCObjects.QUICHE_SLICE));
         level.playSound(null, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.PLAYERS, 0.8F, 0.8F);
         return ActionResult.SUCCESS;
     }
@@ -122,7 +122,7 @@ public class QuicheBlock extends Block {
 
     @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return (Integer)state.get(BITES);
+        return state.get(BITES);
     }
 
     @Override

@@ -15,12 +15,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -34,7 +32,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -58,7 +55,7 @@ public class KegBlock extends BlockWithEntity {
     protected static final VoxelShape SHAPE_VERTICAL = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
 
     public KegBlock() {
-        super(FabricBlockSettings.of(Material.WOOD).strength(2,3).sounds(BlockSoundGroup.WOOD));
+        super(FabricBlockSettings.of(Material.WOOD).strength(2, 3).sounds(BlockSoundGroup.WOOD));
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(VERTICAL, false).with(WATERLOGGED, false));
     }
 

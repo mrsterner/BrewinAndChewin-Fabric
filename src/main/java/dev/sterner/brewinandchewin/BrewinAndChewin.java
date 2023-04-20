@@ -10,18 +10,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BrewinAndChewin implements ModInitializer {
-	public static final String MODID = "brewinandchewin";
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, "main"), () -> new ItemStack(BCObjects.BEER));
+    public static final String MODID = "brewinandchewin";
+    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, "main"), () -> new ItemStack(BCObjects.BEER));
 
-	public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
-	@Override
-	public void onInitialize() {
-		BCObjects.init();
-		BCBlockEntityTypes.init();
-		BCStatusEffects.init();
-		BCRecipeTypes.init();
-		BCScreenHandlerTypes.init();
-		BCLootFunctionsRegistry.init();
-	}
+    @Override
+    public void onInitialize() {
+        BCObjects.init();
+        BCBlockEntityTypes.init();
+        BCStatusEffects.init();
+        BCRecipeTypes.init();
+        BCScreenHandlerTypes.init();
+        BCLootFunctionsRegistry.init();
+    }
 }

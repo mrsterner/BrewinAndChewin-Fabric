@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class FonduePotBlock extends Block {
     public static final VoxelShape INSIDE = Block.createCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
     public static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.union(
-            Block.createCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D),
+                    Block.createCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D),
                     Block.createCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D),
                     Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), INSIDE),
             BooleanBiFunction.ONLY_FIRST);
@@ -44,7 +44,7 @@ public class FonduePotBlock extends Block {
     }
 
     public boolean isEntityInsideContent(BlockState state, BlockPos pos, Entity entity) {
-        return entity.getY() < (double)pos.getY() + this.getContentHeight(state) && entity.getBoundingBox().maxY > (double)pos.getY() + 0.25D;
+        return entity.getY() < (double) pos.getY() + this.getContentHeight(state) && entity.getBoundingBox().maxY > (double) pos.getY() + 0.25D;
     }
 
     @Override

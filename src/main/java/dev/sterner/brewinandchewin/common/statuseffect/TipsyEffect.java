@@ -16,7 +16,7 @@ public class TipsyEffect extends StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         StatusEffectInstance effect = entity.getStatusEffect(BCStatusEffects.TIPSY);
-        if(effect != null ){
+        if (effect != null) {
             if (effect.getAmplifier() > 1) {
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, effect.getDuration(), 0));
             }
@@ -35,7 +35,7 @@ public class TipsyEffect extends StatusEffect {
                     x = amount;
                 else
                     z = amount;
-                entity.setVelocity(entity.getVelocity().add(x, 0.0F, z ));
+                entity.setVelocity(entity.getVelocity().add(x, 0.0F, z));
             }
         }
     }

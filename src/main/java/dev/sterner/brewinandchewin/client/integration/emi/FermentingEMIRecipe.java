@@ -73,7 +73,7 @@ public class FermentingEMIRecipe implements EmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
 
 
-        widgets.addDrawable(0,0, 116, 56, ((matrices, mouseX, mouseY, delta) -> {
+        widgets.addDrawable(0, 0, 116, 56, ((matrices, mouseX, mouseY, delta) -> {
             RenderSystem.setShaderTexture(0, GUI_TEXTURE);
             DrawableHelper.drawTexture(matrices, 0, 0, 29, 16, 116, 56, 256, 256);
         }));
@@ -85,8 +85,8 @@ public class FermentingEMIRecipe implements EmiRecipe {
             }
         }
 
-        widgets.addSlot(liquid,56 - 1, 2 - 1);
-        widgets.addSlot(this.containerOutput,60, 38);
+        widgets.addSlot(liquid, 56 - 1, 2 - 1);
+        widgets.addSlot(this.containerOutput, 60, 38);
         widgets.addSlot(getOutputs().get(0), 93 - 1, 10 - 4).drawBack(false);
         widgets.addSlot(getOutputs().get(0), 93 - 1, 39 - 1);
 

@@ -2,7 +2,6 @@ package dev.sterner.brewinandchewin.common.block.entity;
 
 import com.google.common.collect.Lists;
 import com.nhoryzon.mc.farmersdelight.entity.block.SyncedBlockEntity;
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemStackHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.mixin.accessors.RecipeManagerAccessorMixin;
@@ -16,21 +15,16 @@ import dev.sterner.brewinandchewin.common.registry.BCTags;
 import dev.sterner.brewinandchewin.common.util.BCTextUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -64,7 +58,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     private Identifier lastRecipeID;
     private boolean checkNewRecipe;
 
-    public KegBlockEntity( BlockPos pos, BlockState state) {
+    public KegBlockEntity(BlockPos pos, BlockState state) {
         super(BCBlockEntityTypes.KEG, pos, state);
         this.inventory = createHandler();
         this.drinkContainerStack = ItemStack.EMPTY;
@@ -138,8 +132,8 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         keg.updateTemperature();
         if (keg.hasInput()) {
             Optional<KegRecipe> recipe = keg.getMatchingRecipe(new RecipeWrapper(keg.inventory));
-            if (recipe.isPresent() && keg.canFerment((KegRecipe)recipe.get())) {
-                didInventoryChange = keg.processFermenting((KegRecipe)recipe.get(), keg);
+            if (recipe.isPresent() && keg.canFerment(recipe.get())) {
+                didInventoryChange = keg.processFermenting(recipe.get(), keg);
             } else {
                 keg.fermentTime = 0;
             }
@@ -175,9 +169,9 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
 
         int heat;
         int cold;
-        for(heat = -range; heat <= range; ++heat) {
-            for(int y = -range; y <= range; ++y) {
-                for(cold = -range; cold <= range; ++cold) {
+        for (heat = -range; heat <= range; ++heat) {
+            for (int y = -range; y <= range; ++y) {
+                for (cold = -range; cold <= range; ++cold) {
                     states.add(this.world.getBlockState(this.getPos().add(heat, y, cold)));
                 }
             }
@@ -248,7 +242,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         if (world == null) return Optional.empty();
 
         if (lastRecipeID != null) {
-            Recipe<Inventory> recipe = ((RecipeManagerAccessorMixin) world.getRecipeManager())
+            Recipe<RecipeWrapper> recipe = ((RecipeManagerAccessorMixin) world.getRecipeManager())
                     .getAllForType(BCRecipeTypes.KEG_RECIPE_TYPE)
                     .get(lastRecipeID);
             if (recipe != null) {
@@ -360,16 +354,16 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
 
                 keg.setLastRecipe(recipe);
 
-                for(int i = 0; i < 4; ++i) {
+                for (int i = 0; i < 4; ++i) {
                     ItemStack slotStack = this.inventory.getStack(i);
                     if (slotStack.getItem().hasRecipeRemainder()) {
                         Direction direction = this.getCachedState().get(KegBlock.FACING).rotateYCounterclockwise();
-                        double x = (double)this.getPos().getX() + 0.5 + (double)direction.getOffsetX() * 0.25;
-                        double y = (double)this.getPos().getY() + 0.7;
-                        double z = (double)this.getPos().getZ() + 0.5 + (double)direction.getOffsetZ() * 0.25;
+                        double x = (double) this.getPos().getX() + 0.5 + (double) direction.getOffsetX() * 0.25;
+                        double y = (double) this.getPos().getY() + 0.7;
+                        double z = (double) this.getPos().getZ() + 0.5 + (double) direction.getOffsetZ() * 0.25;
 
                         ItemEntity entity = new ItemEntity(world, x, y, z, this.inventory.getStack(i).getRecipeRemainder());
-                        entity.setVelocity(((float)direction.getOffsetX() * 0.08F), 0.25, ((float)direction.getOffsetZ() * 0.08F));
+                        entity.setVelocity(((float) direction.getOffsetX() * 0.08F), 0.25, ((float) direction.getOffsetZ() * 0.08F));
                         world.spawnEntity(entity);
                     }
 
@@ -410,9 +404,9 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     }
 
     private static void splitAndSpawnExperience(ServerWorld level, Vec3d pos, int craftedAmount, float experience) {
-        int expTotal = MathHelper.floor((float)craftedAmount * experience);
-        float expFraction = MathHelper.fractionalPart((float)craftedAmount * experience);
-        if (expFraction != 0.0F && Math.random() < (double)expFraction) {
+        int expTotal = MathHelper.floor((float) craftedAmount * experience);
+        float expFraction = MathHelper.fractionalPart((float) craftedAmount * experience);
+        if (expFraction != 0.0F && Math.random() < (double) expFraction) {
             ++expTotal;
         }
 
@@ -430,7 +424,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     public DefaultedList<ItemStack> getDroppableInventory() {
         DefaultedList<ItemStack> drops = DefaultedList.of();
 
-        for(int i = 0; i < 9; ++i) {
+        for (int i = 0; i < 9; ++i) {
             if (i != 5) {
                 drops.add(this.inventory.getStack(i));
             }

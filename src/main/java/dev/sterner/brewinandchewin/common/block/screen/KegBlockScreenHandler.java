@@ -9,12 +9,9 @@ import com.nhoryzon.mc.farmersdelight.entity.block.inventory.slot.SlotItemHandle
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
-import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import dev.sterner.brewinandchewin.common.registry.BCScreenHandlerTypes;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -22,9 +19,11 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.screen.*;
+import net.minecraft.screen.AbstractRecipeScreenHandler;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -124,7 +123,7 @@ public class KegBlockScreenHandler extends AbstractRecipeScreenHandler<RecipeWra
         int startPlayerInv = indexContainerOutput + 1;
         int endPlayerInv = startPlayerInv + 36;
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = (Slot)this.slots.get(index);
+        Slot slot = this.slots.get(index);
         if (slot.hasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
@@ -175,29 +174,29 @@ public class KegBlockScreenHandler extends AbstractRecipeScreenHandler<RecipeWra
         return j != 0 && i != 0 ? i * 33 / j : 0;
     }
 
-     @Environment(CLIENT)
+    @Environment(CLIENT)
     public int getFermentingTicks() {
         return this.kegData.get(0);
     }
 
-     @Environment(CLIENT)
+    @Environment(CLIENT)
     public int getTemperature() {
         return this.kegData.get(2);
     }
 
-     @Environment(CLIENT)
+    @Environment(CLIENT)
     public int getAdjustedTemperature() {
         return this.kegData.get(3);
     }
 
     public void populateRecipeFinder(RecipeMatcher helper) {
-        for(int i = 0; i < this.inventory.size(); ++i) {
+        for (int i = 0; i < this.inventory.size(); ++i) {
             helper.addUnenchantedInput(this.inventory.getStack(i));
         }
     }
 
     public void clearCraftingSlots() {
-        for(int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 5; ++i) {
             this.inventory.setStack(i, ItemStack.EMPTY);
         }
 

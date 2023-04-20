@@ -1,13 +1,9 @@
 package dev.sterner.brewinandchewin.common.block;
 
-import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
-import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
 import dev.sterner.brewinandchewin.common.block.entity.ItemCoasterBlockEntity;
-import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
 import dev.sterner.brewinandchewin.common.registry.BCTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -96,7 +92,7 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
                 }
 
                 if (itemCoasterBlockEntity.addItem(player.getAbilities().creativeMode ? heldStack.copy() : heldStack)) {
-                    world.playSound(null, ((float)pos.getX() + 0.5F), pos.getY(), (double)((float)pos.getZ() + 0.5F), SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.5F, 0.8F);
+                    world.playSound(null, ((float) pos.getX() + 0.5F), pos.getY(), (float) pos.getZ() + 0.5F, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.5F, 0.8F);
                     return ActionResult.SUCCESS;
                 }
 
@@ -106,13 +102,13 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
             } else if (hand.equals(Hand.MAIN_HAND)) {
                 if (!player.isCreative()) {
                     if (!player.getInventory().insertStack(itemCoasterBlockEntity.removeItem())) {
-                        ItemScatterer.spawn(world, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), itemCoasterBlockEntity.removeItem());
+                        ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), itemCoasterBlockEntity.removeItem());
                     }
                 } else {
                     itemCoasterBlockEntity.removeItem();
                 }
 
-                world.playSound(null, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), SoundEvents.BLOCK_WOOL_HIT, SoundCategory.BLOCKS, 0.5F, 0.5F);
+                world.playSound(null, (float) pos.getX() + 0.5F, pos.getY(), (float) pos.getZ() + 0.5F, SoundEvents.BLOCK_WOOL_HIT, SoundCategory.BLOCKS, 0.5F, 0.5F);
                 return ActionResult.SUCCESS;
             }
         }
@@ -126,7 +122,7 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof ItemCoasterBlockEntity) {
-                ItemScatterer.spawn(world, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), ((ItemCoasterBlockEntity)tileEntity).getStoredItem());
+                ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ((ItemCoasterBlockEntity) tileEntity).getStoredItem());
                 world.updateComparators(pos, this);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
@@ -180,7 +176,7 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
     public int getComparatorOutput(BlockState blockState, World worldIn, BlockPos pos) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
         if (tileEntity instanceof ItemCoasterBlockEntity) {
-            return !((ItemCoasterBlockEntity)tileEntity).isEmpty() ? 15 : 0;
+            return !((ItemCoasterBlockEntity) tileEntity).isEmpty() ? 15 : 0;
         } else {
             return 0;
         }
@@ -188,7 +184,7 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
 
     @Override
     public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return (BlockState)state.with(FACING, rotation.rotate(state.get(FACING)));
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
     @Override

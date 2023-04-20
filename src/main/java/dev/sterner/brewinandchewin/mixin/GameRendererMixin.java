@@ -26,7 +26,7 @@ public abstract class GameRendererMixin {
         PlayerEntity player = minecraft.player;
         if (player != null && player.hasStatusEffect(StatusEffects.NAUSEA) && player.getStatusEffect(StatusEffects.NAUSEA).getAmplifier() > 0) {
             int amplifier = player.getStatusEffect(StatusEffects.NAUSEA).getAmplifier() + 1;
-            return amount / (float)amplifier;
+            return amount / (float) amplifier;
         } else {
             return amount;
         }

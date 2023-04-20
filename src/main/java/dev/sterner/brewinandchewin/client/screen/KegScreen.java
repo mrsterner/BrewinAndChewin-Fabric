@@ -11,12 +11,10 @@ import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ClickType;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -59,7 +57,7 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> implements R
         this.addDrawableChild(new TexturedButtonWidget(this.x + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, new Identifier("textures/gui/recipe_button.png"), button -> {
             this.recipeBookComponent.toggleOpen();
             this.x = this.recipeBookComponent.findLeftEdge(this.width, this.backgroundWidth);
-            ((TexturedButtonWidget)button).setPos(this.x + 5, this.height / 2 - 49);
+            ((TexturedButtonWidget) button).setPos(this.x + 5, this.height / 2 - 49);
             this.mouseDown = true;
         }));
         this.addSelectableChild(this.recipeBookComponent);
@@ -197,7 +195,7 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> implements R
 
     @Override
     protected boolean isClickOutsideBounds(double mouseX, double mouseY, int x, int y, int buttonIdx) {
-        boolean flag = mouseX < (double)x || mouseY < (double)y || mouseX >= (double)(x + this.backgroundWidth) || mouseY >= (double)(y + this.backgroundHeight);
+        boolean flag = mouseX < (double) x || mouseY < (double) y || mouseX >= (double) (x + this.backgroundWidth) || mouseY >= (double) (y + this.backgroundHeight);
         return flag && this.recipeBookComponent.isClickOutsideBounds(mouseX, mouseY, this.x, this.y, this.backgroundWidth, this.backgroundHeight, buttonIdx);
     }
 

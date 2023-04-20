@@ -1,7 +1,6 @@
 package dev.sterner.brewinandchewin.mixin;
 
 import dev.sterner.brewinandchewin.common.registry.BCStatusEffects;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;

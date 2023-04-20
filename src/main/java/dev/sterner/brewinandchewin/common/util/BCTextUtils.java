@@ -19,8 +19,7 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 import java.util.Map;
 
-public class BCTextUtils
-{
+public class BCTextUtils {
     private static final MutableText NO_EFFECTS = (Text.translatable("effect.none")).formatted(Formatting.GRAY);
 
     /**

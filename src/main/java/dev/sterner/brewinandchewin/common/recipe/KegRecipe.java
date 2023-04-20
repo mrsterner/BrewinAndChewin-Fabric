@@ -4,11 +4,11 @@ package dev.sterner.brewinandchewin.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.util.RecipeMatcher;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.client.recipebook.KegRecipeBookTab;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
@@ -23,10 +23,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 
-public class KegRecipe implements Recipe<Inventory>{
+public class KegRecipe implements Recipe<RecipeWrapper> {
     public static final int INPUT_SLOTS = 4;
 
     private final Identifier id;
@@ -77,11 +76,11 @@ public class KegRecipe implements Recipe<Inventory>{
     }
 
     @Override
-    public boolean matches(Inventory inventory, World world) {
+    public boolean matches(RecipeWrapper inventory, World world) {
         List<ItemStack> inputs = new ArrayList();
         int i = 0;
 
-        for(int j = 0; j < 4; ++j) {
+        for (int j = 0; j < 4; ++j) {
             ItemStack itemstack = inventory.getStack(j);
             if (!itemstack.isEmpty()) {
                 ++i;
@@ -97,7 +96,7 @@ public class KegRecipe implements Recipe<Inventory>{
     }
 
     @Override
-    public ItemStack craft(Inventory inventory) {
+    public ItemStack craft(RecipeWrapper inventory) {
         return output.copy();
     }
 
@@ -158,7 +157,7 @@ public class KegRecipe implements Recipe<Inventory>{
             } else if (inputItemsIn.size() > KegRecipe.INPUT_SLOTS) {
                 throw new JsonParseException("Too many ingredients for cooking recipe! The max is " + KegRecipe.INPUT_SLOTS);
             } else {
-                String tabKeyIn = JsonHelper.getString(json, "recipe_book_tab", (String)null);
+                String tabKeyIn = JsonHelper.getString(json, "recipe_book_tab", null);
                 KegRecipeBookTab tabIn = KegRecipeBookTab.findByName(tabKeyIn);
                 if (tabKeyIn != null && tabIn == null) {
                     BrewinAndChewin.LOGGER.warn("Optional field 'recipe_book_tab' does not match any valid tab. If defined, must be one of the following: " + EnumSet.allOf(KegRecipeBookTab.class));
@@ -166,7 +165,7 @@ public class KegRecipe implements Recipe<Inventory>{
                 final JsonObject jsonResult = JsonHelper.getObject(json, "result");
                 final ItemStack outputIn = new ItemStack(JsonHelper.getItem(jsonResult, "item"), JsonHelper.getInt(jsonResult, "count", 1));
                 Ingredient fluidItemIn = Ingredient.EMPTY;
-                if(JsonHelper.hasElement(json, "fluiditem")){
+                if (JsonHelper.hasElement(json, "fluiditem")) {
                     final JsonObject jsonContainer = JsonHelper.getObject(json, "fluiditem");
                     fluidItemIn = Ingredient.fromJson(jsonContainer);
                 }

@@ -85,7 +85,7 @@ public class BCKegRecipeBuilder {
     }
 
     public void build(Consumer<RecipeJsonProvider> consumerIn, String save) {
-        Identifier resourcelocation =  Registry.ITEM.getId(this.result);
+        Identifier resourcelocation = Registry.ITEM.getId(this.result);
         if ((new Identifier(save)).equals(resourcelocation)) {
             throw new IllegalStateException("Fermenting Recipe " + save + " should remove its 'save' argument");
         } else {
@@ -97,8 +97,7 @@ public class BCKegRecipeBuilder {
         consumerIn.accept(new BCKegRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.cookingTime, this.experience, this.container, this.liquid, this.tab, this.temperature));
     }
 
-    public static class Result implements RecipeJsonProvider
-    {
+    public static class Result implements RecipeJsonProvider {
         private final Identifier id;
         private final List<Ingredient> ingredients;
         private final Item result;

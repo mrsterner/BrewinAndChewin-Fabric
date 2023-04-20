@@ -1,6 +1,5 @@
 package dev.sterner.brewinandchewin.common.registry;
 
-import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
 import com.nhoryzon.mc.farmersdelight.item.ConsumableItem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.*;
@@ -25,24 +24,24 @@ public class BCObjects {
 
     public static final Item TANKARD = register("tankard", new Item(settings()));
 
-    public static final Item BEER = register("beer", new BoozeItem(1,8, settings().maxCount(16).recipeRemainder(TANKARD)));
-    public static final Item VODKA = register("vodka", new BoozeItem(1,12, settings().maxCount(16).recipeRemainder(TANKARD)));
-    public static final Item MEAD = register("mead", new BoozeItem(1,8, settings().maxCount(16).recipeRemainder(TANKARD)));
-    public static final Item RICE_WINE = register("rice_wine", new BoozeItem(1,5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.RICE_WINE)));
-    public static final Item EGG_GROG = register("egg_grog", new BoozeItem(1,0, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.EGG_GROG)));
-    public static final Item STRONGROOT_ALE = register("strongroot_ale", new BoozeItem(2,12, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.STRONGROOT_ALE)));
-    public static final Item SACCHARINE_RUM = register("saccharine_rum", new BoozeItem(2,8, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.SACCHARINE_RUM)));
-    public static final Item PALE_JANE = register("pale_jane", new BoozeItem(2,5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.PALE_JANE)));
+    public static final Item BEER = register("beer", new BoozeItem(1, 8, settings().maxCount(16).recipeRemainder(TANKARD)));
+    public static final Item VODKA = register("vodka", new BoozeItem(1, 12, settings().maxCount(16).recipeRemainder(TANKARD)));
+    public static final Item MEAD = register("mead", new BoozeItem(1, 8, settings().maxCount(16).recipeRemainder(TANKARD)));
+    public static final Item RICE_WINE = register("rice_wine", new BoozeItem(1, 5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.RICE_WINE)));
+    public static final Item EGG_GROG = register("egg_grog", new BoozeItem(1, 0, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.EGG_GROG)));
+    public static final Item STRONGROOT_ALE = register("strongroot_ale", new BoozeItem(2, 12, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.STRONGROOT_ALE)));
+    public static final Item SACCHARINE_RUM = register("saccharine_rum", new BoozeItem(2, 8, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.SACCHARINE_RUM)));
+    public static final Item PALE_JANE = register("pale_jane", new BoozeItem(2, 5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.PALE_JANE)));
 
-    public static final Item DREAD_NOG = register("dread_nog", new DreadNogItem(3,5, settings().maxCount(16).recipeRemainder(TANKARD)));
+    public static final Item DREAD_NOG = register("dread_nog", new DreadNogItem(3, 5, settings().maxCount(16).recipeRemainder(TANKARD)));
 
-    public static final Item SALTY_FOLLY = register("salty_folly", new BoozeItem(2,10, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.SALTY_FOLLY)));
-    public static final Item STEEL_TOE_STOUT = register("steel_toe_stout", new BoozeItem(3,10, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.STEEL_TOE_STOUT)));
-    public static final Item GLITTERING_GRENADINE = register("glittering_grenadine", new BoozeItem(1,5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.GLITTERING_GRENADINE)));
-    public static final Item BLOODY_MARY = register("bloody_mary", new BoozeItem(1,12, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.BLOODY_MARY)));
-    public static final Item RED_RUM = register("red_rum", new BoozeItem(1,18, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.RED_RUM)));
-    public static final Item WITHERING_DROSS = register("withering_dross", new BoozeItem(3,20, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.WITHERING_DROSS)));
-    public static final Item KOMBUCHA = register("kombucha", new BoozeItem(1,5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.KOMBUHCA)));
+    public static final Item SALTY_FOLLY = register("salty_folly", new BoozeItem(2, 10, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.SALTY_FOLLY)));
+    public static final Item STEEL_TOE_STOUT = register("steel_toe_stout", new BoozeItem(3, 10, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.STEEL_TOE_STOUT)));
+    public static final Item GLITTERING_GRENADINE = register("glittering_grenadine", new BoozeItem(1, 5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.GLITTERING_GRENADINE)));
+    public static final Item BLOODY_MARY = register("bloody_mary", new BoozeItem(1, 12, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.BLOODY_MARY)));
+    public static final Item RED_RUM = register("red_rum", new BoozeItem(1, 18, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.RED_RUM)));
+    public static final Item WITHERING_DROSS = register("withering_dross", new BoozeItem(3, 20, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.WITHERING_DROSS)));
+    public static final Item KOMBUCHA = register("kombucha", new BoozeItem(1, 5, settings().maxCount(16).recipeRemainder(TANKARD).food(BCFoodComponents.KOMBUHCA)));
 
     public static final Item KIMCHI = register("kimchi", new Item(settings().food(BCFoodComponents.KIMCHI)));
     public static final Item JERKY = register("jerky", new Item(settings().food(BCFoodComponents.JERKY)));
