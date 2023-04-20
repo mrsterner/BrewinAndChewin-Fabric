@@ -30,7 +30,7 @@ public class CopyDrinkFunction extends ConditionalLootFunction {
     protected ItemStack process(ItemStack stack, LootContext context) {
         BlockEntity tile = context.get(LootContextParameters.BLOCK_ENTITY);
         if (tile instanceof KegBlockEntity) {
-            NbtCompound tag = ((KegBlockEntity) tile).writeMeal(new NbtCompound());
+            NbtCompound tag = ((KegBlockEntity) tile).writeDrink(new NbtCompound());
             if (!tag.isEmpty()) {
                 stack.setSubNbt("BlockEntityTag", tag);
             }

@@ -3,8 +3,11 @@
   "container": {
     "item": "brewinandchewin:tankard"
   },
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
+  "fluiditem": {
+    "item": "minecraft:water_bucket"
+  },
   "ingredients": [
     {
       "item": "minecraft:glow_berries"
@@ -19,9 +22,6 @@
       "item": "minecraft:glow_berries"
     }
   ],
-  "liquid": {
-    "item": "minecraft:water_bucket"
-  },
   "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:glittering_grenadine"

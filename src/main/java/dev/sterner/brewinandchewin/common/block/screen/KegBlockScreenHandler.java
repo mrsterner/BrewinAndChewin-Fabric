@@ -1,5 +1,6 @@
 package dev.sterner.brewinandchewin.common.block.screen;
 
+import com.github.aws404.booking_it.BookingIt;
 import com.mojang.datafixers.util.Pair;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
@@ -8,6 +9,7 @@ import com.nhoryzon.mc.farmersdelight.entity.block.inventory.slot.SlotItemHandle
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
+import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import dev.sterner.brewinandchewin.common.registry.BCScreenHandlerTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,7 +33,7 @@ import java.util.Objects;
 import static net.fabricmc.api.EnvType.CLIENT;
 import static net.minecraft.client.texture.SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 
-public class KegBlockScreenHandler extends ScreenHandler {
+public class KegBlockScreenHandler extends AbstractRecipeScreenHandler<RecipeWrapper> {
     public static final Identifier EMPTY_CONTAINER_SLOT_MUG = new Identifier(BrewinAndChewin.MODID, "item/empty_container_slot_mug");
 
     public final KegBlockEntity blockEntity;
@@ -189,12 +191,10 @@ public class KegBlockScreenHandler extends ScreenHandler {
     }
 
     public void populateRecipeFinder(RecipeMatcher helper) {
-        for(int i = 0; i < this.inventory.getMaxCountPerStack(); ++i) {
+        for(int i = 0; i < this.inventory.size(); ++i) {
             helper.addUnenchantedInput(this.inventory.getStack(i));
         }
-
     }
-
 
     public void clearCraftingSlots() {
         for(int i = 0; i < 5; ++i) {
@@ -205,5 +205,35 @@ public class KegBlockScreenHandler extends ScreenHandler {
 
     public boolean matches(Recipe<? super RecipeWrapper> recipe) {
         return recipe.matches(new RecipeWrapper(this.inventory), this.world);
+    }
+
+    @Override
+    public int getCraftingResultSlotIndex() {
+        return 6;
+    }
+
+    @Override
+    public int getCraftingWidth() {
+        return 2;
+    }
+
+    @Override
+    public int getCraftingHeight() {
+        return 2;
+    }
+
+    @Override
+    public int getCraftingSlotCount() {
+        return 6;
+    }
+
+    @Override
+    public RecipeBookCategory getCategory() {
+        return BookingIt.getCategory("FERMENTING");
+    }
+
+    @Override
+    public boolean canInsertIntoSlot(int index) {
+        return index < 5;
     }
 }

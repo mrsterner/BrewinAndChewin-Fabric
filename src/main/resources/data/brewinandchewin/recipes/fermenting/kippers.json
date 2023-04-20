@@ -1,13 +1,13 @@
 {
   "type": "brewinandchewin:fermenting",
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
   "ingredients": [
     {
-      "tag": "c:raw_fishes"
+      "tag": "forge:raw_fishes"
     },
     {
-      "tag": "c:raw_fishes"
+      "tag": "forge:raw_fishes"
     },
     {
       "item": "minecraft:kelp"

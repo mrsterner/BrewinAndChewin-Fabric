@@ -146,7 +146,7 @@ public class KegBlock extends BlockWithEntity {
         ItemStack stack = super.getPickStack(world, pos, state);
         KegBlockEntity kegBlockEntity = (KegBlockEntity) world.getBlockEntity(pos);
         if (kegBlockEntity != null) {
-            NbtCompound nbt = kegBlockEntity.writeMeal(new NbtCompound());
+            NbtCompound nbt = kegBlockEntity.writeDrink(new NbtCompound());
             if (!nbt.isEmpty()) {
                 stack.setSubNbt("BlockEntityTag", nbt);
             }

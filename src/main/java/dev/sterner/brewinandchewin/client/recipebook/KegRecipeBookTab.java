@@ -7,16 +7,12 @@ public enum KegRecipeBookTab {
 
     public final String name;
 
-    private KegRecipeBookTab(String name) {
+    KegRecipeBookTab(String name) {
         this.name = name;
     }
 
     public static KegRecipeBookTab findByName(String name) {
-        KegRecipeBookTab[] var1 = values();
-        int var2 = var1.length;
-
-        for(int var3 = 0; var3 < var2; ++var3) {
-            KegRecipeBookTab value = var1[var3];
+        for (KegRecipeBookTab value : values()) {
             if (value.name.equals(name)) {
                 return value;
             }

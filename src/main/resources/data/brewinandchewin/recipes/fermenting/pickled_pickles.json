@@ -1,7 +1,10 @@
 {
   "type": "brewinandchewin:fermenting",
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
+  "fluiditem": {
+    "item": "minecraft:honey_bottle"
+  },
   "ingredients": [
     {
       "item": "minecraft:sea_pickle"
@@ -13,9 +16,6 @@
       "item": "minecraft:glowstone_dust"
     }
   ],
-  "liquid": {
-    "item": "minecraft:honey_bottle"
-  },
   "recipe_book_tab": "misc",
   "result": {
     "count": 2,

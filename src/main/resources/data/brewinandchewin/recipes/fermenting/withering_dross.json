@@ -3,8 +3,11 @@
   "container": {
     "item": "brewinandchewin:tankard"
   },
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
+  "fluiditem": {
+    "item": "brewinandchewin:salty_folly"
+  },
   "ingredients": [
     {
       "item": "minecraft:wither_rose"
@@ -19,9 +22,6 @@
       "item": "minecraft:bone"
     }
   ],
-  "liquid": {
-    "item": "brewinandchewin:salty_folly"
-  },
   "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:withering_dross"

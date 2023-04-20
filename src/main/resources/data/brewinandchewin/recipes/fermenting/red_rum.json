@@ -3,8 +3,11 @@
   "container": {
     "item": "brewinandchewin:tankard"
   },
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 1200,
+  "fluiditem": {
+    "item": "brewinandchewin:bloody_mary"
+  },
   "ingredients": [
     {
       "item": "minecraft:crimson_fungus"
@@ -19,9 +22,6 @@
       "item": "minecraft:shroomlight"
     }
   ],
-  "liquid": {
-    "item": "brewinandchewin:bloody_mary"
-  },
   "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:red_rum"

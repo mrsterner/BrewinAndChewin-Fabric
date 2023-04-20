@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "farmersdelight:canvas"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "scs"
+  ],
+  "result": {
+    "count": 2,
+    "item": "brewinandchewin:item_coaster"
+  }
+}

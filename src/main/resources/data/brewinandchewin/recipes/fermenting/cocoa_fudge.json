@@ -1,7 +1,10 @@
 {
   "type": "brewinandchewin:fermenting",
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
+  "fluiditem": {
+    "item": "minecraft:milk_bucket"
+  },
   "ingredients": [
     {
       "item": "minecraft:sugar"
@@ -13,9 +16,6 @@
       "item": "minecraft:cocoa_beans"
     }
   ],
-  "liquid": {
-    "item": "minecraft:milk_bucket"
-  },
   "recipe_book_tab": "misc",
   "result": {
     "item": "brewinandchewin:cocoa_fudge"

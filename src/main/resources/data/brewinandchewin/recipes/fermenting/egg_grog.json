@@ -3,28 +3,28 @@
   "container": {
     "item": "brewinandchewin:tankard"
   },
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
+  "fluiditem": {
+    "item": "minecraft:milk_bucket"
+  },
   "ingredients": [
     {
-      "item": "minecraft:potato"
+      "item": "minecraft:egg"
     },
     {
-      "item": "minecraft:potato"
+      "item": "minecraft:egg"
     },
     {
-      "item": "minecraft:potato"
+      "item": "farmersdelight:cabbage_leaf"
     },
     {
-      "item": "minecraft:wheat"
+      "item": "minecraft:sugar"
     }
   ],
-  "liquid": {
-    "item": "minecraft:water_bucket"
-  },
   "recipe_book_tab": "drinks",
   "result": {
-    "item": "brewinandchewin:vodka"
+    "item": "brewinandchewin:egg_grog"
   },
   "temperature": 3
 }

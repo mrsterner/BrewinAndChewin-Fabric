@@ -3,8 +3,11 @@
   "container": {
     "item": "brewinandchewin:tankard"
   },
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 1200,
+  "fluiditem": {
+    "item": "brewinandchewin:egg_grog"
+  },
   "ingredients": [
     {
       "item": "minecraft:egg"
@@ -19,9 +22,6 @@
       "item": "minecraft:fermented_spider_eye"
     }
   ],
-  "liquid": {
-    "item": "brewinandchewin:egg_grog"
-  },
   "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:dread_nog"

@@ -1,7 +1,7 @@
 {
   "type": "brewinandchewin:fermenting",
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 12000,
   "ingredients": [
     {
       "tag": "brewinandchewin:raw_meats"

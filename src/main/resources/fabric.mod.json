@@ -42,7 +42,8 @@
     "fabricloader": ">=0.14.11",
     "fabric-api": "*",
     "minecraft": "~1.19.2",
-    "java": ">=17"
+    "java": ">=17",
+    "booking_it": "*"
   },
   "suggests": {
     "another-mod": "*"

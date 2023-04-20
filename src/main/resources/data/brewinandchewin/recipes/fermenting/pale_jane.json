@@ -3,28 +3,28 @@
   "container": {
     "item": "brewinandchewin:tankard"
   },
-  "cookingtime": 12000,
   "experience": 0.6,
+  "fermentingtime": 1200,
+  "fluiditem": {
+    "item": "brewinandchewin:rice_wine"
+  },
   "ingredients": [
     {
-      "item": "minecraft:egg"
+      "item": "minecraft:honey_bottle"
     },
     {
-      "item": "minecraft:egg"
+      "item": "farmersdelight:tree_bark"
     },
     {
-      "item": "farmersdelight:cabbage_leaf"
+      "item": "minecraft:lily_of_the_valley"
     },
     {
       "item": "minecraft:sugar"
     }
   ],
-  "liquid": {
-    "item": "minecraft:milk_bucket"
-  },
   "recipe_book_tab": "drinks",
   "result": {
-    "item": "brewinandchewin:egg_grog"
+    "item": "brewinandchewin:pale_jane"
   },
-  "temperature": 3
+  "temperature": 4
 }
