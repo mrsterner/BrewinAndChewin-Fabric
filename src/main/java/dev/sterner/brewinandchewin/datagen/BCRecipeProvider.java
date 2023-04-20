@@ -25,6 +25,7 @@ public class BCRecipeProvider extends FabricRecipeProvider {
 
     @Override
     protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
+
         //Brews
         BCKegRecipeBuilder.kegRecipe(BCObjects.BEER, 1, FERMENTING_TIME, 0.6F, BCObjects.TANKARD, Items.WATER_BUCKET, KegRecipeBookTab.DRINKS, 3)
                 .addIngredient(Items.WHEAT)

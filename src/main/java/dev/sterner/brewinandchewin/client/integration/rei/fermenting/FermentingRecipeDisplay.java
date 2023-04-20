@@ -8,6 +8,7 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.collection.DefaultedList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,13 +21,14 @@ public class FermentingRecipeDisplay extends BasicDisplay {
     private final int cookTime;
     private final int temp;
     final EntryIngredient liquid;
+    final DefaultedList<Ingredient> ingredients;
 
     public FermentingRecipeDisplay(KegRecipe recipe) {
         super(
                 EntryIngredients.ofIngredients(recipe.getIngredients()),
                 Collections.singletonList(EntryIngredients.of(recipe.getOutput())),
                 Optional.ofNullable(recipe.getId()));
-
+        this.ingredients = recipe.getIngredients();
         containerOutput = EntryIngredients.of(recipe.getOutputContainer());
         cookTime = recipe.getFermentTime();
         temp = recipe.getTemperature();
@@ -47,7 +49,7 @@ public class FermentingRecipeDisplay extends BasicDisplay {
     }
 
     public List<EntryIngredient> getIngredientEntries() {
-        return super.getInputEntries();
+        return EntryIngredients.ofIngredients(ingredients);
     }
 
     public EntryIngredient getContainerOutput() {
