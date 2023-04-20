@@ -29,12 +29,15 @@
     ],
     "rei_client": [
       "dev.sterner.brewinandchewin.client.integration.rei.BCREIPlugin"
+    ],
+    "booking_it:recipe_book": [
+      "dev.sterner.brewinandchewin.client.recipebook.BCRecipeBook"
     ]
   },
   "mixins": [
     "brewinandchewin.mixins.json"
   ],
-
+  "accessWidener": "brewinandchewin.accesswidener",
   "depends": {
     "fabricloader": ">=0.14.11",
     "fabric-api": "*",

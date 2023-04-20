@@ -16,6 +16,7 @@
   "liquid": {
     "item": "minecraft:milk_bucket"
   },
+  "recipe_book_tab": "misc",
   "result": {
     "item": "brewinandchewin:cocoa_fudge"
   },

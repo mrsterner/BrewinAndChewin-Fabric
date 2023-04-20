@@ -22,6 +22,7 @@
   "liquid": {
     "item": "brewinandchewin:vodka"
   },
+  "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:salty_folly"
   },

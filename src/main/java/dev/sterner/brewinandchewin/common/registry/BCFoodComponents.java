@@ -68,7 +68,21 @@ public class BCFoodComponents {
             .hunger(9).saturationModifier(1.0F).build();
 
     //Bowl Foods
-    public static final FoodComponent FIERY_FONDUE = (new FoodComponent.Builder())
-            .hunger(10).saturationModifier(1.0f)
-            .statusEffect(new StatusEffectInstance(EffectsRegistry.NOURISHMENT.get(), 3600, 0), 1.0F).build();
+
+    public static final FoodComponent QUICHE_SLICE = (new FoodComponent.Builder()).hunger(3).saturationModifier(0.8F).snack().build();
+    public static final FoodComponent FIERY_FONDUE = (new FoodComponent.Builder()).hunger(16).saturationModifier(1.0F)
+            .statusEffect(new StatusEffectInstance(EffectsRegistry.NOURISHMENT.get(), 7200, 0), 1.0F).build();
+
+    public static final FoodComponent VEGETABLE_OMELET = (new FoodComponent.Builder()).hunger(12).saturationModifier(0.75F)
+            .statusEffect(new StatusEffectInstance(EffectsRegistry.NOURISHMENT.get(), 4800, 0), 1.0F).build();
+    public static final FoodComponent CHEESY_PASTA = (new FoodComponent.Builder()).hunger(12).saturationModifier(0.8F)
+            .statusEffect(new StatusEffectInstance(EffectsRegistry.NOURISHMENT.get(), 4800, 0), 1.0F).build();
+
+    public static final FoodComponent CREAMY_ONION_SOUP = (new FoodComponent.Builder()).hunger(12).saturationModifier(0.75F)
+            .statusEffect(new StatusEffectInstance(EffectsRegistry.COMFORT.get(), 4800, 0), 1.0F).build();
+
+    public static final FoodComponent SCARLET_PIEROGIES = (new FoodComponent.Builder()).hunger(14).saturationModifier(0.75F)
+            .statusEffect(new StatusEffectInstance(EffectsRegistry.NOURISHMENT.get(), 4800, 0), 1.0F).build();
+    public static final FoodComponent HORROR_LASAGNA = (new FoodComponent.Builder()).hunger(14).saturationModifier(0.75F)
+            .statusEffect(new StatusEffectInstance(EffectsRegistry.NOURISHMENT.get(), 7200, 0), 1.0F).build();
 }

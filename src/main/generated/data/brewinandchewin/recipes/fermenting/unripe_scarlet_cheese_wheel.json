@@ -19,6 +19,7 @@
   "liquid": {
     "item": "minecraft:milk_bucket"
   },
+  "recipe_book_tab": "misc",
   "result": {
     "item": "brewinandchewin:unripe_scarlet_cheese_wheel"
   },

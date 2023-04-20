@@ -13,7 +13,7 @@ group = project.maven_group
 
 
 loom {
-
+	accessWidenerPath = file("src/main/resources/brewinandchewin.accesswidener")
 	runs {
 		datagen {
 			server()
@@ -34,6 +34,17 @@ repositories {
 		name "cloth config, rei"
 		url "https://maven.shedaniel.me"
 	}
+	maven {
+		name = "Jitpack, ASM"
+		url  = "https://jitpack.io"
+	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
 	maven { url 'https://www.cursemaven.com' }
 }
 
@@ -53,6 +64,10 @@ dependencies {
 	modImplementation "curse.maven:farmersdelightfabric-482834:${project.delight_version}"
 	modImplementation "curse.maven:roughly-enough-items-310111:${project.rei_version}"
 	modImplementation "curse.maven:roughly-enough-resources-325625:${project.rer_version}"
+
+	//Fabric ASM
+	modImplementation include ("com.github.Chocohead:Fabric-ASM:v2.3")
+	modImplementation include ("maven.modrinth:booking_it:1.0.2")
 }
 
 processResources {

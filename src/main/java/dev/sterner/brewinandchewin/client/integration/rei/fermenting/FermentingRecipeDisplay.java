@@ -28,9 +28,9 @@ public class FermentingRecipeDisplay extends BasicDisplay {
                 Optional.ofNullable(recipe.getId()));
 
         containerOutput = EntryIngredients.of(recipe.getOutputContainer());
-        cookTime = recipe.getfermentTime();
-        temp = recipe.getTemperatureJei();
-        liquid = EntryIngredients.ofIngredient(recipe.getLiquid());
+        cookTime = recipe.getFermentTime();
+        temp = recipe.getTemperature();
+        liquid = EntryIngredients.ofIngredient(recipe.getFluidItem());
     }
 
     @Override

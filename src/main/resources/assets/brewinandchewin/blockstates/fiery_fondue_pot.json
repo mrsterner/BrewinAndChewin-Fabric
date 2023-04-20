@@ -1,13 +1,49 @@
 {
   "variants": {
-    "level=1": {
-      "model": "minecraft:block/water_cauldron_level1"
+    "facing=north,level=1": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level1"
     },
-    "level=2": {
-      "model": "minecraft:block/water_cauldron_level2"
+    "facing=south,level=1": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level1",
+      "y": 180
     },
-    "level=3": {
-      "model": "minecraft:block/water_cauldron_full"
+    "facing=west,level=1": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level1",
+      "y": 270
+    },
+    "facing=east,level=1": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level1",
+      "y": 90
+    },
+    "facing=north,level=2": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level2"
+    },
+    "facing=south,level=2": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level2",
+      "y": 180
+    },
+    "facing=west,level=2": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level2",
+      "y": 270
+    },
+    "facing=east,level=2": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_level2",
+      "y": 90
+    },
+    "facing=north,level=3": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_filled"
+    },
+    "facing=south,level=3": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_filled",
+      "y": 180
+    },
+    "facing=west,level=3": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_filled",
+      "y": 270
+    },
+    "facing=east,level=3": {
+      "model": "brewinandchewin:block/fiery_fondue_pot_filled",
+      "y": 90
     }
   }
 }

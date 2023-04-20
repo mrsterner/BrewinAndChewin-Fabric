@@ -19,6 +19,7 @@
   "liquid": {
     "item": "minecraft:honey_bottle"
   },
+  "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:mead"
   },

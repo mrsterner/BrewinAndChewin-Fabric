@@ -1,6 +1,7 @@
 package dev.sterner.brewinandchewin.common.registry;
 
 import dev.sterner.brewinandchewin.BrewinAndChewin;
+import dev.sterner.brewinandchewin.common.block.entity.ItemCoasterBlockEntity;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,6 +16,9 @@ public class BCBlockEntityTypes {
     private static final Map<BlockEntityType<?>, Identifier> BLOCK_ENTITY_TYPES = new LinkedHashMap<>();
 
     public static final BlockEntityType<KegBlockEntity> KEG = register("keg", FabricBlockEntityTypeBuilder.create(KegBlockEntity::new, BCObjects.KEG).build());
+
+    public static final BlockEntityType<ItemCoasterBlockEntity> COASTER = register("coaster", FabricBlockEntityTypeBuilder.create(ItemCoasterBlockEntity::new, BCObjects.COASTER).build());
+
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
         BLOCK_ENTITY_TYPES.put(type, new Identifier(BrewinAndChewin.MODID, name));

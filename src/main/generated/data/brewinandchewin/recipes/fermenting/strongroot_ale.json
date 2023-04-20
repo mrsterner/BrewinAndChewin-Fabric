@@ -22,6 +22,7 @@
   "liquid": {
     "item": "brewinandchewin:beer"
   },
+  "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:strongroot_ale"
   },

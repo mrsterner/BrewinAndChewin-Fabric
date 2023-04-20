@@ -22,6 +22,7 @@
   "liquid": {
     "item": "brewinandchewin:strongroot_ale"
   },
+  "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:steel_toe_stout"
   },

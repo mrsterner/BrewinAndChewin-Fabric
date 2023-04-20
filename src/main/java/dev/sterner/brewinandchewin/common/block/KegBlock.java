@@ -163,7 +163,7 @@ public class KegBlock extends BlockWithEntity {
             BlockEntity tileEntity = world.getBlockEntity(pos);
             if (tileEntity instanceof KegBlockEntity kegBlockEntity) {
                 ItemScatterer.spawn(world, pos, kegBlockEntity.getDroppableInventory());
-                kegBlockEntity.grantStoredRecipeExperience(world, Vec3d.ofCenter(pos));
+                kegBlockEntity.getUsedRecipesAndPopExperience(world, Vec3d.ofCenter(pos));
                 world.updateComparators(pos, this);
             }
 

@@ -22,6 +22,7 @@
   "liquid": {
     "item": "brewinandchewin:bloody_mary"
   },
+  "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:red_rum"
   },

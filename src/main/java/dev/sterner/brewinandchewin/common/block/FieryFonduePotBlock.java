@@ -1,5 +1,7 @@
 package dev.sterner.brewinandchewin.common.block;
 
+import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
+import com.nhoryzon.mc.farmersdelight.registry.SoundsRegistry;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -131,12 +133,12 @@ public class FieryFonduePotBlock extends Block {
             double x = (double)pos.getX() + 0.5 + (random.nextDouble() * 0.6 - 0.3);
             double y = (double)pos.getY() + this.getContentHeight(state);
             double z = (double)pos.getZ() + 0.5 + (random.nextDouble() * 0.6 - 0.3);
-            world.addParticle((ParticleEffect) BCParticleTypes.STEAM, x, y, z, 0.0, 0.0, 0.0);
+            world.addParticle(ParticleTypesRegistry.STEAM.get(), x, y, z, 0.0, 0.0, 0.0);
             double x1 = (double)pos.getX() + 0.5;
             double y1 = (double)pos.getY();
             double z1 = (double)pos.getZ() + 0.5;
             if (random.nextInt(10) == 0) {
-                world.playSound(x1, y1, z1, (SoundEvent)BCSounds.BLOCK_COOKING_POT_BOIL_SOUP, SoundCategory.BLOCKS, 0.5F, random.nextFloat() * 0.2F + 0.9F, false);
+                world.playSound(x1, y1, z1, SoundsRegistry.BLOCK_COOKING_POT_BOIL_SOUP.get(), SoundCategory.BLOCKS, 0.5F, random.nextFloat() * 0.2F + 0.9F, false);
             }
         }
     }

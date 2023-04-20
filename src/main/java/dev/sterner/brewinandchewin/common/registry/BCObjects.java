@@ -1,18 +1,18 @@
 package dev.sterner.brewinandchewin.common.registry;
 
 import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
+import com.nhoryzon.mc.farmersdelight.item.ConsumableItem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
-import dev.sterner.brewinandchewin.common.block.UnripeCheeseWheelBlock;
-import dev.sterner.brewinandchewin.common.block.KegBlock;
-import dev.sterner.brewinandchewin.common.block.PizzaBlock;
-import dev.sterner.brewinandchewin.common.block.RipeCheeseWheelBlock;
+import dev.sterner.brewinandchewin.common.block.*;
 import dev.sterner.brewinandchewin.common.item.BoozeItem;
 import dev.sterner.brewinandchewin.common.item.DreadNogItem;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -53,7 +53,19 @@ public class BCObjects {
     public static final Item FLAXEN_CHEESE_WEDGE = register("flaxen_cheese_wedge", new Item(settings().food(BCFoodComponents.FLAXEN_CHEESE)));
     public static final Item SCARLET_CHEESE_WEDGE = register("scarlet_cheese_wedge", new Item(settings().food(BCFoodComponents.SCARLET_CHEESE)));
 
+    public static final Item FIERY_FONDUE = register("fiery_fondue", new Item(settings().food(BCFoodComponents.FIERY_FONDUE)));
+    public static final Item QUICHE_SLICE = register("quiche_slice", new Item(settings().food(BCFoodComponents.QUICHE_SLICE)));
+    public static final Item VEGETABLE_OMELET = register("vegetable_omelet", new ConsumableItem(settings().food(BCFoodComponents.VEGETABLE_OMELET)));
+    public static final Item CHEESY_PASTA = register("cheesy_pasta", new ConsumableItem(settings().food(BCFoodComponents.CHEESY_PASTA)));
+    public static final Item CREAMY_ONION_SOUP = register("creamy_onion_soup", new ConsumableItem(settings().food(BCFoodComponents.CREAMY_ONION_SOUP)));
+    public static final Item SCARLET_PIEROGIES = register("scarlet_pierogies", new ConsumableItem(settings().food(BCFoodComponents.SCARLET_PIEROGIES)));
+    public static final Item HORROR_LASAGNA = register("horror_lasagna", new ConsumableItem(settings().food(BCFoodComponents.HORROR_LASAGNA)));
+
     public static final Block KEG = register("keg", new KegBlock(), settings(), true);
+    public static final Block COASTER = register("item_coaster", new ItemCoasterBlock(), settings(), true);
+    public static final Block QUICHE = register("quiche", new QuicheBlock(AbstractBlock.Settings.copy(Blocks.CAULDRON)), settings(), true);
+    public static final Block FIERY_FONDUE_POT = register("fiery_fondue_pot", new FieryFonduePotBlock(AbstractBlock.Settings.copy(Blocks.CAKE)), settings().maxCount(1), true);
+
 
     public static final Block FLAXEN_CHEESE_WHEEL = register("flaxen_cheese_wheel", new RipeCheeseWheelBlock(FLAXEN_CHEESE_WEDGE, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
     public static final Block SCARLET_CHEESE_WHEEL = register("scarlet_cheese_wheel", new RipeCheeseWheelBlock(SCARLET_CHEESE_WEDGE, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
@@ -65,8 +77,16 @@ public class BCObjects {
 
     public static final Item HAM_AND_CHEESE_SANDWICH = register("ham_and_cheese_sandwich", new Item(settings().food(BCFoodComponents.HAM_AND_CHEESE_SANDWICH)));
 
+    public static Item.Settings drinkItem() {
+        return (new Item.Settings()).recipeRemainder(TANKARD).maxCount(16).group(BrewinAndChewin.ITEM_GROUP);
+    }
+
+    public static Item.Settings bowlFoodItem() {
+        return (new Item.Settings()).recipeRemainder(Items.BOWL).maxCount(16).group(BrewinAndChewin.ITEM_GROUP);
+    }
+
     private static Item.Settings settings() {
-        return new Item.Settings().group(FarmersDelightMod.ITEM_GROUP);
+        return new Item.Settings().group(BrewinAndChewin.ITEM_GROUP);
     }
 
     private static <T extends Item> T register(String name, T item) {

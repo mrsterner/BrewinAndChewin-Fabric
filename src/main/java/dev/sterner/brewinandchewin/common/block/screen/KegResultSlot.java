@@ -48,7 +48,7 @@ public class KegResultSlot extends SlotItemHandler {
         stack.onCraft(this.player.world, this.player, this.removeCount);
 
         if (!this.player.world.isClient()) {
-            blockEntity.clearUsedRecipes(this.player);
+            blockEntity.unlockLastRecipe(this.player);
         }
 
         this.removeCount = 0;

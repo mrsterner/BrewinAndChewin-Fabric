@@ -45,12 +45,13 @@ public class BCLanguageProvider extends FabricLanguageProvider {
             builder.add(e.getTranslationKey(), name);
         });
 
-        builder.add("itemGroup." + BrewinAndChewin.MODID, "Brewin' and Chewin'");
+        builder.add("itemGroup." + BrewinAndChewin.MODID + ".main", "Brewin' and Chewin'");
         builder.add("brewinandchewin.container.keg", "Keg");
         builder.add("brewinandchewin.tooltip.tipsy1", "Tipsy I (%s:00)");
         builder.add("brewinandchewin.tooltip.tipsy2", "Tipsy II (%s:00)");
         builder.add("brewinandchewin.tooltip.tipsy3", "Tipsy III (%s:00)");
         builder.add("brewinandchewin.jei.fermenting", "Fermenting");
+        builder.add("brewinandchewin.rei.fermenting", "Fermenting");
         builder.add("brewinandchewin.container.keg.served_in", "Served in: %s");
         builder.add("brewinandchewin.tooltip.keg.empty", "Empty");
         builder.add("brewinandchewin.tooltip.keg.single_serving", "Holds 1 serving of:");
@@ -63,6 +64,15 @@ public class BCLanguageProvider extends FabricLanguageProvider {
         addTemperature("normal", builder);
         addTemperature("warm", builder);
         addTemperature("hot", builder);
+/*
+        builder.add(BCObjects.QUICHE, "Quiche");
+        builder.add(BCObjects.QUICHE_SLICE, "Quiche Slice");
+        builder.add(BCObjects.FIERY_FONDUE, "Fiery Fondue");
+        builder.add(BCObjects.HORROR_LASAGNA, "Horror Lasagna");
+        builder.add(BCObjects.CREAMY_ONION_SOUP, "Creamy Onion Soup");
+        builder.add(BCObjects.SCARLET_PIEROGIES, "Scarlet Pierogies");
+
+ */
 
     }
 

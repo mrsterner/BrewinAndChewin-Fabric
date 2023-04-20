@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "bites=3": {
+      "model": "brewinandchewin:block/quiche"
+    },
+    "bites=2": {
+      "model": "brewinandchewin:block/quiche_slice1"
+    },
+    "bites=1": {
+      "model": "brewinandchewin:block/quiche_slice2"
+    },
+    "bites=0": {
+      "model": "brewinandchewin:block/quiche_slice3"
+    }
+  }
+}

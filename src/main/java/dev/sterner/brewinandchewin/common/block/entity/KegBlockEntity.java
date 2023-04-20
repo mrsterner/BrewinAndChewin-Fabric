@@ -6,6 +6,7 @@ import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemStackHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.mixin.accessors.RecipeManagerAccessorMixin;
+import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
 import dev.sterner.brewinandchewin.common.block.KegBlock;
 import dev.sterner.brewinandchewin.common.block.screen.KegBlockScreenHandler;
 import dev.sterner.brewinandchewin.common.recipe.KegRecipe;
@@ -187,7 +188,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         }
 
         heat = states.stream().filter((s) -> {
-            return s.isIn(BCTags.HEAT_SOURCES);
+            return s.isIn(TagsRegistry.HEAT_SOURCES);
         }).filter((s) -> {
             return s.contains(Properties.LIT);
         }).filter((s) -> {
@@ -196,16 +197,16 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
             return 1;
         }).sum();
         heat += states.stream().filter((s) -> {
-            return s.isIn(BCTags.HEAT_SOURCES);
+            return s.isIn(TagsRegistry.HEAT_SOURCES);
         }).filter((s) -> {
             return !s.get(Properties.LIT);
         }).mapToInt((s) -> {
             return 1;
         }).sum();
         BlockState stateBelow = this.world.getBlockState(this.getPos().down());
-        if (stateBelow.isIn(BCTags.HEAT_CONDUCTORS)) {
+        if (stateBelow.isIn(TagsRegistry.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = this.world.getBlockState(this.getPos().down(2));
-            if (stateFurtherBelow.isIn(BCTags.HEAT_SOURCES)) {
+            if (stateFurtherBelow.isIn(TagsRegistry.HEAT_SOURCES)) {
                 if (stateFurtherBelow.get(Properties.LIT)) {
                     if (stateFurtherBelow.get(Properties.LIT)) {
                         ++heat;
@@ -370,7 +371,10 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
                         double x = (double)this.getPos().getX() + 0.5 + (double)direction.getOffsetX() * 0.25;
                         double y = (double)this.getPos().getY() + 0.7;
                         double z = (double)this.getPos().getZ() + 0.5 + (double)direction.getOffsetZ() * 0.25;
-                        ItemUtils.spawnItemEntity(this.world, this.inventory.getStack(i).getRecipeRemainder(), x, y, z, (double)((float)direction.getOffsetX() * 0.08F), 0.25, (double)((float)direction.getOffsetZ() * 0.08F));
+
+                        ItemEntity entity = new ItemEntity(world, x, y, z, this.inventory.getStack(i).getRecipeRemainder());
+                        entity.setVelocity(((float)direction.getOffsetX() * 0.08F), 0.25, ((float)direction.getOffsetZ() * 0.08F));
+                        world.spawnEntity(entity);
                     }
 
                     if (!slotStack.isEmpty()) {

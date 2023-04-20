@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
+import dev.sterner.brewinandchewin.client.recipebook.KegRecipeBookTab;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
@@ -27,8 +28,9 @@ public class BCKegRecipeBuilder {
     private final Item container;
     private final Item liquid;
     private final int temperature;
+    private final KegRecipeBookTab tab;
 
-    private BCKegRecipeBuilder(ItemConvertible resultIn, int count, int cookingTime, float experience, @Nullable ItemConvertible container, @Nullable ItemConvertible liquid, int temperature) {
+    private BCKegRecipeBuilder(ItemConvertible resultIn, int count, int cookingTime, float experience, @Nullable ItemConvertible container, @Nullable ItemConvertible liquid, KegRecipeBookTab tab, int temperature) {
         this.result = resultIn.asItem();
         this.count = count;
         this.liquid = liquid != null ? liquid.asItem() : null;
@@ -36,18 +38,19 @@ public class BCKegRecipeBuilder {
         this.experience = experience;
         this.container = container != null ? container.asItem() : null;
         this.temperature = temperature;
+        this.tab = tab;
     }
 
-    public static BCKegRecipeBuilder kegRecipe(ItemConvertible mainResult, int count, int cookingTime, float experience, ItemConvertible liquid, int temperature) {
-        return new BCKegRecipeBuilder(mainResult, count, cookingTime, experience, null, liquid, temperature);
+    public static BCKegRecipeBuilder kegRecipe(ItemConvertible mainResult, int count, int cookingTime, float experience, ItemConvertible liquid, KegRecipeBookTab tab, int temperature) {
+        return new BCKegRecipeBuilder(mainResult, count, cookingTime, experience, null, liquid, tab, temperature);
     }
 
-    public static BCKegRecipeBuilder kegRecipe(ItemConvertible mainResult, int count, int cookingTime, float experience, int temperature) {
-        return new BCKegRecipeBuilder(mainResult, count, cookingTime, experience, null, null, temperature);
+    public static BCKegRecipeBuilder kegRecipe(ItemConvertible mainResult, int count, int cookingTime, float experience, KegRecipeBookTab tab, int temperature) {
+        return new BCKegRecipeBuilder(mainResult, count, cookingTime, experience, null, null, tab, temperature);
     }
 
-    public static BCKegRecipeBuilder kegRecipe(ItemConvertible mainResult, int count, int cookingTime, float experience, ItemConvertible container, ItemConvertible liquid, int temperature) {
-        return new BCKegRecipeBuilder(mainResult, count, cookingTime, experience, container, liquid, temperature);
+    public static BCKegRecipeBuilder kegRecipe(ItemConvertible mainResult, int count, int cookingTime, float experience, ItemConvertible container, ItemConvertible liquid, KegRecipeBookTab tab, int temperature) {
+        return new BCKegRecipeBuilder(mainResult, count, cookingTime, experience, container, liquid, tab, temperature);
     }
 
     public BCKegRecipeBuilder addIngredient(TagKey<Item> tagIn) {
@@ -91,7 +94,7 @@ public class BCKegRecipeBuilder {
     }
 
     public void build(Consumer<RecipeJsonProvider> consumerIn, Identifier id) {
-        consumerIn.accept(new BCKegRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.cookingTime, this.experience, this.container, this.liquid, this.temperature));
+        consumerIn.accept(new BCKegRecipeBuilder.Result(id, this.result, this.count, this.ingredients, this.cookingTime, this.experience, this.container, this.liquid, this.tab, this.temperature));
     }
 
     public static class Result implements RecipeJsonProvider
@@ -105,8 +108,9 @@ public class BCKegRecipeBuilder {
         private final Item container;
         private final Item liquid;
         private final int temperature;
+        private final KegRecipeBookTab tab;
 
-        public Result(Identifier idIn, Item resultIn, int countIn, List<Ingredient> ingredientsIn, int cookingTimeIn, float experienceIn, @Nullable Item containerIn, @Nullable Item liquidIn, int temperatureIn) {
+        public Result(Identifier idIn, Item resultIn, int countIn, List<Ingredient> ingredientsIn, int cookingTimeIn, float experienceIn, @Nullable Item containerIn, @Nullable Item liquidIn, KegRecipeBookTab tab, int temperatureIn) {
             this.id = idIn;
             this.ingredients = ingredientsIn;
             this.result = resultIn;
@@ -116,6 +120,7 @@ public class BCKegRecipeBuilder {
             this.container = containerIn;
             this.liquid = liquidIn;
             this.temperature = temperatureIn;
+            this.tab = tab;
         }
 
         @Override
@@ -148,6 +153,7 @@ public class BCKegRecipeBuilder {
                 json.addProperty("experience", this.experience);
             }
             json.addProperty("cookingtime", this.cookingTime);
+            json.addProperty("recipe_book_tab", this.tab.toString());
             json.addProperty("temperature", this.temperature);
         }
 

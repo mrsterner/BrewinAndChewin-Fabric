@@ -7,32 +7,45 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
 public class ItemCoasterBlockEntity extends SyncedBlockEntity {
 
-    private final ItemStackHandler inventory = this.createHandler();
+    private final ItemStackHandler inventory = new ItemStackHandler() {
+        @Override
+        public int getMaxCountForSlot(int slot) {
+            return 1;
+        }
 
-    private Identifier lastRecipeID;
+        @Override
+        protected void onInventorySlotChanged(int slot) {
+            ItemCoasterBlockEntity.this.inventoryChanged();
+        }
+    };
+
     private boolean isItemCarvingBoard = false;
 
-    public ItemCoasterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(BCBlockEntityTypes.ITEM_COASTER, pos, state);
+    public ItemCoasterBlockEntity(BlockPos pos, BlockState state) {
+        super(BCBlockEntityTypes.COASTER, pos, state);
     }
 
     @Override
-    public void readNbt(NbtCompound compound) {
-        super.readNbt(compound);
-        this.isItemCarvingBoard = compound.getBoolean("IsItemCarved");
-        this.inventory.readNbt(compound.getCompound("Inventory"));
+    public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
+        this.isItemCarvingBoard = tag.getBoolean("IsItemCarved");
+        this.inventory.readNbt(tag.getCompound("Inventory"));
     }
 
     @Override
-    public void writeNbt(NbtCompound compound) {
-        super.writeNbt(compound);
-        compound.put("Inventory", this.inventory.writeNbt(compound));
-        compound.putBoolean("IsItemCarved", this.isItemCarvingBoard);
+    public void writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
+        tag.put("Inventory", this.inventory.writeNbt(new NbtCompound()));
+        tag.putBoolean("IsItemCarved", this.isItemCarvingBoard);
     }
 
     public boolean addItem(ItemStack itemStack) {
@@ -82,17 +95,15 @@ public class ItemCoasterBlockEntity extends SyncedBlockEntity {
         return this.isItemCarvingBoard;
     }
 
-    private ItemStackHandler createHandler() {
-        return new ItemStackHandler() {
-            @Override
-            public int getMaxCountForSlot(int slot) {
-                return 1;
-            }
+    @Override
+    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
 
-            @Override
-            protected void onInventorySlotChanged(int slot) {
-                ItemCoasterBlockEntity.this.inventoryChanged();
-            }
-        };
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        NbtCompound nbt = new NbtCompound();
+        this.writeNbt(nbt);
+        return nbt;
     }
 }

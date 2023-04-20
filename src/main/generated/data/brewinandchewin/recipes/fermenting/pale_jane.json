@@ -22,6 +22,7 @@
   "liquid": {
     "item": "brewinandchewin:rice_wine"
   },
+  "recipe_book_tab": "drinks",
   "result": {
     "item": "brewinandchewin:pale_jane"
   },

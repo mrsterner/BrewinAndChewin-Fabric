@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.nhoryzon.mc.farmersdelight.util.RecipeMatcher;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
+import dev.sterner.brewinandchewin.client.recipebook.KegRecipeBookTab;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,7 @@
 package dev.sterner.brewinandchewin.common.block;
 
 import com.mojang.datafixers.util.Pair;
+import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -47,7 +48,7 @@ public class QuicheBlock extends Block {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getStackInHand(hand);
         if (world.isClient) {//TODO this dont make sense, shouldnt it be serverside?
-            if (heldStack.isIn(BCTags.KNIVES)) {
+            if (heldStack.isIn(TagsRegistry.KNIVES)) {
                 return this.cutSlice(world, pos, state);
             }
 
@@ -60,7 +61,7 @@ public class QuicheBlock extends Block {
             }
         }
 
-        return heldStack.isIn(BCTags.KNIVES) ? this.cutSlice(world, pos, state) : this.consumeBite(world, pos, state, player);
+        return heldStack.isIn(TagsRegistry.KNIVES) ? this.cutSlice(world, pos, state) : this.consumeBite(world, pos, state, player);
     }
 
     protected ActionResult consumeBite(World level, BlockPos pos, BlockState state, PlayerEntity playerIn) {
