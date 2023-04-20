@@ -16,20 +16,12 @@ public class BCRecipeBook implements RecipeBookAdder {
         return List.of(
                 RecipeBookAdder.builder("FERMENTING")
                         .addSearch()
-                        .addGroup("ALL", recipe -> {
-                            if(recipe instanceof Recipe<?> recipe1 && recipe1.getId().getNamespace().equals(BrewinAndChewin.MODID)){
-                                return true;
-
+                        .addGroup("MISC", recipe -> {
+                            if (recipe instanceof KegRecipe cookingRecipe) {
+                                return cookingRecipe.getOutput().getItem().getGroup() == BrewinAndChewin.ITEM_GROUP;
                             }
                             return false;
                         }, "brewinandchewin:beer")
-                        .addGroup("MISC", recipe -> {
-                            if (recipe instanceof KegRecipe cookingRecipe) {
-                                boolean bl = cookingRecipe.getOutput().getItem().getGroup() == BrewinAndChewin.ITEM_GROUP;
-                                return bl;
-                            }
-                            return false;
-                        }, "minecraft:stick", "minecraft:flint")
                         .addGroup("DRINKS", recipe -> {
                             if (recipe instanceof SmeltingRecipe cookingRecipe) {
                                 return cookingRecipe.getOutput().getItem().getGroup() == ItemGroup.BUILDING_BLOCKS;
