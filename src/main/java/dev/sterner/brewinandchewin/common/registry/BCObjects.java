@@ -2,7 +2,7 @@ package dev.sterner.brewinandchewin.common.registry;
 
 import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
-import dev.sterner.brewinandchewin.common.block.CheeseWheelBlock;
+import dev.sterner.brewinandchewin.common.block.UnripeCheeseWheelBlock;
 import dev.sterner.brewinandchewin.common.block.KegBlock;
 import dev.sterner.brewinandchewin.common.block.PizzaBlock;
 import dev.sterner.brewinandchewin.common.block.RipeCheeseWheelBlock;
@@ -57,8 +57,8 @@ public class BCObjects {
 
     public static final Block FLAXEN_CHEESE_WHEEL = register("flaxen_cheese_wheel", new RipeCheeseWheelBlock(FLAXEN_CHEESE_WEDGE, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
     public static final Block SCARLET_CHEESE_WHEEL = register("scarlet_cheese_wheel", new RipeCheeseWheelBlock(SCARLET_CHEESE_WEDGE, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
-    public static final Block UNRIPE_FLAXEN_CHEESE_WHEEL = register("unripe_flaxen_cheese_wheel", new CheeseWheelBlock(FLAXEN_CHEESE_WHEEL, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
-    public static final Block UNRIPE_SCARLET_CHEESE_WHEEL = register("unripe_scarlet_cheese_wheel", new CheeseWheelBlock(SCARLET_CHEESE_WHEEL, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
+    public static final Block UNRIPE_FLAXEN_CHEESE_WHEEL = register("unripe_flaxen_cheese_wheel", new UnripeCheeseWheelBlock(FLAXEN_CHEESE_WHEEL, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
+    public static final Block UNRIPE_SCARLET_CHEESE_WHEEL = register("unripe_scarlet_cheese_wheel", new UnripeCheeseWheelBlock(SCARLET_CHEESE_WHEEL, FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);
 
     public static final Item PIZZA_SLICE = register("pizza_slice", new Item(settings().food(BCFoodComponents.PIZZA_SLICE)));
     public static final Block PIZZA = register("pizza", new PizzaBlock(FabricBlockSettings.copy(Blocks.CAKE)), settings().maxCount(16), true);

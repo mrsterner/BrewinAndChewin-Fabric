@@ -18,8 +18,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Iterator;
 import java.util.List;
 
 public class KegRecipe implements Recipe<Inventory>{
@@ -27,21 +30,22 @@ public class KegRecipe implements Recipe<Inventory>{
 
     private final Identifier id;
     private final String group;
+    private final KegRecipeBookTab tab;
     private final DefaultedList<Ingredient> ingredientList;
+    private final Ingredient fluidItem;
     private final ItemStack output;
     private final ItemStack container;
     private final float experience;
     private final int fermentTime;
-    final Ingredient liquid;
     private final int temperature;
 
-    public KegRecipe(Identifier id, String group, DefaultedList<Ingredient> ingredientList, Ingredient liquid, ItemStack output, int temperature, ItemStack container, float experience, int fermentTime) {
+    public KegRecipe(Identifier id, String group, @Nullable KegRecipeBookTab tab, DefaultedList<Ingredient> ingredientList, Ingredient fluidItem, ItemStack output, ItemStack container, float experience, int fermentTime, int temperature) {
         this.id = id;
         this.group = group;
         this.ingredientList = ingredientList;
         this.output = output;
         this.temperature = temperature;
-
+        this.tab = tab;
         if (!container.isEmpty()) {
             this.container = container;
         } else if (output.getItem().getRecipeRemainder() != null) {
@@ -49,39 +53,46 @@ public class KegRecipe implements Recipe<Inventory>{
         } else {
             this.container = ItemStack.EMPTY;
         }
-        if (!liquid.isEmpty()) {
-            this.liquid = liquid;
-        } else {
-            this.liquid = Ingredient.EMPTY;
-        }
+        this.fluidItem = fluidItem;
 
         this.experience = experience;
         this.fermentTime = fermentTime;
     }
 
-    @Override
-    public boolean matches(Inventory inventory, World world) {
-        List<ItemStack> inputList = new ArrayList<>();
-        int i = 0;
-
-        for (int j = 0; j < INPUT_SLOTS; ++j) {
-            ItemStack itemstack = inventory.getStack(j);
-            if (!itemstack.isEmpty()) {
-                ++i;
-                inputList.add(itemstack);
-            }
-        }
-
-        if (this.liquid != null) {
-            return i == this.ingredientList.size() && RecipeMatcher.findMatches(inputList, this.ingredientList) != null && this.liquid.test(inventory.getStack(4));
-        }
-
-        return i == ingredientList.size() && RecipeMatcher.findMatches(inputList, ingredientList) != null;
+    @Nullable
+    public KegRecipeBookTab getRecipeBookTab() {
+        return this.tab;
     }
 
     @Override
     public DefaultedList<Ingredient> getIngredients() {
-        return ingredientList;
+        DefaultedList<Ingredient> ingredients = DefaultedList.of();
+        ingredients.addAll(this.ingredientList);
+        if (!this.fluidItem.isEmpty()) {
+            ingredients.add(this.fluidItem);
+        }
+
+        return ingredients;
+    }
+
+    @Override
+    public boolean matches(Inventory inventory, World world) {
+        List<ItemStack> inputs = new ArrayList();
+        int i = 0;
+
+        for(int j = 0; j < 4; ++j) {
+            ItemStack itemstack = inventory.getStack(j);
+            if (!itemstack.isEmpty()) {
+                ++i;
+                inputs.add(itemstack);
+            }
+        }
+
+        if (this.fluidItem != null) {
+            return i == this.ingredientList.size() && RecipeMatcher.findMatches(inputs, this.ingredientList) != null && this.fluidItem.test(inventory.getStack(4));
+        } else {
+            return i == this.ingredientList.size() && RecipeMatcher.findMatches(inputs, this.ingredientList) != null;
+        }
     }
 
     @Override
@@ -118,59 +129,19 @@ public class KegRecipe implements Recipe<Inventory>{
         return this.container;
     }
 
-    public Ingredient getLiquid() {
-        return this.liquid;
+    public Ingredient getFluidItem() {
+        return this.fluidItem;
     }
 
     public float getExperience() {
         return this.experience;
     }
 
-    public int getfermentTime() {
+    public int getFermentTime() {
         return this.fermentTime;
     }
 
-    public class Range
-    {
-        private int low;
-        private int high;
-
-        public Range(int low, int high){
-            this.low = low;
-            this.high = high;
-        }
-
-        public boolean contains(int number){
-            return (number >= low && number <= high);
-        }
-    }
-
-    public Range getTemperature() {
-        int temperature = this.temperature;
-        Range frigid = new Range(-27, -9);
-        Range cold = new Range(-8, -5);
-        Range normal = new Range(-4, 4);
-        Range warm = new Range(5, 8);
-        Range hot = new Range(9, 27);
-        if (temperature == 1) {
-            return frigid;
-        }
-        if (temperature == 2) {
-            return cold;
-        }
-        if (temperature == 3) {
-            return normal;
-        }
-        if (temperature == 4) {
-            return warm;
-        }
-        if (temperature == 5) {
-            return hot;
-        }
-        return normal;
-    }
-
-    public int getTemperatureJei() {
+    public int getTemperature() {
         return this.temperature;
     }
 
@@ -179,18 +150,24 @@ public class KegRecipe implements Recipe<Inventory>{
         @Override
         public KegRecipe read(Identifier id, JsonObject json) {
             final String groupIn = JsonHelper.getString(json, "group", "");
+
             final DefaultedList<Ingredient> inputItemsIn = readIngredients(JsonHelper.getArray(json, "ingredients"));
             if (inputItemsIn.isEmpty()) {
                 throw new JsonParseException("No ingredients for cooking recipe");
             } else if (inputItemsIn.size() > KegRecipe.INPUT_SLOTS) {
                 throw new JsonParseException("Too many ingredients for cooking recipe! The max is " + KegRecipe.INPUT_SLOTS);
             } else {
+                String tabKeyIn = JsonHelper.getString(json, "recipe_book_tab", (String)null);
+                KegRecipeBookTab tabIn = KegRecipeBookTab.findByName(tabKeyIn);
+                if (tabKeyIn != null && tabIn == null) {
+                    BrewinAndChewin.LOGGER.warn("Optional field 'recipe_book_tab' does not match any valid tab. If defined, must be one of the following: " + EnumSet.allOf(KegRecipeBookTab.class));
+                }
                 final JsonObject jsonResult = JsonHelper.getObject(json, "result");
                 final ItemStack outputIn = new ItemStack(JsonHelper.getItem(jsonResult, "item"), JsonHelper.getInt(jsonResult, "count", 1));
-                Ingredient liquid = Ingredient.EMPTY;
-                if(JsonHelper.hasElement(json, "liquid")){
-                    final JsonObject jsonContainer = JsonHelper.getObject(json, "liquid");
-                    liquid = Ingredient.fromJson(jsonContainer);
+                Ingredient fluidItemIn = Ingredient.EMPTY;
+                if(JsonHelper.hasElement(json, "fluiditem")){
+                    final JsonObject jsonContainer = JsonHelper.getObject(json, "fluiditem");
+                    fluidItemIn = Ingredient.fromJson(jsonContainer);
                 }
 
                 ItemStack container = ItemStack.EMPTY;
@@ -198,10 +175,11 @@ public class KegRecipe implements Recipe<Inventory>{
                     final JsonObject jsonContainer = JsonHelper.getObject(json, "container");
                     container = new ItemStack(JsonHelper.getItem(jsonContainer, "item"), JsonHelper.getInt(jsonContainer, "count", 1));
                 }
-                final float experienceIn = JsonHelper.getFloat(json, "experience", 0.0F);
-                final int fermentTimeIn = JsonHelper.getInt(json, "fermentingtime", 12000);
-                final int temperatureIn = JsonHelper.getInt(json, "temperature", 3);
-                return new KegRecipe(id, groupIn, inputItemsIn, liquid, outputIn, temperatureIn, container, experienceIn, fermentTimeIn);
+
+                float experienceIn = JsonHelper.getFloat(json, "experience", 0.0F);
+                int fermentTimeIn = JsonHelper.getInt(json, "fermentingtime", 200);
+                int temperatureIn = JsonHelper.getInt(json, "temperature", 3);
+                return new KegRecipe(id, groupIn, tabIn, inputItemsIn, fluidItemIn, outputIn, container, experienceIn, fermentTimeIn, temperatureIn);
             }
         }
 
@@ -218,32 +196,34 @@ public class KegRecipe implements Recipe<Inventory>{
 
         @Override
         public KegRecipe read(Identifier id, PacketByteBuf buf) {
-            String groupIn = buf.readString(32767);
+            String groupIn = buf.readString();
+            KegRecipeBookTab tabIn = KegRecipeBookTab.findByName(buf.readString());
             int i = buf.readVarInt();
             DefaultedList<Ingredient> inputItemsIn = DefaultedList.ofSize(i, Ingredient.EMPTY);
 
             inputItemsIn.replaceAll(ignored -> Ingredient.fromPacket(buf));
 
+            Ingredient fluidItem = Ingredient.fromPacket(buf);
             ItemStack outputIn = buf.readItemStack();
-            Ingredient liquid = Ingredient.fromPacket(buf);
             ItemStack container = buf.readItemStack();
             float experienceIn = buf.readFloat();
             int fermentTimeIn = buf.readVarInt();
             int temperatureIn = buf.readVarInt();
-            return new KegRecipe(id, groupIn, inputItemsIn, liquid, outputIn, temperatureIn, container, experienceIn, fermentTimeIn);
+            return new KegRecipe(id, groupIn, tabIn, inputItemsIn, fluidItem, outputIn, container, experienceIn, fermentTimeIn, temperatureIn);
         }
 
         @Override
         public void write(PacketByteBuf buf, KegRecipe recipe) {
             buf.writeString(recipe.group);
+            buf.writeString(recipe.tab != null ? recipe.tab.toString() : "");
             buf.writeVarInt(recipe.ingredientList.size());
 
             for (Ingredient ingredient : recipe.ingredientList) {
                 ingredient.write(buf);
             }
 
+            recipe.fluidItem.write(buf);
             buf.writeItemStack(recipe.output);
-            recipe.liquid.write(buf);
             buf.writeItemStack(recipe.container);
             buf.writeFloat(recipe.experience);
             buf.writeVarInt(recipe.fermentTime);

@@ -17,12 +17,12 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 
-public class CheeseWheelBlock extends Block {
+public class UnripeCheeseWheelBlock extends Block {
     public static final IntProperty AGE = IntProperty.of("age", 0, 1);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 6.0D, 14.0D);
     public final Block ripeCheese;
 
-    public CheeseWheelBlock(Block ripeCheese, Settings properties) {
+    public UnripeCheeseWheelBlock(Block ripeCheese, Settings properties) {
         super(properties);
         this.setDefaultState(super.getDefaultState().with(AGE, 0));
         this.ripeCheese = ripeCheese;

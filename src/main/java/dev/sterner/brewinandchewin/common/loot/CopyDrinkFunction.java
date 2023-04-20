@@ -15,15 +15,15 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public class CopyMealFunction extends ConditionalLootFunction {
+public class CopyDrinkFunction extends ConditionalLootFunction {
     public static final Identifier ID = new Identifier(BrewinAndChewin.MODID, "copy_meal");
 
-    private CopyMealFunction(LootCondition[] conditions) {
+    private CopyDrinkFunction(LootCondition[] conditions) {
         super(conditions);
     }
 
     public static ConditionalLootFunction.Builder<?> builder() {
-        return builder(CopyMealFunction::new);
+        return builder(CopyDrinkFunction::new);
     }
 
     @Override
@@ -44,11 +44,11 @@ public class CopyMealFunction extends ConditionalLootFunction {
         return null;
     }
 
-    public static class Serializer extends ConditionalLootFunction.Serializer<CopyMealFunction> {
+    public static class Serializer extends ConditionalLootFunction.Serializer<CopyDrinkFunction> {
 
         @Override
-        public CopyMealFunction fromJson(JsonObject json, JsonDeserializationContext context, LootCondition[] conditions) {
-            return new CopyMealFunction(conditions);
+        public CopyDrinkFunction fromJson(JsonObject json, JsonDeserializationContext context, LootCondition[] conditions) {
+            return new CopyDrinkFunction(conditions);
         }
     }
 }
