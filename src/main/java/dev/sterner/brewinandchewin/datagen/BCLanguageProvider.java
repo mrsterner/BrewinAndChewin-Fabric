@@ -52,6 +52,7 @@ public class BCLanguageProvider extends FabricLanguageProvider {
         builder.add("brewinandchewin.tooltip.tipsy3", "Tipsy III (%s:00)");
         builder.add("brewinandchewin.jei.fermenting", "Fermenting");
         builder.add("brewinandchewin.rei.fermenting", "Fermenting");
+        builder.add("emi.category.brewinandchewin.fermenting", "Fermenting");
         builder.add("brewinandchewin.container.keg.served_in", "Served in: %s");
         builder.add("brewinandchewin.tooltip.keg.empty", "Empty");
         builder.add("brewinandchewin.tooltip.keg.single_serving", "Holds 1 serving of:");

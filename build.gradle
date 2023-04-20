@@ -45,6 +45,10 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
+	maven {
+		name = "EMI"
+		url  = "https://maven.terraformersmc.com/"
+	}
 	maven { url 'https://www.cursemaven.com' }
 }
 
@@ -68,6 +72,9 @@ dependencies {
 	//Fabric ASM
 	modImplementation include ("com.github.Chocohead:Fabric-ASM:v2.3")
 	modImplementation include ("maven.modrinth:booking_it:1.0.2")
+
+	//EMI
+	modImplementation "dev.emi:emi:${project.emi_version}"
 }
 
 processResources {

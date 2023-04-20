@@ -32,7 +32,7 @@ public class KegRecipe implements Recipe<Inventory>{
     private final Identifier id;
     private final String group;
     private final KegRecipeBookTab tab;
-    private final DefaultedList<Ingredient> ingredientList;
+    public final DefaultedList<Ingredient> ingredientList;
     private final Ingredient fluidItem;
     private final ItemStack output;
     private final ItemStack container;

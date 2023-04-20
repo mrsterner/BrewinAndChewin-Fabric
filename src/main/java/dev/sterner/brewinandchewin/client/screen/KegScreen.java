@@ -56,10 +56,10 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> implements R
         this.recipeBookComponent.initialize(this.width, this.height, this.client, this.widthTooNarrow, this.handler);
         this.open = true;
         this.x = this.recipeBookComponent.findLeftEdge(this.width, this.backgroundWidth);
-        this.addDrawableChild(new TexturedButtonWidget(this.x + 104, this.height / 2 - 22, 20, 18, 0, 0, 19, new Identifier("textures/gui/recipe_button.png"), button -> {
+        this.addDrawableChild(new TexturedButtonWidget(this.x + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, new Identifier("textures/gui/recipe_button.png"), button -> {
             this.recipeBookComponent.toggleOpen();
             this.x = this.recipeBookComponent.findLeftEdge(this.width, this.backgroundWidth);
-            ((TexturedButtonWidget)button).setPos(this.x + 104, this.height / 2 - 22);
+            ((TexturedButtonWidget)button).setPos(this.x + 5, this.height / 2 - 49);
             this.mouseDown = true;
         }));
         this.addSelectableChild(this.recipeBookComponent);

@@ -32,6 +32,9 @@
     ],
     "booking_it:recipe_book": [
       "dev.sterner.brewinandchewin.client.recipebook.BCRecipeBook"
+    ],
+    "emi": [
+      "dev.sterner.brewinandchewin.client.integration.emi.BCEMIPlugin"
     ]
   },
   "mixins": [
