@@ -159,7 +159,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     }
 
     public void updateTemperature() {
-        if (this.world != null && this.world.getDimension().ultrawarm()) {
+        if (this.world != null && this.world.getDimension().isUltrawarm()) {
             this.kegTemperature = 10;
             return;
         }

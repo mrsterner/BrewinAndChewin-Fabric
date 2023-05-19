@@ -13,6 +13,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class FermentingRecipeCategory implements DisplayCategory<FermentingRecip
 
     @Override
     public Text getTitle() {
-        return Text.translatable(BrewinAndChewin.MODID + ".rei.fermenting");
+        return new TranslatableText(BrewinAndChewin.MODID + ".rei.fermenting");
     }
 
     @Override

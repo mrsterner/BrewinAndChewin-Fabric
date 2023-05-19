@@ -152,7 +152,7 @@ public class KegBlockScreenHandler extends AbstractRecipeScreenHandler<RecipeWra
             }
 
             if (itemstack1.isEmpty()) {
-                slot.setStackNoCallbacks(ItemStack.EMPTY);
+                slot.setStack(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }

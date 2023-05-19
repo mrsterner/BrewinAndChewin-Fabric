@@ -8,10 +8,12 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WallTorchBlock;
+import net.minecraft.data.DataCache;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -102,5 +104,10 @@ public class BCLanguageProvider extends FabricLanguageProvider {
             }
         }
         return name;
+    }
+
+    @Override
+    public void run(DataCache cache) throws IOException {
+
     }
 }
