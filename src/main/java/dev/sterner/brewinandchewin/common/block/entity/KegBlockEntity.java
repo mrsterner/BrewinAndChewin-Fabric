@@ -182,14 +182,14 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         }).filter((s) -> {
             return s.contains(Properties.LIT);
         }).filter((s) -> {
-            return s.get(Properties.LIT);
+            return s.contains(Properties.LIT) && s.get(Properties.LIT);
         }).mapToInt((s) -> {
             return 1;
         }).sum();
         heat += states.stream().filter((s) -> {
             return s.isIn(TagsRegistry.HEAT_SOURCES);
         }).filter((s) -> {
-            return !s.get(Properties.LIT);
+            return s.contains(Properties.LIT) && !s.get(Properties.LIT);
         }).mapToInt((s) -> {
             return 1;
         }).sum();
@@ -197,7 +197,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         if (stateBelow.isIn(TagsRegistry.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = this.world.getBlockState(this.getPos().down(2));
             if (stateFurtherBelow.isIn(TagsRegistry.HEAT_SOURCES)) {
-                if (stateFurtherBelow.get(Properties.LIT)) {
+                if (stateFurtherBelow.contains(Properties.LIT) && stateFurtherBelow.get(Properties.LIT)) {
                     if (stateFurtherBelow.get(Properties.LIT)) {
                         ++heat;
                     }
