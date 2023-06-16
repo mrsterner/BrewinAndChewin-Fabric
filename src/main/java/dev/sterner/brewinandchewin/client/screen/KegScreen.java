@@ -26,14 +26,14 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> implements R
     private static final Identifier RECIPE_BUTTON_LOCATION = new Identifier("textures/gui/recipe_button.png");
 
     private static final Identifier BACKGROUND_TEXTURE = new Identifier(BrewinAndChewin.MODID, "textures/gui/keg.png");
-    private static final Rectangle PROGRESS_ARROW = new Rectangle(77, 44, 0, 9);
-    private static final Rectangle FRIGID_BAR = new Rectangle(77, 39, 6, 4);
-    private static final Rectangle COLD_BAR = new Rectangle(83, 39, 7, 4);
-    private static final Rectangle WARM_BAR = new Rectangle(96, 39, 7, 4);
-    private static final Rectangle HOT_BAR = new Rectangle(103, 39, 7, 4);
+    private static final Rectangle PROGRESS_ARROW = new Rectangle(72, 44, 0, 9);
+    private static final Rectangle FRIGID_BAR = new Rectangle(72, 39, 6, 4);
+    private static final Rectangle COLD_BAR = new Rectangle(78, 39, 7, 4);
+    private static final Rectangle WARM_BAR = new Rectangle(91, 39, 7, 4);
+    private static final Rectangle HOT_BAR = new Rectangle(98, 39, 7, 4);
 
-    private static final Rectangle BUBBLE_1 = new Rectangle(74, 14, 9, 24);
-    private static final Rectangle BUBBLE_2 = new Rectangle(103, 14, 9, 24);
+    private static final Rectangle BUBBLE_1 = new Rectangle(69, 14, 9, 24);
+    private static final Rectangle BUBBLE_2 = new Rectangle(98, 14, 9, 24);
     private static final int[] BUBBLELENGTHS = new int[]{24, 20, 16, 12, 8, 4, 0};
     public final KegRecipeBookComponent recipeBookComponent = new KegRecipeBookComponent();
     private boolean widthTooNarrow;

@@ -182,14 +182,14 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         }).filter((s) -> {
             return s.contains(Properties.LIT);
         }).filter((s) -> {
-            return s.contains(Properties.LIT) && s.get(Properties.LIT);
+            return s.get(Properties.LIT);
         }).mapToInt((s) -> {
             return 1;
         }).sum();
         heat += states.stream().filter((s) -> {
             return s.isIn(TagsRegistry.HEAT_SOURCES);
         }).filter((s) -> {
-            return s.contains(Properties.LIT) && !s.get(Properties.LIT);
+            return !s.contains(Properties.LIT);
         }).mapToInt((s) -> {
             return 1;
         }).sum();
