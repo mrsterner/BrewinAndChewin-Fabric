@@ -516,7 +516,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     }
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(9) {
+        return new ItemStackHandler(10) {
             @Override
             protected void onInventorySlotChanged(int slot) {
                 if (slot >= 0 && slot < 5) {
