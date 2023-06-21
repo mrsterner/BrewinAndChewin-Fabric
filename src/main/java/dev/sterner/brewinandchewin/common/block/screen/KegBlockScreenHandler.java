@@ -1,6 +1,5 @@
 package dev.sterner.brewinandchewin.common.block.screen;
 
-import com.github.aws404.booking_it.BookingIt;
 import com.mojang.datafixers.util.Pair;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
@@ -19,10 +18,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.screen.AbstractRecipeScreenHandler;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -32,7 +28,7 @@ import java.util.Objects;
 import static net.fabricmc.api.EnvType.CLIENT;
 import static net.minecraft.client.texture.SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 
-public class KegBlockScreenHandler extends AbstractRecipeScreenHandler<RecipeWrapper> {
+public class KegBlockScreenHandler extends ScreenHandler {
     public static final Identifier EMPTY_CONTAINER_SLOT_MUG = new Identifier(BrewinAndChewin.MODID, "item/empty_container_slot_mug");
 
     public final KegBlockEntity blockEntity;
@@ -204,35 +200,5 @@ public class KegBlockScreenHandler extends AbstractRecipeScreenHandler<RecipeWra
 
     public boolean matches(Recipe<? super RecipeWrapper> recipe) {
         return recipe.matches(new RecipeWrapper(this.inventory), this.world);
-    }
-
-    @Override
-    public int getCraftingResultSlotIndex() {
-        return 6;
-    }
-
-    @Override
-    public int getCraftingWidth() {
-        return 2;
-    }
-
-    @Override
-    public int getCraftingHeight() {
-        return 2;
-    }
-
-    @Override
-    public int getCraftingSlotCount() {
-        return 6;
-    }
-
-    @Override
-    public RecipeBookCategory getCategory() {
-        return BookingIt.getCategory("FERMENTING");
-    }
-
-    @Override
-    public boolean canInsertIntoSlot(int index) {
-        return index < 5;
     }
 }

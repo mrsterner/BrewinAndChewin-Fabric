@@ -7,7 +7,6 @@ import com.google.gson.JsonParseException;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.util.RecipeMatcher;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
-import dev.sterner.brewinandchewin.client.recipebook.KegRecipeBookTab;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -30,7 +29,6 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
 
     private final Identifier id;
     private final String group;
-    private final KegRecipeBookTab tab;
     public final DefaultedList<Ingredient> ingredientList;
     private final Ingredient fluidItem;
     private final ItemStack output;
@@ -39,13 +37,12 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
     private final int fermentTime;
     private final int temperature;
 
-    public KegRecipe(Identifier id, String group, @Nullable KegRecipeBookTab tab, DefaultedList<Ingredient> ingredientList, Ingredient fluidItem, ItemStack output, ItemStack container, float experience, int fermentTime, int temperature) {
+    public KegRecipe(Identifier id, String group, DefaultedList<Ingredient> ingredientList, Ingredient fluidItem, ItemStack output, ItemStack container, float experience, int fermentTime, int temperature) {
         this.id = id;
         this.group = group;
         this.ingredientList = ingredientList;
         this.output = output;
         this.temperature = temperature;
-        this.tab = tab;
         if (!container.isEmpty()) {
             this.container = container;
         } else if (output.getItem().getRecipeRemainder() != null) {
@@ -57,11 +54,6 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
 
         this.experience = experience;
         this.fermentTime = fermentTime;
-    }
-
-    @Nullable
-    public KegRecipeBookTab getRecipeBookTab() {
-        return this.tab;
     }
 
     @Override
@@ -157,11 +149,6 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
             } else if (inputItemsIn.size() > KegRecipe.INPUT_SLOTS) {
                 throw new JsonParseException("Too many ingredients for cooking recipe! The max is " + KegRecipe.INPUT_SLOTS);
             } else {
-                String tabKeyIn = JsonHelper.getString(json, "recipe_book_tab", null);
-                KegRecipeBookTab tabIn = KegRecipeBookTab.findByName(tabKeyIn);
-                if (tabKeyIn != null && tabIn == null) {
-                    BrewinAndChewin.LOGGER.warn("Optional field 'recipe_book_tab' does not match any valid tab. If defined, must be one of the following: " + EnumSet.allOf(KegRecipeBookTab.class));
-                }
                 final JsonObject jsonResult = JsonHelper.getObject(json, "result");
                 final ItemStack outputIn = new ItemStack(JsonHelper.getItem(jsonResult, "item"), JsonHelper.getInt(jsonResult, "count", 1));
                 Ingredient fluidItemIn = Ingredient.EMPTY;
@@ -179,7 +166,7 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
                 float experienceIn = JsonHelper.getFloat(json, "experience", 0.0F);
                 int fermentTimeIn = JsonHelper.getInt(json, "fermentingtime", 200);
                 int temperatureIn = JsonHelper.getInt(json, "temperature", 3);
-                return new KegRecipe(id, groupIn, tabIn, inputItemsIn, fluidItemIn, outputIn, container, experienceIn, fermentTimeIn, temperatureIn);
+                return new KegRecipe(id, groupIn, inputItemsIn, fluidItemIn, outputIn, container, experienceIn, fermentTimeIn, temperatureIn);
             }
         }
 
@@ -197,7 +184,6 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
         @Override
         public KegRecipe read(Identifier id, PacketByteBuf buf) {
             String groupIn = buf.readString();
-            KegRecipeBookTab tabIn = KegRecipeBookTab.findByName(buf.readString());
             int i = buf.readVarInt();
             DefaultedList<Ingredient> inputItemsIn = DefaultedList.ofSize(i, Ingredient.EMPTY);
 
@@ -209,13 +195,12 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
             float experienceIn = buf.readFloat();
             int fermentTimeIn = buf.readVarInt();
             int temperatureIn = buf.readVarInt();
-            return new KegRecipe(id, groupIn, tabIn, inputItemsIn, fluidItem, outputIn, container, experienceIn, fermentTimeIn, temperatureIn);
+            return new KegRecipe(id, groupIn, inputItemsIn, fluidItem, outputIn, container, experienceIn, fermentTimeIn, temperatureIn);
         }
 
         @Override
         public void write(PacketByteBuf buf, KegRecipe recipe) {
             buf.writeString(recipe.group);
-            buf.writeString(recipe.tab != null ? recipe.tab.toString() : "");
             buf.writeVarInt(recipe.ingredientList.size());
 
             for (Ingredient ingredient : recipe.ingredientList) {

@@ -30,9 +30,6 @@
     "rei_client": [
       "dev.sterner.brewinandchewin.client.integration.rei.BCREIPlugin"
     ],
-    "booking_it:recipe_book": [
-      "dev.sterner.brewinandchewin.client.recipebook.BCRecipeBook"
-    ],
     "emi": [
       "dev.sterner.brewinandchewin.client.integration.emi.BCEMIPlugin"
     ]
@@ -45,8 +42,7 @@
     "fabricloader": ">=0.14.11",
     "fabric-api": "*",
     "minecraft": "~1.19.2",
-    "java": ">=17",
-    "booking_it": "*"
+    "java": ">=17"
   },
   "suggests": {
     "another-mod": "*"
