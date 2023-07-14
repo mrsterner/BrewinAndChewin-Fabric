@@ -2,7 +2,6 @@ package dev.sterner.brewinandchewin.common.block.entity;
 
 import com.google.common.collect.Lists;
 import com.nhoryzon.mc.farmersdelight.entity.block.SyncedBlockEntity;
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemStackHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.mixin.accessors.RecipeManagerAccessorMixin;
 import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
@@ -21,6 +20,7 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -45,8 +45,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenHandlerFactory, Nameable {
-    private final ItemStackHandler inventory;
+public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInventory, ExtendedScreenHandlerFactory, Nameable {
+    public static final int MEAL_DISPLAY_SLOT = 6;
+    public static final int CONTAINER_SLOT = 7;
+    public static final int OUTPUT_SLOT = 8;
+    public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
+
+    private final DefaultedList<ItemStack> inventory;
 
     private int fermentTime;
     private int fermentTimeTotal;
@@ -60,9 +65,9 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
 
     public KegBlockEntity(BlockPos pos, BlockState state) {
         super(BCBlockEntityTypes.KEG, pos, state);
-        this.inventory = createHandler();
+        this.inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
         this.drinkContainerStack = ItemStack.EMPTY;
-        this.kegData = createIntArray();
+        this.kegData = new KegSyncedData();
         this.usedRecipeTracker = new Object2IntOpenHashMap<>();
         this.checkNewRecipe = true;
     }
@@ -70,7 +75,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     @Override
     public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
-        inventory.readNbt(compound.getCompound("Inventory"));
+        readInventoryNbt(compound);
         fermentTime = compound.getInt("FermentTime");
         fermentTimeTotal = compound.getInt("FermentTimeTotal");
         drinkContainerStack = ItemStack.fromNbt(compound.getCompound("Container"));
@@ -94,25 +99,18 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         if (customName != null) {
             compound.putString("CustomName", Text.Serializer.toJson(customName));
         }
-        compound.put("Inventory", inventory.writeNbt(new NbtCompound()));
+        writeInventoryNbt(compound);
         NbtCompound compoundRecipes = new NbtCompound();
         usedRecipeTracker.forEach((recipeId, craftedAmount) -> compoundRecipes.putInt(recipeId.toString(), craftedAmount));
         compound.put("RecipesUsed", compoundRecipes);
     }
 
-    private NbtCompound writeItems(NbtCompound compound) {
-        writeNbt(compound);
-        compound.put("Container", drinkContainerStack.writeNbt(new NbtCompound()));
-        compound.put("Inventory", inventory.writeNbt(new NbtCompound()));
-        return compound;
-    }
-
     public NbtCompound writeDrink(NbtCompound compound) {
         if (!this.getDrink().isEmpty()) {
-            ItemStackHandler drops = new ItemStackHandler(9);
+            DefaultedList<ItemStack> drops = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
 
-            for (int i = 0; i < 9; ++i) {
-                drops.setStack(i, i == 5 ? this.inventory.getStack(i) : ItemStack.EMPTY);
+            for (int i = 0; i < INVENTORY_SIZE; ++i) {
+                drops.set(i, i == MEAL_DISPLAY_SLOT ? getStack(i) : ItemStack.EMPTY);
             }
 
             if (this.customName != null) {
@@ -120,7 +118,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
             }
 
             compound.put("Container", drinkContainerStack.writeNbt(new NbtCompound()));
-            compound.put("Inventory", drops.writeNbt(new NbtCompound()));
+            compound.put("Inventory", Inventories.writeNbt(new NbtCompound(), drops));
         }
         return compound;
     }
@@ -131,7 +129,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         boolean didInventoryChange = false;
         keg.updateTemperature();
         if (keg.hasInput()) {
-            Optional<KegRecipe> recipe = keg.getMatchingRecipe(new RecipeWrapper(keg.inventory));
+            Optional<KegRecipe> recipe = keg.getMatchingRecipe(new RecipeWrapper(keg));
             if (recipe.isPresent() && keg.canFerment(recipe.get())) {
                 didInventoryChange = keg.processFermenting(recipe.get(), keg);
             } else {
@@ -146,7 +144,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
             if (!keg.doesDrinkHaveContainer(drinkStack)) {
                 keg.moveDrinkToOutput();
                 didInventoryChange = true;
-            } else if (!keg.inventory.getStack(6).isEmpty()) {
+            } else if (!keg.getStack(6).isEmpty()) {
                 keg.useStoredContainersOnMeal();
                 didInventoryChange = true;
             }
@@ -277,7 +275,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
 
     private boolean hasInput() {
         for (int i = 0; i < 5; ++i) {
-            if (!inventory.getStack(i).isEmpty()) {
+            if (!getStack(i).isEmpty()) {
                 return true;
             }
         }
@@ -291,19 +289,19 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
             if (resultStack.isEmpty()) {
                 return false;
             } else {
-                ItemStack fluidStack = this.inventory.getStack(4);
-                ItemStack storedContainerStack = this.inventory.getStack(8);
+                ItemStack fluidStack = this.getStack(4);
+                ItemStack storedContainerStack = this.getStack(8);
                 if (!storedContainerStack.isEmpty() && fluidStack.getItem().getRecipeRemainder() != null && !fluidStack.getItem().getRecipeRemainder().equals(storedContainerStack.getItem())) {
                     return false;
                 } else if (storedContainerStack.getCount() >= storedContainerStack.getMaxCount()) {
                     return false;
                 } else {
-                    ItemStack storedDrinkStack = this.inventory.getStack(5);
+                    ItemStack storedDrinkStack = this.getStack(5);
                     if (storedDrinkStack.isEmpty()) {
                         return true;
                     } else if (!storedDrinkStack.isItemEqual(resultStack)) {
                         return false;
-                    } else if (storedDrinkStack.getCount() + resultStack.getCount() <= this.inventory.getMaxCountForSlot(5)) {
+                    } else if (storedDrinkStack.getCount() + resultStack.getCount() <= this.getMaxCountForSlot(5)) {
                         return true;
                     } else {
                         return storedDrinkStack.getCount() + resultStack.getCount() <= resultStack.getMaxCount();
@@ -327,42 +325,42 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
                 this.fermentTime = 0;
                 this.drinkContainerStack = recipe.getOutputContainer();
                 ItemStack resultStack = recipe.getOutput();
-                ItemStack storedMealStack = this.inventory.getStack(5);
+                ItemStack storedMealStack = this.getStack(5);
                 if (storedMealStack.isEmpty()) {
-                    this.inventory.setStack(5, resultStack.copy());
+                    this.setStack(5, resultStack.copy());
                 } else if (storedMealStack.isItemEqual(resultStack)) {
                     storedMealStack.increment(resultStack.getCount());
                 }
 
-                ItemStack storedContainers = this.inventory.getStack(8);
-                ItemStack fluidStack = this.inventory.getStack(4);
+                ItemStack storedContainers = this.getStack(8);
+                ItemStack fluidStack = this.getStack(4);
                 if (storedContainers.isEmpty()) {
-                    this.inventory.setStack(8, fluidStack.copy().getRecipeRemainder());
+                    this.setStack(8, fluidStack.copy().getRecipeRemainder());
                     if (fluidStack.getCount() == 1) {
-                        this.inventory.setStack(4, ItemStack.EMPTY);
+                        this.setStack(4, ItemStack.EMPTY);
                     } else {
-                        this.inventory.setStack(4, new ItemStack(fluidStack.getItem(), fluidStack.getCount() - 1));
+                        this.setStack(4, new ItemStack(fluidStack.getItem(), fluidStack.getCount() - 1));
                     }
-                } else if (storedContainers.isItemEqual(this.inventory.getStack(4).getRecipeRemainder())) {
+                } else if (storedContainers.isItemEqual(this.getStack(4).getRecipeRemainder())) {
                     storedContainers.increment(resultStack.getCount());
                     if (fluidStack.getCount() == 1) {
-                        this.inventory.setStack(4, ItemStack.EMPTY);
+                        this.setStack(4, ItemStack.EMPTY);
                     } else {
-                        this.inventory.setStack(4, new ItemStack(fluidStack.getItem(), fluidStack.getCount() - 1));
+                        this.setStack(4, new ItemStack(fluidStack.getItem(), fluidStack.getCount() - 1));
                     }
                 }
 
                 keg.setLastRecipe(recipe);
 
                 for (int i = 0; i < 4; ++i) {
-                    ItemStack slotStack = this.inventory.getStack(i);
+                    ItemStack slotStack = this.getStack(i);
                     if (slotStack.getItem().hasRecipeRemainder()) {
                         Direction direction = this.getCachedState().get(KegBlock.FACING).rotateYCounterclockwise();
                         double x = (double) this.getPos().getX() + 0.5 + (double) direction.getOffsetX() * 0.25;
                         double y = (double) this.getPos().getY() + 0.7;
                         double z = (double) this.getPos().getZ() + 0.5 + (double) direction.getOffsetZ() * 0.25;
 
-                        ItemEntity entity = new ItemEntity(world, x, y, z, this.inventory.getStack(i).getRecipeRemainder());
+                        ItemEntity entity = new ItemEntity(world, x, y, z, this.getStack(i).getRecipeRemainder());
                         entity.setVelocity(((float) direction.getOffsetX() * 0.08F), 0.25, ((float) direction.getOffsetZ() * 0.08F));
                         world.spawnEntity(entity);
                     }
@@ -413,32 +411,26 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
         ExperienceOrbEntity.spawn(level, pos, expTotal);
     }
 
-    public ItemStackHandler getInventory() {
-        return inventory;
-    }
 
     public ItemStack getDrink() {
-        return this.inventory.getStack(5);
+        return this.getStack(5);
     }
 
     public DefaultedList<ItemStack> getDroppableInventory() {
         DefaultedList<ItemStack> drops = DefaultedList.of();
-
-        for (int i = 0; i < 9; ++i) {
-            if (i != 5) {
-                drops.add(this.inventory.getStack(i));
-            }
+        for (int i = 0; i < INVENTORY_SIZE; ++i) {
+            drops.add(i == MEAL_DISPLAY_SLOT ? ItemStack.EMPTY : getStack(i));
         }
 
         return drops;
     }
 
     private void moveDrinkToOutput() {
-        ItemStack mealStack = inventory.getStack(5);
-        ItemStack outputStack = inventory.getStack(7);
+        ItemStack mealStack = getStack(5);
+        ItemStack outputStack = getStack(7);
         int mealCount = Math.min(mealStack.getCount(), mealStack.getMaxCount() - outputStack.getCount());
         if (outputStack.isEmpty()) {
-            inventory.setStack(7, mealStack.split(mealCount));
+            setStack(7, mealStack.split(mealCount));
         } else if (outputStack.getItem() == mealStack.getItem()) {
             mealStack.decrement(mealCount);
             outputStack.increment(mealCount);
@@ -446,16 +438,16 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
     }
 
     private void useStoredContainersOnMeal() {
-        ItemStack mealStack = inventory.getStack(5);
-        ItemStack containerInputStack = inventory.getStack(6);
-        ItemStack outputStack = inventory.getStack(7);
+        ItemStack mealStack = getStack(5);
+        ItemStack containerInputStack = getStack(6);
+        ItemStack outputStack = getStack(7);
 
         if (isContainerValid(containerInputStack) && outputStack.getCount() < outputStack.getMaxCount()) {
             int smallerStackCount = Math.min(mealStack.getCount(), containerInputStack.getCount());
             int mealCount = Math.min(smallerStackCount, mealStack.getMaxCount() - outputStack.getCount());
             if (outputStack.isEmpty()) {
                 containerInputStack.decrement(mealCount);
-                inventory.setStack(7, mealStack.split(mealCount));
+                setStack(7, mealStack.split(mealCount));
             } else if (outputStack.getItem() == mealStack.getItem()) {
                 mealStack.decrement(mealCount);
                 containerInputStack.decrement(mealCount);
@@ -512,52 +504,47 @@ public class KegBlockEntity extends SyncedBlockEntity implements ExtendedScreenH
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return writeItems(new NbtCompound());
-    }
+        NbtCompound nbt = new NbtCompound();
+        writeNbt(nbt);
 
-    private ItemStackHandler createHandler() {
-        return new ItemStackHandler(10) {
-            @Override
-            protected void onInventorySlotChanged(int slot) {
-                if (slot >= 0 && slot < 5) {
-                    checkNewRecipe = true;
-                }
-                inventoryChanged();
-            }
-        };
-    }
-
-    private PropertyDelegate createIntArray() {
-        return new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch (index) {
-                    case 0 -> KegBlockEntity.this.fermentTime;
-                    case 1 -> KegBlockEntity.this.fermentTimeTotal;
-                    case 2 -> KegBlockEntity.this.kegTemperature;
-                    case 3 -> KegBlockEntity.this.getTemperature();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch (index) {
-                    case 0 -> KegBlockEntity.this.fermentTime = value;
-                    case 1 -> KegBlockEntity.this.fermentTimeTotal = value;
-                    case 2 -> KegBlockEntity.this.kegTemperature = value;
-                }
-            }
-
-            @Override
-            public int size() {
-                return 4;
-            }
-        };
+        return nbt;
     }
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(pos);
+    }
+
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return inventory;
+    }
+
+    private class KegSyncedData implements PropertyDelegate {
+
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> KegBlockEntity.this.fermentTime;
+                case 1 -> KegBlockEntity.this.fermentTimeTotal;
+                case 2 -> KegBlockEntity.this.kegTemperature;
+                case 3 -> KegBlockEntity.this.getTemperature();
+                default -> 0;
+            };
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0 -> KegBlockEntity.this.fermentTime = value;
+                case 1 -> KegBlockEntity.this.fermentTimeTotal = value;
+                case 2 -> KegBlockEntity.this.kegTemperature = value;
+            }
+        }
+
+        @Override
+        public int size() {
+            return 4;
+        }
     }
 }

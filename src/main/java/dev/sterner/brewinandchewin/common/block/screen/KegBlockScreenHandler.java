@@ -1,10 +1,8 @@
 package dev.sterner.brewinandchewin.common.block.screen;
 
 import com.mojang.datafixers.util.Pair;
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.slot.CookingPotMealSlot;
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.slot.SlotItemHandler;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
@@ -32,7 +30,6 @@ public class KegBlockScreenHandler extends ScreenHandler {
     public static final Identifier EMPTY_CONTAINER_SLOT_MUG = new Identifier(BrewinAndChewin.MODID, "item/empty_container_slot_mug");
 
     public final KegBlockEntity blockEntity;
-    public final ItemHandler inventory;
     private final PropertyDelegate kegData;
     private final ScreenHandlerContext canInteractWithCallable;
     protected final World world;
@@ -40,7 +37,6 @@ public class KegBlockScreenHandler extends ScreenHandler {
     public KegBlockScreenHandler(final int windowId, final PlayerInventory playerInventory, final KegBlockEntity blockEntity, PropertyDelegate kegData) {
         super(BCScreenHandlerTypes.KEG_SCREEN_HANDLER, windowId);
         this.blockEntity = blockEntity;
-        this.inventory = blockEntity.getInventory();
         this.kegData = kegData;
         this.canInteractWithCallable = ScreenHandlerContext.create(blockEntity.getWorld(), blockEntity.getPos());
         this.world = playerInventory.player.getWorld();
@@ -53,22 +49,22 @@ public class KegBlockScreenHandler extends ScreenHandler {
         int borderSlotSize = 18;
         for (int row = 0; row < 2; ++row) {
             for (int column = 0; column < 2; ++column) {
-                this.addSlot(new SlotItemHandler(inventory, (row * 2) + column,
+                this.addSlot(new Slot(blockEntity, (row * 2) + column,
                         inputStartX + (column * borderSlotSize),
                         inputStartY + (row * borderSlotSize)));
             }
         }
 
-        this.addSlot(new SlotItemHandler(this.inventory, 4, 80, 18));
-        this.addSlot(new CookingPotMealSlot(this.inventory, 5, 117, 23));
-        this.addSlot(new SlotItemHandler(this.inventory, 6, 85, 55) {
+        this.addSlot(new Slot(this.blockEntity, 4, 80, 18));
+        this.addSlot(new CookingPotMealSlot(this.blockEntity, 5, 117, 23));
+        this.addSlot(new Slot(this.blockEntity, 6, 85, 55) {
             @Override
             public Pair<Identifier, Identifier> getBackgroundSprite() {
                 return Pair.of(BLOCK_ATLAS_TEXTURE, EMPTY_CONTAINER_SLOT_MUG);
             }
         });
-        this.addSlot(new KegResultSlot(playerInventory.player, blockEntity, this.inventory, 7, 117, 55));
-        this.addSlot(new KegResultSlot(playerInventory.player, blockEntity, this.inventory, 8, 143, 55));
+        this.addSlot(new KegResultSlot(playerInventory.player, blockEntity, 7, 117, 55));
+        this.addSlot(new KegResultSlot(playerInventory.player, blockEntity, 8, 143, 55));
 
         // Main Player Inventory
         int startPlayerInvY = startY * 4 + 12;
@@ -183,22 +179,5 @@ public class KegBlockScreenHandler extends ScreenHandler {
     @Environment(CLIENT)
     public int getAdjustedTemperature() {
         return this.kegData.get(3);
-    }
-
-    public void populateRecipeFinder(RecipeMatcher helper) {
-        for (int i = 0; i < this.inventory.size(); ++i) {
-            helper.addUnenchantedInput(this.inventory.getStack(i));
-        }
-    }
-
-    public void clearCraftingSlots() {
-        for (int i = 0; i < 5; ++i) {
-            this.inventory.setStack(i, ItemStack.EMPTY);
-        }
-
-    }
-
-    public boolean matches(Recipe<? super RecipeWrapper> recipe) {
-        return recipe.matches(new RecipeWrapper(this.inventory), this.world);
     }
 }

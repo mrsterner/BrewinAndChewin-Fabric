@@ -1,6 +1,5 @@
 package dev.sterner.brewinandchewin.common.block;
 
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemStackHandler;
 import com.nhoryzon.mc.farmersdelight.util.MathUtils;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
@@ -15,6 +14,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -32,6 +32,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -175,16 +176,16 @@ public class KegBlock extends BlockWithEntity {
         if (nbt != null) {
             NbtCompound inventoryTag = nbt.getCompound("Inventory");
             if (inventoryTag.contains("Items", 9)) {
-                ItemStackHandler handler = new ItemStackHandler();
-                handler.readNbt(inventoryTag);
-                ItemStack mealStack = handler.getStack(5);
-                if (!mealStack.isEmpty()) {
-                    MutableText textServingsOf = mealStack.getCount() == 1
+                DefaultedList<ItemStack> inventory = DefaultedList.ofSize(KegBlockEntity.INVENTORY_SIZE, ItemStack.EMPTY);
+                Inventories.readNbt(inventoryTag, inventory);
+                ItemStack meal = inventory.get(KegBlockEntity.MEAL_DISPLAY_SLOT);
+                if (!meal.isEmpty()) {
+                    MutableText textServingsOf = meal.getCount() == 1
                             ? BCTextUtils.getTranslation("tooltip.keg.single_serving")
-                            : BCTextUtils.getTranslation("tooltip.keg.many_servings", mealStack.getCount());
+                            : BCTextUtils.getTranslation("tooltip.keg.many_servings", meal.getCount());
                     tooltip.add(textServingsOf.formatted(Formatting.GRAY));
-                    MutableText textMealName = mealStack.getName().copy();
-                    tooltip.add(textMealName.formatted(mealStack.getRarity().formatting));
+                    MutableText textMealName = meal.getName().copy();
+                    tooltip.add(textMealName.formatted(meal.getRarity().formatting));
                 }
             }
         } else {
@@ -217,11 +218,11 @@ public class KegBlock extends BlockWithEntity {
 
     @Override
     public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        BlockEntity tileEntity = world.getBlockEntity(pos);
-        if (tileEntity instanceof KegBlockEntity) {
-            ItemStackHandler inventory = ((KegBlockEntity) tileEntity).getInventory();
-            return MathUtils.calcRedstoneFromItemHandler(inventory);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof KegBlockEntity kegBlockEntity) {
+            return MathUtils.calcRedstoneFromItemHandler(kegBlockEntity);
         }
+
         return 0;
     }
 

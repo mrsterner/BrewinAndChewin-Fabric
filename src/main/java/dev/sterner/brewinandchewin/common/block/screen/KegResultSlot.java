@@ -1,18 +1,17 @@
 package dev.sterner.brewinandchewin.common.block.screen;
 
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.slot.SlotItemHandler;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 
-public class KegResultSlot extends SlotItemHandler {
+public class KegResultSlot extends Slot {
     public final KegBlockEntity blockEntity;
     private final PlayerEntity player;
     private int removeCount;
 
-    public KegResultSlot(PlayerEntity player, KegBlockEntity blockEntity, ItemHandler inventoryIn, int index, int xPosition, int yPosition) {
-        super(inventoryIn, index, xPosition, yPosition);
+    public KegResultSlot(PlayerEntity player, KegBlockEntity blockEntity, int index, int xPosition, int yPosition) {
+        super(blockEntity, index, xPosition, yPosition);
         this.blockEntity = blockEntity;
         this.player = player;
     }
