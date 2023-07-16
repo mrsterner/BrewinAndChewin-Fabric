@@ -44,9 +44,9 @@ public class KegResultSlot extends Slot {
 
     @Override
     protected void onCrafted(ItemStack stack) {
-        stack.onCraft(this.player.world, this.player, this.removeCount);
+        stack.onCraft(this.player.getWorld(), this.player, this.removeCount);
 
-        if (!this.player.world.isClient()) {
+        if (!this.player.getWorld().isClient()) {
             blockEntity.unlockLastRecipe(this.player);
         }
 

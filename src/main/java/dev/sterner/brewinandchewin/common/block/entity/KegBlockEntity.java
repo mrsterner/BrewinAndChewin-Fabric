@@ -16,6 +16,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -247,7 +248,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
                 if (recipe.matches(inventoryWrapper, world)) {
                     return Optional.of((KegRecipe) recipe);
                 }
-                if (recipe.getOutput().isItemEqual(getDrink())) {
+                if (ItemStack.areItemsEqual(((KegRecipe) recipe).output ,getDrink())) {
                     return Optional.empty();
                 }
             }
@@ -285,7 +286,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
     protected boolean canFerment(KegRecipe recipe) {
         int recipeTemp = recipe.getTemperature();
         if (this.hasInput() && (recipeTemp == 3 || recipeTemp == this.getTemperature())) {
-            ItemStack resultStack = recipe.getOutput();
+            ItemStack resultStack = recipe.output;
             if (resultStack.isEmpty()) {
                 return false;
             } else {
@@ -299,7 +300,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
                     ItemStack storedDrinkStack = this.getStack(5);
                     if (storedDrinkStack.isEmpty()) {
                         return true;
-                    } else if (!storedDrinkStack.isItemEqual(resultStack)) {
+                    } else if (!ItemStack.areItemsEqual(storedDrinkStack, resultStack)) {
                         return false;
                     } else if (storedDrinkStack.getCount() + resultStack.getCount() <= this.getMaxCountForSlot(5)) {
                         return true;
@@ -324,11 +325,11 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             } else {
                 this.fermentTime = 0;
                 this.drinkContainerStack = recipe.getOutputContainer();
-                ItemStack resultStack = recipe.getOutput();
+                ItemStack resultStack = recipe.output;
                 ItemStack storedMealStack = this.getStack(5);
                 if (storedMealStack.isEmpty()) {
                     this.setStack(5, resultStack.copy());
-                } else if (storedMealStack.isItemEqual(resultStack)) {
+                } else if (ItemStack.areItemsEqual(storedMealStack, resultStack)) {
                     storedMealStack.increment(resultStack.getCount());
                 }
 
@@ -341,7 +342,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
                     } else {
                         this.setStack(4, new ItemStack(fluidStack.getItem(), fluidStack.getCount() - 1));
                     }
-                } else if (storedContainers.isItemEqual(this.getStack(4).getRecipeRemainder())) {
+                } else if (ItemStack.areItemsEqual(storedContainers, this.getStack(4).getRecipeRemainder())) {
                     storedContainers.increment(resultStack.getCount());
                     if (fluidStack.getCount() == 1) {
                         this.setStack(4, ItemStack.EMPTY);
@@ -383,7 +384,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
     }
 
     public void unlockLastRecipe(PlayerEntity player) {
-        List<Recipe<?>> usedRecipes = this.getUsedRecipesAndPopExperience(player.world, player.getPos());
+        List<Recipe<?>> usedRecipes = this.getUsedRecipesAndPopExperience(player.getWorld(), player.getPos());
         player.unlockRecipes(usedRecipes);
         this.usedRecipeTracker.clear();
     }
@@ -472,7 +473,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
         if (containerItem.isEmpty()) {
             return false;
         } else {
-            return !this.drinkContainerStack.isEmpty() ? this.drinkContainerStack.isItemEqual(containerItem) : this.getDrink().getRecipeRemainder().isItemEqual(containerItem);
+            return !this.drinkContainerStack.isEmpty() ? ItemStack.areItemsEqual(this.drinkContainerStack,containerItem) : ItemStack.areItemsEqual(this.getDrink().getRecipeRemainder(),containerItem);
         }
     }
 

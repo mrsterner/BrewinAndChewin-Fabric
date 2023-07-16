@@ -14,6 +14,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -31,7 +32,7 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
     private final String group;
     public final DefaultedList<Ingredient> ingredientList;
     private final Ingredient fluidItem;
-    private final ItemStack output;
+    public final ItemStack output;
     private final ItemStack container;
     private final float experience;
     private final int fermentTime;
@@ -87,10 +88,6 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
         }
     }
 
-    @Override
-    public ItemStack craft(RecipeWrapper inventory) {
-        return output.copy();
-    }
 
     @Override
     public boolean fits(int width, int height) {
@@ -98,7 +95,12 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getOutput() {
+    public ItemStack craft(RecipeWrapper inventory, DynamicRegistryManager registryManager) {
+        return output.copy();
+    }
+
+    @Override
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return this.output;
     }
 

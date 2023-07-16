@@ -4,24 +4,25 @@ import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
+import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 
 import java.util.function.Consumer;
 
 public class BCRecipeProvider extends FabricRecipeProvider {
     public static final int FERMENTING_TIME = 12000;        // 5 seconds
 
-    public BCRecipeProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public BCRecipeProvider(FabricDataOutput output) {
+        super(output);
     }
 
-    @Override
     protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
 
         //Brews
@@ -151,7 +152,7 @@ public class BCRecipeProvider extends FabricRecipeProvider {
                 .addIngredient(Items.SUGAR)
                 .build(exporter);
 
-        ShapelessRecipeJsonBuilder.create(BCObjects.HAM_AND_CHEESE_SANDWICH, 2)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, BCObjects.HAM_AND_CHEESE_SANDWICH, 2)
                 .input(Items.BREAD)
                 .input(ItemsRegistry.SMOKED_HAM.get())
                 .input(BCObjects.FLAXEN_CHEESE_WEDGE)
@@ -159,7 +160,7 @@ public class BCRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_cheese", InventoryChangedCriterion.Conditions.items(BCObjects.FLAXEN_CHEESE_WEDGE))
                 .offerTo(exporter);
         //Crafting
-        ShapedRecipeJsonBuilder.create(BCObjects.PIZZA)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, BCObjects.PIZZA)
                 .pattern("fff")
                 .pattern("mtp")
                 .pattern("www")
@@ -171,7 +172,7 @@ public class BCRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_cheese", InventoryChangedCriterion.Conditions.items(BCObjects.FLAXEN_CHEESE_WEDGE))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(BCObjects.KEG)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, BCObjects.KEG)
                 .pattern("ipi")
                 .pattern("ihi")
                 .pattern("ppp")
@@ -181,7 +182,7 @@ public class BCRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_honeycomb", InventoryChangedCriterion.Conditions.items(Items.HONEYCOMB))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(BCObjects.TANKARD, 4)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, BCObjects.TANKARD, 4)
                 .pattern("p p")
                 .pattern("i i")
                 .pattern("ppp")
@@ -189,5 +190,10 @@ public class BCRecipeProvider extends FabricRecipeProvider {
                 .input('p', ItemTags.PLANKS)
                 .criterion("has_nugget", InventoryChangedCriterion.Conditions.items(Items.IRON_NUGGET))
                 .offerTo(exporter);
+    }
+
+    @Override
+    public void generate(Consumer<RecipeJsonProvider> exporter) {
+
     }
 }

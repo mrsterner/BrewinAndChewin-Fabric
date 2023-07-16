@@ -84,7 +84,7 @@ public class PizzaBlock extends Block {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.down()).getMaterial().isSolid();
+        return worldIn.getBlockState(pos.down()).isSolid();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class PizzaBlock extends Block {
     }
 
     @Override
-    public boolean canMobSpawnInside() {
+    public boolean canMobSpawnInside(BlockState state) {
         return false;
     }
 }

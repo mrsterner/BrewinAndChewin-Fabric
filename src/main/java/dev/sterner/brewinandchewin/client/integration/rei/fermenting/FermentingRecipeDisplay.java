@@ -24,7 +24,7 @@ public class FermentingRecipeDisplay extends BasicDisplay {
     final DefaultedList<Ingredient> ingredients;
 
     public FermentingRecipeDisplay(KegRecipe recipe) {
-        super(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getOutput())), Optional.ofNullable(recipe.getId()));
+        super(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.output)), Optional.ofNullable(recipe.getId()));
 
         this.ingredients = recipe.ingredientList;
         containerOutput = EntryIngredients.of(recipe.getOutputContainer());

@@ -91,7 +91,7 @@ public class KegBlockScreenHandler extends ScreenHandler {
     private static KegBlockEntity getBlockEntity(final PlayerInventory playerInventory, final PacketByteBuf data) {
         Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
         Objects.requireNonNull(data, "data cannot be null");
-        final BlockEntity tileAtPos = playerInventory.player.world.getBlockEntity(data.readBlockPos());
+        final BlockEntity tileAtPos = playerInventory.player.getWorld().getBlockEntity(data.readBlockPos());
 
         if (tileAtPos instanceof KegBlockEntity kegBlockEntity) {
             return kegBlockEntity;
@@ -106,7 +106,7 @@ public class KegBlockScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack transferSlot(PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         int indexDrinkDisplay = 4;
         int indexFluidItemInput = 5;
         int indexContainerInput = 6;

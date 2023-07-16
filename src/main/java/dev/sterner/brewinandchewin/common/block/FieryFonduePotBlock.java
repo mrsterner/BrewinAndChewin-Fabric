@@ -60,7 +60,7 @@ public class FieryFonduePotBlock extends Block {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite());
     }
 
     @Override
@@ -74,7 +74,7 @@ public class FieryFonduePotBlock extends Block {
         ItemStack bowl = new ItemStack(Items.BOWL);
         ItemStack fondue = new ItemStack(BCObjects.FIERY_FONDUE);
         ItemStack heldStack = player.getStackInHand(hand);
-        if (heldStack.isItemEqual(bowl)) {
+        if (ItemStack.areItemsEqual(heldStack, bowl)) {
             if (!player.getAbilities().creativeMode) {
                 heldStack.decrement(1);
             }

@@ -6,8 +6,9 @@ import dev.sterner.brewinandchewin.common.statuseffect.SatisfactionEffect;
 import dev.sterner.brewinandchewin.common.statuseffect.TipsyEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,6 +26,6 @@ public class BCStatusEffects {
     }
 
     public static void init() {
-        STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registry.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
+        STATUS_EFFECTS.keySet().forEach(effect -> Registry.register(Registries.STATUS_EFFECT, STATUS_EFFECTS.get(effect), effect));
     }
 }

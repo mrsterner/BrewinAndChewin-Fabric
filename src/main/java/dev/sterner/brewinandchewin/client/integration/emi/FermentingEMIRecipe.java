@@ -8,7 +8,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.recipe.KegRecipe;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +35,7 @@ public class FermentingEMIRecipe implements EmiRecipe {
         this.temp = recipe.getTemperature();
         this.liquid = EmiIngredient.of(recipe.getFluidItem());
         this.ingredients = recipe.ingredientList.stream().map(EmiIngredient::of).toList();
-        this.output = EmiStack.of(recipe.getOutput());
+        this.output = EmiStack.of(recipe.output);
     }
 
     @Override

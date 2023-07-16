@@ -64,7 +64,7 @@ public class BoozeItem extends DrinkableItem {
             tooltip.add(textTipsy.formatted(Formatting.RED));
         }
         BCTextUtils.addFoodEffectTooltip(stack, tooltip, 1.0F);
-        if (stack.isItemEqual(new ItemStack(BCObjects.DREAD_NOG))) {
+        if (ItemStack.areItemsEqual(stack, new ItemStack(BCObjects.DREAD_NOG))) {
             MutableText textEmpty = BCTextUtils.getTranslation("tooltip." + this);
             tooltip.add(textEmpty.formatted(Formatting.RED));
         }

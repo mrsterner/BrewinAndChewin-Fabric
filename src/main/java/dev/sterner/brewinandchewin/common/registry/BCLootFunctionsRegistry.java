@@ -4,8 +4,9 @@ import dev.sterner.brewinandchewin.common.loot.CopyDrinkFunction;
 import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootFunction;
 import net.minecraft.loot.function.LootFunctionType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.function.Supplier;
 
@@ -26,7 +27,7 @@ public enum BCLootFunctionsRegistry {
         BCLootFunctionsRegistry[] var0 = values();
 
         for (BCLootFunctionsRegistry value : var0) {
-            Registry.register(Registry.LOOT_FUNCTION_TYPE, new Identifier("brewinandchewin", value.pathName), value.type());
+            Registry.register(Registries.LOOT_FUNCTION_TYPE, new Identifier("brewinandchewin", value.pathName), value.type());
         }
 
     }

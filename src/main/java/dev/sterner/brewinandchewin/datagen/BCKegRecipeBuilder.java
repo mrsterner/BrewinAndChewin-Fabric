@@ -10,9 +10,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -77,12 +78,12 @@ public class BCKegRecipeBuilder {
     }
 
     public void build(Consumer<RecipeJsonProvider> consumerIn) {
-        Identifier location = Registry.ITEM.getId(this.result);
+        Identifier location = Registries.ITEM.getId(this.result);
         this.build(consumerIn, BrewinAndChewin.MODID + ":fermenting/" + location.getPath());
     }
 
     public void build(Consumer<RecipeJsonProvider> consumerIn, String save) {
-        Identifier resourcelocation = Registry.ITEM.getId(this.result);
+        Identifier resourcelocation = Registries.ITEM.getId(this.result);
         if ((new Identifier(save)).equals(resourcelocation)) {
             throw new IllegalStateException("Fermenting Recipe " + save + " should remove its 'save' argument");
         } else {
@@ -127,7 +128,7 @@ public class BCKegRecipeBuilder {
             json.add("ingredients", arrayIngredients);
 
             JsonObject objectResult = new JsonObject();
-            objectResult.addProperty("item", Registry.ITEM.getKey(this.result).get().getValue().toString());
+            objectResult.addProperty("item", Registries.ITEM.getKey(this.result).get().getValue().toString());
             if (this.count > 1) {
                 objectResult.addProperty("count", this.count);
             }
@@ -135,12 +136,12 @@ public class BCKegRecipeBuilder {
 
             if (this.container != null) {
                 JsonObject objectContainer = new JsonObject();
-                objectContainer.addProperty("item", Registry.ITEM.getKey(this.container).get().getValue().toString());
+                objectContainer.addProperty("item", Registries.ITEM.getKey(this.container).get().getValue().toString());
                 json.add("container", objectContainer);
             }
             if (this.liquid != null) {
                 JsonObject objectLiquid = new JsonObject();
-                objectLiquid.addProperty("item", Registry.ITEM.getKey(this.liquid).get().getValue().toString());
+                objectLiquid.addProperty("item", Registries.ITEM.getKey(this.liquid).get().getValue().toString());
                 json.add("liquid", objectLiquid);
             }
             if (this.experience > 0) {

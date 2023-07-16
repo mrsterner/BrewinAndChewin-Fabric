@@ -130,7 +130,7 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
-    public boolean canMobSpawnInside() {
+    public boolean canMobSpawnInside(BlockState state) {
         return true;
     }
 
@@ -138,13 +138,13 @@ public class ItemCoasterBlock extends BlockWithEntity implements Waterloggable {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluid = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite()).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
     }
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() :
