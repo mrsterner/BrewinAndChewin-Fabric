@@ -4,6 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.screen.KegBlockScreenHandler;
 import dev.sterner.brewinandchewin.common.util.BCTextUtils;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ingame.AbstractFurnaceScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.recipebook.RecipeBookProvider;
 import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
@@ -47,14 +49,14 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> {
     }
 
     @Override
-    public void render(MatrixStack ms, final int mouseX, final int mouseY, float partialTicks) {
-        this.renderBackground(ms);
-        super.render(ms, mouseX, mouseY, partialTicks);
-        this.renderTemperatureTooltip(ms, mouseX, mouseY);
-        this.renderMealDisplayTooltip(ms, mouseX, mouseY);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        super.render(context, mouseX, mouseY, delta);
+        this.renderTemperatureTooltip(context, mouseX, mouseY);
+        this.renderMealDisplayTooltip(context, mouseX, mouseY);
     }
 
-    private void renderTemperatureTooltip(MatrixStack ms, int mouseX, int mouseY) {
+    private void renderTemperatureTooltip(DrawContext ctx, int mouseX, int mouseY) {
         if (this.isPointWithinBounds(77, 39, 33, 4, mouseX, mouseY)) {
             List<Text> tooltip = new ArrayList<>();
             MutableText key = null;
@@ -75,11 +77,12 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> {
                 key = BCTextUtils.getTranslation("container.keg.hot");
             }
             tooltip.add(key);
-            this.renderTooltip(ms, tooltip, mouseX, mouseY);
+
+            ctx.drawTooltip(this.textRenderer, tooltip, mouseX, mouseY);
         }
     }
 
-    protected void renderMealDisplayTooltip(MatrixStack ms, int mouseX, int mouseY) {
+    protected void renderMealDisplayTooltip(DrawContext ctx, int mouseX, int mouseY) {
         if (this.client != null && this.client.player != null && this.handler.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.hasStack()) {
             if (this.focusedSlot.id == 5) {
                 List<Text> tooltip = new ArrayList<>();
@@ -92,56 +95,56 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> {
 
                 tooltip.add(BCTextUtils.getTranslation("container.keg.served_in", container).formatted(Formatting.GRAY));
 
-                this.renderTooltip(ms, tooltip, mouseX, mouseY);
+                ctx.drawTooltip(this.textRenderer, tooltip, mouseX, mouseY);
             } else {
-                this.renderTooltip(ms, this.focusedSlot.getStack(), mouseX, mouseY);
+                ctx.drawItemTooltip(textRenderer, this.focusedSlot.getStack(), mouseX, mouseY);
+
             }
         }
     }
 
     @Override
-    protected void drawForeground(MatrixStack ms, int mouseX, int mouseY) {
-        super.drawForeground(ms, mouseX, mouseY);
-        this.textRenderer.draw(ms, this.playerInventoryTitle, 8.0f, (float) (this.backgroundHeight - 96 + 2), 4210752);
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        super.drawForeground(context, mouseX, mouseY);
+        context.drawText(this.textRenderer, this.playerInventoryTitle, 8, (this.backgroundHeight - 96 + 2), 4210752, false);
     }
 
+
     @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         if (this.client == null) {
             return;
         }
 
-        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
-        this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-
+        context.drawTexture(BACKGROUND_TEXTURE, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
         // Render progress arrow
         int l = this.handler.getFermentProgressionScaled();
-        this.drawTexture(matrices, this.x + PROGRESS_ARROW.x, this.y + PROGRESS_ARROW.y, 176, 28, l + 1, PROGRESS_ARROW.height);
+        context.drawTexture(BACKGROUND_TEXTURE, this.x + PROGRESS_ARROW.x, this.y + PROGRESS_ARROW.y, 176, 28, l + 1, PROGRESS_ARROW.height);
 
         int temp = this.handler.getTemperature();
         if (temp < -4 && temp > -9) {
-            this.drawTexture(matrices, this.x + COLD_BAR.x, this.y + COLD_BAR.y, 182, 0, COLD_BAR.width, COLD_BAR.height);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + COLD_BAR.x, this.y + COLD_BAR.y, 182, 0, COLD_BAR.width, COLD_BAR.height);
         }
         if (temp < -8) {
-            this.drawTexture(matrices, this.x + COLD_BAR.x, this.y + COLD_BAR.y, 182, 0, COLD_BAR.width, COLD_BAR.height);
-            this.drawTexture(matrices, this.x + FRIGID_BAR.x, this.y + FRIGID_BAR.y, 176, 0, FRIGID_BAR.width, FRIGID_BAR.height);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + COLD_BAR.x, this.y + COLD_BAR.y, 182, 0, COLD_BAR.width, COLD_BAR.height);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + FRIGID_BAR.x, this.y + FRIGID_BAR.y, 176, 0, FRIGID_BAR.width, FRIGID_BAR.height);
         }
         if (temp > 4 && temp < 9) {
-            this.drawTexture(matrices, this.x + WARM_BAR.x, this.y + WARM_BAR.y, 195, 0, WARM_BAR.width, WARM_BAR.height);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + WARM_BAR.x, this.y + WARM_BAR.y, 195, 0, WARM_BAR.width, WARM_BAR.height);
         }
         if (temp > 8) {
-            this.drawTexture(matrices, this.x + WARM_BAR.x, this.y + WARM_BAR.y, 195, 0, WARM_BAR.width, WARM_BAR.height);
-            this.drawTexture(matrices, this.x + HOT_BAR.x, this.y + HOT_BAR.y, 202, 0, HOT_BAR.width, HOT_BAR.height);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + WARM_BAR.x, this.y + WARM_BAR.y, 195, 0, WARM_BAR.width, WARM_BAR.height);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + HOT_BAR.x, this.y + HOT_BAR.y, 202, 0, HOT_BAR.width, HOT_BAR.height);
         }
 
         int i = this.handler.getFermentingTicks();
         if (i > 0) {
             int j;
             j = BUBBLELENGTHS[i / 5 % 7];
-            this.drawTexture(matrices, this.x + BUBBLE_1.x, this.y + BUBBLE_1.y, 176, 4, BUBBLE_1.width, BUBBLE_1.height - j);
-            this.drawTexture(matrices, this.x + BUBBLE_2.x, this.y + BUBBLE_2.y, 186, 4, BUBBLE_2.width, BUBBLE_2.height - j);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + BUBBLE_1.x, this.y + BUBBLE_1.y, 176, 4, BUBBLE_1.width, BUBBLE_1.height - j);
+            context.drawTexture(BACKGROUND_TEXTURE, this.x + BUBBLE_2.x, this.y + BUBBLE_2.y, 186, 4, BUBBLE_2.width, BUBBLE_2.height - j);
         }
     }
 

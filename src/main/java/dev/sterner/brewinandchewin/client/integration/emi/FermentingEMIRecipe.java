@@ -71,10 +71,8 @@ public class FermentingEMIRecipe implements EmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
 
-
-        widgets.addDrawable(0, 0, 116, 56, ((matrices, mouseX, mouseY, delta) -> {
-            RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-            DrawableHelper.drawTexture(matrices, 0, 0, 29, 16, 116, 56, 256, 256);
+        widgets.addDrawable(0, 0, 116, 56, ((draw, mouseX, mouseY, delta) -> {
+            draw.drawTexture(GUI_TEXTURE, 0, 0, 29, 16, 116, 56, 256, 256);
         }));
 
         List<EmiIngredient> v = this.ingredients;
@@ -90,28 +88,24 @@ public class FermentingEMIRecipe implements EmiRecipe {
         widgets.addSlot(getOutputs().get(0), 93 - 1, 39 - 1);
 
         if (temp <= 2) {
-            widgets.addDrawable(COLD_BAR.x, COLD_BAR.y, COLD_BAR.width, COLD_BAR.height, ((matrices, mouseX, mouseY, delta) -> {
-                RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-                DrawableHelper.drawTexture(matrices, 0, 0, 182, 0, COLD_BAR.width, COLD_BAR.height, 256, 256);
+            widgets.addDrawable(COLD_BAR.x, COLD_BAR.y, COLD_BAR.width, COLD_BAR.height, ((draw, mouseX, mouseY, delta) -> {
+                draw.drawTexture(GUI_TEXTURE, 0, 0, 182, 0, COLD_BAR.width, COLD_BAR.height, 256, 256);
             }));
 
         }
         if (temp <= 1) {
-            widgets.addDrawable(FRIGID_BAR.x, FRIGID_BAR.y, FRIGID_BAR.width, FRIGID_BAR.height, ((matrices, mouseX, mouseY, delta) -> {
-                RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-                DrawableHelper.drawTexture(matrices, 0, 0, 176, 0, FRIGID_BAR.width, FRIGID_BAR.height, 256, 256);
+            widgets.addDrawable(FRIGID_BAR.x, FRIGID_BAR.y, FRIGID_BAR.width, FRIGID_BAR.height, ((draw, mouseX, mouseY, delta) -> {
+                draw.drawTexture(GUI_TEXTURE, 0, 0, 176, 0, FRIGID_BAR.width, FRIGID_BAR.height, 256, 256);
             }));
         }
         if (temp >= 4) {
-            widgets.addDrawable(WARM_BAR.x, WARM_BAR.y, WARM_BAR.width, WARM_BAR.height, ((matrices, mouseX, mouseY, delta) -> {
-                RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-                DrawableHelper.drawTexture(matrices, 0, 0, 195, 0, WARM_BAR.width, WARM_BAR.height, 256, 256);
+            widgets.addDrawable(WARM_BAR.x, WARM_BAR.y, WARM_BAR.width, WARM_BAR.height, ((draw, mouseX, mouseY, delta) -> {
+                draw.drawTexture(GUI_TEXTURE, 0, 0, 195, 0, WARM_BAR.width, WARM_BAR.height, 256, 256);
             }));
         }
         if (temp >= 5) {
-            widgets.addDrawable(HOT_BAR.x, HOT_BAR.y, HOT_BAR.width, HOT_BAR.height, ((matrices, mouseX, mouseY, delta) -> {
-                RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-                DrawableHelper.drawTexture(matrices, 0, 0, 202, 0, HOT_BAR.width, HOT_BAR.height, 256, 256);
+            widgets.addDrawable(HOT_BAR.x, HOT_BAR.y, HOT_BAR.width, HOT_BAR.height, ((draw, mouseX, mouseY, delta) -> {
+                draw.drawTexture(GUI_TEXTURE, 0, 0, 202, 0, HOT_BAR.width, HOT_BAR.height, 256, 256);
             }));
         }
     }

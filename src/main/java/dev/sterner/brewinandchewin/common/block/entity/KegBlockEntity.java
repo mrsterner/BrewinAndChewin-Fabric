@@ -223,15 +223,19 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
     }
 
     public int getTemperature() {
-        if (this.kegTemperature < -4) {
-            return 1;
-        } else if (this.kegTemperature < -1) {
+        if (this.kegTemperature < -4 && this.kegTemperature > -9) {
             return 2;
-        } else if (this.kegTemperature < 2) {
-            return 3;
-        } else {
-            return this.kegTemperature < 5 ? 4 : 5;
         }
+        if (this.kegTemperature < -8) {
+            return 1;
+        }
+        if (this.kegTemperature > 4 && this.kegTemperature < 9) {
+            return 4;
+        }
+        if (this.kegTemperature > 8) {
+            return 5;
+        }
+        return 3;
     }
 
     public static void animationTick(World level, BlockPos pos, BlockState state, KegBlockEntity keg) {
@@ -248,7 +252,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
                 if (recipe.matches(inventoryWrapper, world)) {
                     return Optional.of((KegRecipe) recipe);
                 }
-                if (ItemStack.areItemsEqual(((KegRecipe) recipe).output ,getDrink())) {
+                if (ItemStack.areItemsEqual(recipe.getOutput(world.getRegistryManager()) ,getDrink())) {
                     return Optional.empty();
                 }
             }
@@ -284,9 +288,11 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
     }
 
     protected boolean canFerment(KegRecipe recipe) {
+        if (world == null) return false;
+
         int recipeTemp = recipe.getTemperature();
         if (this.hasInput() && (recipeTemp == 3 || recipeTemp == this.getTemperature())) {
-            ItemStack resultStack = recipe.output;
+            ItemStack resultStack = recipe.getOutput(world.getRegistryManager());
             if (resultStack.isEmpty()) {
                 return false;
             } else {
@@ -325,7 +331,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             } else {
                 this.fermentTime = 0;
                 this.drinkContainerStack = recipe.getOutputContainer();
-                ItemStack resultStack = recipe.output;
+                ItemStack resultStack = recipe.getOutput(world.getRegistryManager());
                 ItemStack storedMealStack = this.getStack(5);
                 if (storedMealStack.isEmpty()) {
                     this.setStack(5, resultStack.copy());

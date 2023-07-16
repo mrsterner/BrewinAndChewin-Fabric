@@ -46,7 +46,7 @@ public class BCLanguageProvider extends FabricLanguageProvider {
             builder.add(e.getTranslationKey(), name);
         });
 
-        builder.add("itemGroup." + BrewinAndChewin.MODID + ".main", "Brewin' and Chewin'");
+        builder.add(BrewinAndChewin.MODID + ".group.main", "Brewin' and Chewin'");
         builder.add("brewinandchewin.container.keg", "Keg");
         builder.add("brewinandchewin.tooltip.tipsy1", "Tipsy I (%s:00)");
         builder.add("brewinandchewin.tooltip.tipsy2", "Tipsy II (%s:00)");

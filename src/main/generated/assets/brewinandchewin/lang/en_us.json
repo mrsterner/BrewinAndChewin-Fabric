@@ -16,6 +16,7 @@
   "brewinandchewin.container.keg.normal": "Temperature: Normal",
   "brewinandchewin.container.keg.served_in": "Served in: %s",
   "brewinandchewin.container.keg.warm": "Temperature: Warm",
+  "brewinandchewin.group.main": "Brewin' and Chewin'",
   "brewinandchewin.jei.fermenting": "Fermenting",
   "brewinandchewin.rei.fermenting": "Fermenting",
   "brewinandchewin.tooltip.dread_nog": "Bad Omen (10:00)",
@@ -61,6 +62,5 @@
   "item.brewinandchewin.tankard": "Tankard",
   "item.brewinandchewin.vegetable_omelet": "Vegetable Omelet",
   "item.brewinandchewin.vodka": "Vodka",
-  "item.brewinandchewin.withering_dross": "Withering Dross",
-  "itemGroup.brewinandchewin.main": "Brewin' and Chewin'"
+  "item.brewinandchewin.withering_dross": "Withering Dross"
 }

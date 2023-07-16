@@ -123,9 +123,9 @@ public class KegBlock extends BlockWithEntity {
         Direction direction = ctx.getPlayerLookDirection();
         FluidState fluid = ctx.getWorld().getFluidState(ctx.getBlockPos());
         if (direction == Direction.UP || direction == Direction.DOWN) {
-            return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite()).with(VERTICAL, true).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
+            return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(VERTICAL, true).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
         }
-        return this.getDefaultState().with(FACING, ctx.getPlayerLookDirection().getOpposite()).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
     }
 
     @Override
