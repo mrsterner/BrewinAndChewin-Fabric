@@ -2,16 +2,21 @@ package dev.sterner.brewinandchewin;
 
 import dev.sterner.brewinandchewin.common.registry.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BrewinAndChewin implements ModInitializer {
     public static final String MODID = "brewinandchewin";
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, "main"), () -> new ItemStack(BCObjects.BEER));
+    public static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MODID, "main"));
 
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -23,5 +28,10 @@ public class BrewinAndChewin implements ModInitializer {
         BCRecipeTypes.init();
         BCScreenHandlerTypes.init();
         BCLootFunctionsRegistry.init();
+
+        Registry.register(Registries.ITEM_GROUP, ITEM_GROUP, FabricItemGroup.builder()
+                .icon(() -> new ItemStack(BCObjects.BEER))
+                .displayName(Text.translatable(MODID + ".group.main"))
+                .build());
     }
 }
