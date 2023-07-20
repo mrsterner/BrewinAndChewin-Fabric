@@ -4,10 +4,9 @@ package dev.sterner.brewinandchewin.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.util.RecipeMatcher;
-import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
@@ -19,13 +18,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
-public class KegRecipe implements Recipe<RecipeWrapper> {
+public class KegRecipe implements Recipe<Inventory> {
     public static final int INPUT_SLOTS = 4;
 
     private final Identifier id;
@@ -69,7 +66,7 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inventory, World world) {
+    public boolean matches(Inventory inventory, World world) {
         List<ItemStack> inputs = new ArrayList();
         int i = 0;
 
@@ -88,15 +85,14 @@ public class KegRecipe implements Recipe<RecipeWrapper> {
         }
     }
 
+    @Override
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
+        return output.copy();
+    }
 
     @Override
     public boolean fits(int width, int height) {
         return width * height >= ingredientList.size();
-    }
-
-    @Override
-    public ItemStack craft(RecipeWrapper inventory, DynamicRegistryManager registryManager) {
-        return output.copy();
     }
 
     @Override

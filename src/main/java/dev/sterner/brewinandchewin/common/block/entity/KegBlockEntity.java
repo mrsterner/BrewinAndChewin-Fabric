@@ -22,6 +22,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -157,6 +158,8 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
 
     }
 
+
+
     public void updateTemperature() {
         if (this.world != null && this.world.getDimension().ultrawarm()) {
             this.kegTemperature = 10;
@@ -245,14 +248,12 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
         if (world == null) return Optional.empty();
 
         if (lastRecipeID != null) {
-            Recipe<RecipeWrapper> recipe = ((RecipeManagerAccessorMixin) world.getRecipeManager())
-                    .getAllForType(BCRecipeTypes.KEG_RECIPE_TYPE)
-                    .get(lastRecipeID);
+            Recipe<Inventory> recipe = ((RecipeManagerAccessorMixin) world.getRecipeManager()).getAllForType(BCRecipeTypes.KEG_RECIPE_TYPE).get(lastRecipeID);
             if (recipe != null) {
                 if (recipe.matches(inventoryWrapper, world)) {
                     return Optional.of((KegRecipe) recipe);
                 }
-                if (ItemStack.areItemsEqual(recipe.getOutput(world.getRegistryManager()) ,getDrink())) {
+                if (ItemStack.areItemsEqual(recipe.getOutput(world.getRegistryManager()), getDrink())) {
                     return Optional.empty();
                 }
             }
@@ -268,6 +269,15 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
 
         checkNewRecipe = false;
         return Optional.empty();
+    }
+
+    @Override
+    public void onContentsChanged(int slot) {
+        if (slot >= 0 && slot < 5) {
+            this.checkNewRecipe = true;
+        }
+
+        this.inventoryChanged();
     }
 
     public ItemStack getContainer() {
