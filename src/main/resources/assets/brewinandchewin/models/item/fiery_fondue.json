@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "brewinandchewin:item/fiery_fondue"
-    }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "brewinandchewin:item/fiery_fondue"
+  }
 }

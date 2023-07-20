@@ -1,8 +1,8 @@
 {
   "type": "minecraft:block",
   "pools": [
-	{
-	"name": "pizza",
+    {
+      "name": "pizza",
       "rolls": 1,
       "entries": [
         {
@@ -10,8 +10,8 @@
           "name": "brewinandchewin:pizza"
         }
       ],
-       "conditions": [
-		{
+      "conditions": [
+        {
           "condition": "minecraft:survives_explosion"
         },
         {
@@ -23,8 +23,8 @@
         }
       ]
     },
-	{
-	"name": "pizza_slice1",
+    {
+      "name": "pizza_slice1",
       "rolls": 3,
       "entries": [
         {
@@ -32,8 +32,8 @@
           "name": "brewinandchewin:pizza_slice"
         }
       ],
-       "conditions": [
-		{
+      "conditions": [
+        {
           "condition": "minecraft:survives_explosion"
         },
         {
@@ -45,8 +45,8 @@
         }
       ]
     },
-	{
-	"name": "pizza_slice2",
+    {
+      "name": "pizza_slice2",
       "rolls": 2,
       "entries": [
         {
@@ -54,8 +54,8 @@
           "name": "brewinandchewin:pizza_slice"
         }
       ],
-       "conditions": [
-		{
+      "conditions": [
+        {
           "condition": "minecraft:survives_explosion"
         },
         {
@@ -66,9 +66,9 @@
           }
         }
       ]
-	},
-	{
-	"name": "pizza_slice2",
+    },
+    {
+      "name": "pizza_slice2",
       "rolls": 1,
       "entries": [
         {
@@ -76,8 +76,8 @@
           "name": "brewinandchewin:pizza_slice"
         }
       ],
-       "conditions": [
-		{
+      "conditions": [
+        {
           "condition": "minecraft:survives_explosion"
         },
         {
@@ -88,6 +88,6 @@
           }
         }
       ]
-	}		
+    }
   ]
 }

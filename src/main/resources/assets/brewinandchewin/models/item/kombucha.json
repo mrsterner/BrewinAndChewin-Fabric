@@ -1,6 +1,6 @@
 {
   "parent": "farmersdelight:item/mug",
-    "textures": {
-        "layer0": "brewinandchewin:item/kombucha"
-    }
+  "textures": {
+    "layer0": "brewinandchewin:item/kombucha"
+  }
 }

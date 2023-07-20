@@ -16,7 +16,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -157,7 +156,6 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
         }
 
     }
-
 
 
     public void updateTemperature() {
@@ -489,7 +487,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
         if (containerItem.isEmpty()) {
             return false;
         } else {
-            return !this.drinkContainerStack.isEmpty() ? ItemStack.areItemsEqual(this.drinkContainerStack,containerItem) : ItemStack.areItemsEqual(this.getDrink().getRecipeRemainder(),containerItem);
+            return !this.drinkContainerStack.isEmpty() ? ItemStack.areItemsEqual(this.drinkContainerStack, containerItem) : ItemStack.areItemsEqual(this.getDrink().getRecipeRemainder(), containerItem);
         }
     }
 

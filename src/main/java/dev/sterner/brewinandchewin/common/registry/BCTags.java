@@ -3,7 +3,6 @@ package dev.sterner.brewinandchewin.common.registry;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;

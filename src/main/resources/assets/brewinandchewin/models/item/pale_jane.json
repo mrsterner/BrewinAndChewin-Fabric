@@ -1,6 +1,6 @@
 {
   "parent": "farmersdelight:item/mug",
-    "textures": {
-        "layer0": "brewinandchewin:item/pale_jane"
-    }
+  "textures": {
+    "layer0": "brewinandchewin:item/pale_jane"
+  }
 }

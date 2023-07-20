@@ -1,6 +1,6 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "brewinandchewin:item/scarlet_cheese_wedge"
-    }
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "brewinandchewin:item/scarlet_cheese_wedge"
+  }
 }
