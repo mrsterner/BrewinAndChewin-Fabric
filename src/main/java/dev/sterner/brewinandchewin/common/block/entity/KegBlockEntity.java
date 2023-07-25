@@ -14,6 +14,7 @@ import dev.sterner.brewinandchewin.common.registry.BCTags;
 import dev.sterner.brewinandchewin.common.util.BCTextUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -39,7 +40,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,15 +222,19 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
     }
 
     public int getTemperature() {
-        if (this.kegTemperature < -4) {
-            return 1;
-        } else if (this.kegTemperature < -1) {
+        if (this.kegTemperature < -4 && this.kegTemperature > -9) {
             return 2;
-        } else if (this.kegTemperature < 2) {
-            return 3;
-        } else {
-            return this.kegTemperature < 5 ? 4 : 5;
         }
+        if (this.kegTemperature < -8) {
+            return 1;
+        }
+        if (this.kegTemperature > 4 && this.kegTemperature < 9) {
+            return 4;
+        }
+        if (this.kegTemperature > 8) {
+            return 5;
+        }
+        return 3;
     }
 
     public static void animationTick(World level, BlockPos pos, BlockState state, KegBlockEntity keg) {
@@ -280,6 +284,15 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             }
         }
         return false;
+    }
+
+    @Override
+    public void onContentsChanged(int slot) {
+        if (slot >= 0 && slot < 5) {
+            this.checkNewRecipe = true;
+        }
+
+        this.inventoryChanged();
     }
 
     protected boolean canFerment(KegRecipe recipe) {

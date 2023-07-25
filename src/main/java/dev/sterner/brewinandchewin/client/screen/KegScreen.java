@@ -111,10 +111,8 @@ public class KegScreen extends HandledScreen<KegBlockScreenHandler> {
         if (this.client == null) {
             return;
         }
-
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
         this.drawTexture(matrices, this.x, this.y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-
 
         // Render progress arrow
         int l = this.handler.getFermentProgressionScaled();
