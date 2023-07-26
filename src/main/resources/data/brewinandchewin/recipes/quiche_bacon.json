@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "b": {
-      "tag": "forge:cooked_bacon"
+      "tag": "c:cooked_bacon"
     },
     "c": {
       "item": "farmersdelight:pie_crust"
@@ -17,7 +17,7 @@
       "item": "farmersdelight:cabbage_leaf"
     },
     "m": {
-      "tag": "forge:milk"
+      "tag": "c:milk"
     }
   },
   "pattern": [

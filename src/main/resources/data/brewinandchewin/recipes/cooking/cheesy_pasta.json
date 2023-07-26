@@ -13,7 +13,7 @@
       "item": "farmersdelight:tomato"
     },
     {
-      "tag": "forge:crops/cabbage"
+      "tag": "c:crops/cabbage"
     }
   ],
   "recipe_book_tab": "meals",
