@@ -4,10 +4,10 @@
   "fermentingtime": 12000,
   "ingredients": [
     {
-      "tag": "forge:raw_fishes"
+      "tag": "c:raw_fishes"
     },
     {
-      "tag": "forge:raw_fishes"
+      "tag": "c:raw_fishes"
     },
     {
       "item": "minecraft:kelp"
