@@ -1,5 +1,6 @@
 package dev.sterner.brewinandchewin;
 
+import com.nhoryzon.mc.farmersdelight.item.ConsumableItem;
 import dev.sterner.brewinandchewin.common.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;

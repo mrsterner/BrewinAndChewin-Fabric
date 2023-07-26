@@ -56,11 +56,14 @@ public class BCObjects {
 
     public static final Item FIERY_FONDUE = register("fiery_fondue", new Item(settings().food(BCFoodComponents.FIERY_FONDUE)));
     public static final Item QUICHE_SLICE = register("quiche_slice", new Item(settings().food(BCFoodComponents.QUICHE_SLICE)));
-    public static final Item VEGETABLE_OMELET = register("vegetable_omelet", new ConsumableItem(settings().food(BCFoodComponents.VEGETABLE_OMELET)));
-    public static final Item CHEESY_PASTA = register("cheesy_pasta", new ConsumableItem(settings().food(BCFoodComponents.CHEESY_PASTA)));
-    public static final Item CREAMY_ONION_SOUP = register("creamy_onion_soup", new ConsumableItem(settings().food(BCFoodComponents.CREAMY_ONION_SOUP)));
-    public static final Item SCARLET_PIEROGIES = register("scarlet_pierogies", new ConsumableItem(settings().food(BCFoodComponents.SCARLET_PIEROGIES)));
-    public static final Item HORROR_LASAGNA = register("horror_lasagna", new ConsumableItem(settings().food(BCFoodComponents.HORROR_LASAGNA)));
+
+    //ModItemSettings.food(Foods.NETHER_SALAD, Items.BOWL, 16)
+
+    public static final Item VEGETABLE_OMELET = register("vegetable_omelet", new ConsumableItem(settings().food(BCFoodComponents.VEGETABLE_OMELET).recipeRemainder(Items.BOWL)));
+    public static final Item CHEESY_PASTA = register("cheesy_pasta", new ConsumableItem(settings().food(BCFoodComponents.CHEESY_PASTA).recipeRemainder(Items.BOWL)));
+    public static final Item CREAMY_ONION_SOUP = register("creamy_onion_soup", new ConsumableItem(settings().food(BCFoodComponents.CREAMY_ONION_SOUP).recipeRemainder(Items.BOWL)));
+    public static final Item SCARLET_PIEROGIES = register("scarlet_pierogies", new ConsumableItem(settings().food(BCFoodComponents.SCARLET_PIEROGIES).recipeRemainder(Items.BOWL)));
+    public static final Item HORROR_LASAGNA = register("horror_lasagna", new ConsumableItem(settings().food(BCFoodComponents.HORROR_LASAGNA).recipeRemainder(Items.BOWL)));
 
     public static final Block KEG = register("keg", new KegBlock(), settings(), true);
     public static final Block COASTER = register("item_coaster", new ItemCoasterBlock(), settings(), true);
