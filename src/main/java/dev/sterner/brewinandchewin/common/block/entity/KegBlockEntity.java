@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInventory, ExtendedScreenHandlerFactory, Nameable {
-    public static final int MEAL_DISPLAY_SLOT = 6;
+    public static final int MEAL_DISPLAY_SLOT = 5;
     public static final int CONTAINER_SLOT = 7;
     public static final int OUTPUT_SLOT = 8;
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
