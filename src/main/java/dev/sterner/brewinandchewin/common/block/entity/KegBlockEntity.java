@@ -9,12 +9,14 @@ import dev.sterner.brewinandchewin.common.block.KegBlock;
 import dev.sterner.brewinandchewin.common.block.screen.KegBlockScreenHandler;
 import dev.sterner.brewinandchewin.common.recipe.KegRecipe;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
+import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import dev.sterner.brewinandchewin.common.registry.BCTags;
 import dev.sterner.brewinandchewin.common.util.BCTextUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
@@ -154,9 +156,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
         if (didInventoryChange) {
             keg.inventoryChanged();
         }
-
     }
-
 
     public void updateTemperature() {
         if (this.world != null && this.world.getDimension().ultrawarm()) {
@@ -164,7 +164,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             return;
         }
 
-        ArrayList<BlockState> states = new ArrayList();
+        ArrayList<BlockState> states = new ArrayList<>();
         int range = 1;
 
         int heat;
@@ -177,22 +177,19 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             }
         }
 
-        heat = states.stream().filter((s) -> {
-            return s.isIn(TagsRegistry.HEAT_SOURCES);
-        }).filter((s) -> {
-            return s.contains(Properties.LIT);
-        }).filter((s) -> {
-            return s.get(Properties.LIT);
-        }).mapToInt((s) -> {
-            return 1;
-        }).sum();
-        heat += states.stream().filter((s) -> {
-            return s.isIn(TagsRegistry.HEAT_SOURCES);
-        }).filter((s) -> {
-            return !s.contains(Properties.LIT);
-        }).mapToInt((s) -> {
-            return 1;
-        }).sum();
+        heat = states.stream()
+                .filter(s -> s.isIn(TagsRegistry.HEAT_SOURCES))
+                .filter(s -> s.contains(Properties.LIT))
+                .filter(s -> s.get(Properties.LIT))
+                .mapToInt(s -> 1)
+                .sum();
+
+        heat += states.stream()
+                .filter(s -> s.isIn(TagsRegistry.HEAT_SOURCES))
+                .filter(s -> !s.contains(Properties.LIT))
+                .mapToInt(s -> 1)
+                .sum();
+
         BlockState stateBelow = this.world.getBlockState(this.getPos().down());
         if (stateBelow.isIn(TagsRegistry.HEAT_CONDUCTORS)) {
             BlockState stateFurtherBelow = this.world.getBlockState(this.getPos().down(2));
@@ -207,11 +204,11 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             }
         }
 
-        cold = states.stream().filter((s) -> {
-            return s.isIn(BCTags.FREEZE_SOURCES);
-        }).mapToInt((s) -> {
-            return 1;
-        }).sum();
+        cold = states.stream()
+                .filter(s -> s.isIn(BCTags.FREEZE_SOURCES))
+                .mapToInt((s) -> 1)
+                .sum();
+
         float biomeTemperature = this.world.getBiome(this.getPos()).value().getTemperature();
         if (biomeTemperature <= 0.0F) {
             cold += 2;
@@ -219,8 +216,11 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             heat += 2;
         }
 
-        this.kegTemperature = heat - cold;
-
+        int fcTemp = 0;
+        if (this.world.getBlockEntity(pos.down()) instanceof FermentationControllerBlockEntity blockEntity) {
+            fcTemp = blockEntity.getTemperature();
+        }
+        this.kegTemperature = heat - cold + fcTemp;
     }
 
     public int getTemperature() {

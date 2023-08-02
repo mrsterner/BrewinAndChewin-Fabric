@@ -7,11 +7,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class BCScreenHandlerTypes {
-    public static final ExtendedScreenHandlerType<KegBlockScreenHandler> KEG_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(KegBlockScreenHandler::new);
+public interface BCScreenHandlerTypes {
+    ExtendedScreenHandlerType<KegBlockScreenHandler> KEG_SCREEN_HANDLER = new ExtendedScreenHandlerType<>(KegBlockScreenHandler::new);
 
 
-    public static void init() {
+    static void init() {
         Registry.register(Registries.SCREEN_HANDLER, new Identifier(BrewinAndChewin.MODID, "keg_screen"), KEG_SCREEN_HANDLER);
     }
 }

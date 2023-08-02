@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "minecraft:netherrack"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "minecraft:soul_soil"
+    }
+  },
+  "pattern": [
+    "III",
+    "SAN",
+    "BRB"
+  ],
+  "result": {
+    "item": "brewinandchewin:fermentation_controller"
+  },
+  "show_notification": true
+}
