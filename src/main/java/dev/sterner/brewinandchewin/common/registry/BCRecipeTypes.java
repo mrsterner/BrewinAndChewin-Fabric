@@ -11,19 +11,19 @@ import net.minecraft.util.registry.Registry;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class BCRecipeTypes {
-    private static final Map<RecipeSerializer<?>, Identifier> RECIPE_SERIALIZERS = new LinkedHashMap<>();
-    private static final Map<RecipeType<?>, Identifier> RECIPE_TYPES = new LinkedHashMap<>();
+public interface BCRecipeTypes {
+    Map<RecipeSerializer<?>, Identifier> RECIPE_SERIALIZERS = new LinkedHashMap<>();
+    Map<RecipeType<?>, Identifier> RECIPE_TYPES = new LinkedHashMap<>();
 
-    public static final RecipeSerializer<KegRecipe> KEG_RECIPE_SERIALIZER = register("fermenting", new KegRecipe.Serializer());
-    public static final RecipeType<KegRecipe> KEG_RECIPE_TYPE = register("fermenting");
+    RecipeSerializer<KegRecipe> KEG_RECIPE_SERIALIZER = register("fermenting", new KegRecipe.Serializer());
+    RecipeType<KegRecipe> KEG_RECIPE_TYPE = register("fermenting");
 
-    private static <T extends Recipe<?>> RecipeSerializer<T> register(String name, RecipeSerializer<T> serializer) {
+    static <T extends Recipe<?>> RecipeSerializer<T> register(String name, RecipeSerializer<T> serializer) {
         RECIPE_SERIALIZERS.put(serializer, new Identifier(BrewinAndChewin.MODID, name));
         return serializer;
     }
 
-    private static <T extends Recipe<?>> RecipeType<T> register(String name) {
+    static <T extends Recipe<?>> RecipeType<T> register(String name) {
         RecipeType<T> type = new RecipeType<>() {
             @Override
             public String toString() {

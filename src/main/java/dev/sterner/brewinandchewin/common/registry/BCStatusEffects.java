@@ -12,14 +12,14 @@ import net.minecraft.util.registry.Registry;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class BCStatusEffects {
-    public static final Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
+public interface BCStatusEffects {
+    Map<StatusEffect, Identifier> STATUS_EFFECTS = new LinkedHashMap<>();
 
-    public static final StatusEffect TIPSY = create("tipsy", new TipsyEffect(StatusEffectCategory.BENEFICIAL, 0x605448));
-    public static final StatusEffect SWEET_HEART = create("sweet_heart", new EmptyStatusEffect(StatusEffectCategory.BENEFICIAL, 0x605448));
-    public static final StatusEffect SATISFACTION = create("satisfaction", new SatisfactionEffect(StatusEffectCategory.BENEFICIAL, 0x605448));
+    StatusEffect TIPSY = create("tipsy", new TipsyEffect(StatusEffectCategory.BENEFICIAL, 0x605448));
+    StatusEffect SWEET_HEART = create("sweet_heart", new EmptyStatusEffect(StatusEffectCategory.BENEFICIAL, 0x605448));
+    StatusEffect SATISFACTION = create("satisfaction", new SatisfactionEffect(StatusEffectCategory.BENEFICIAL, 0x605448));
 
-    private static <T extends StatusEffect> T create(String name, T effect) {
+    static <T extends StatusEffect> T create(String name, T effect) {
         STATUS_EFFECTS.put(effect, new Identifier(BrewinAndChewin.MODID, name));
         return effect;
     }

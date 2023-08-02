@@ -4,6 +4,7 @@
   "package": "dev.sterner.brewinandchewin.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "HeatableBlockEntityMixin",
     "HungerManagerMixin"
   ],
   "client": [

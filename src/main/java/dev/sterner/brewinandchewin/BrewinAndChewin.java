@@ -14,6 +14,7 @@ public class BrewinAndChewin implements ModInitializer {
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MODID, "main"), () -> new ItemStack(BCObjects.BEER));
 
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final boolean DEBUG_MODE = false;
 
     @Override
     public void onInitialize() {

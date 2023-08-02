@@ -189,5 +189,18 @@ public class BCRecipeProvider extends FabricRecipeProvider {
                 .input('p', ItemTags.PLANKS)
                 .criterion("has_nugget", InventoryChangedCriterion.Conditions.items(Items.IRON_NUGGET))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(BCObjects.FERMENTATION_CONTROLLER, 1)
+                .pattern("III")
+                .pattern("SAN")
+                .pattern("BRB")
+                .input('I', Items.IRON_INGOT)
+                .input('S', Items.SOUL_SOIL)
+                .input('A', Items.AMETHYST_SHARD)
+                .input('N', Items.NETHERRACK)
+                .input('B', Items.BRICKS)
+                .input('R', Items.REDSTONE)
+                .criterion("has_amethyst", InventoryChangedCriterion.Conditions.items(Items.AMETHYST_SHARD))
+                .offerTo(exporter);
     }
 }
