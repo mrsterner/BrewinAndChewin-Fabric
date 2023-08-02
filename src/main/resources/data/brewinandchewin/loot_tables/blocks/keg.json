@@ -8,7 +8,7 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "farmersdelight:copy_meal"
+              "function": "brewinandchewin:copy_drink"
             },
             {
               "function": "minecraft:copy_name",

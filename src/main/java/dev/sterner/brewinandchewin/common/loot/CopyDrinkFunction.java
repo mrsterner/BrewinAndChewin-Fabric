@@ -2,8 +2,10 @@ package dev.sterner.brewinandchewin.common.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
+import dev.sterner.brewinandchewin.common.registry.BCLootFunctionsRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LootCondition;
@@ -29,8 +31,8 @@ public class CopyDrinkFunction extends ConditionalLootFunction {
     @Override
     protected ItemStack process(ItemStack stack, LootContext context) {
         BlockEntity tile = context.get(LootContextParameters.BLOCK_ENTITY);
-        if (tile instanceof KegBlockEntity) {
-            NbtCompound tag = ((KegBlockEntity) tile).writeDrink(new NbtCompound());
+        if (tile instanceof KegBlockEntity kegBlockEntity) {
+            NbtCompound tag = kegBlockEntity.writeDrink(new NbtCompound());
             if (!tag.isEmpty()) {
                 stack.setSubNbt("BlockEntityTag", tag);
             }
@@ -41,7 +43,7 @@ public class CopyDrinkFunction extends ConditionalLootFunction {
     @Override
     @Nullable
     public LootFunctionType getType() {
-        return null;
+        return BCLootFunctionsRegistry.COPY_DRINK.type();
     }
 
     public static class Serializer extends ConditionalLootFunction.Serializer<CopyDrinkFunction> {
