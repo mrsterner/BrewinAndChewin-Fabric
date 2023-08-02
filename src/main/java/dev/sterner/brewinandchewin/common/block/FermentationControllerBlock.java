@@ -10,7 +10,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.BlockHalf;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.stat.Stat;
 import net.minecraft.state.StateManager;
@@ -50,7 +52,18 @@ public class FermentationControllerBlock extends BlockWithEntity {
     }
 
     @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        updateTemp(world, pos, state);
+        super.onPlaced(world, pos, state, placer, itemStack);
+    }
+
+    @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        updateTemp(world, pos, state);
+        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+    }
+
+    private void updateTemp(World world, BlockPos pos, BlockState state){
         if (world.getBlockEntity(pos) instanceof FermentationControllerBlockEntity blockEntity) {
             Direction facing = state.get(HorizontalFacingBlock.FACING);
             Direction right = facing.rotateYClockwise();
@@ -60,8 +73,6 @@ public class FermentationControllerBlock extends BlockWithEntity {
             int totalPower = hotPower - coldPower;
             blockEntity.setTargetTemperature(totalPower);
         }
-
-        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
     public int getReceivedRedstonePower(World world, BlockPos pos, Direction direction) {
