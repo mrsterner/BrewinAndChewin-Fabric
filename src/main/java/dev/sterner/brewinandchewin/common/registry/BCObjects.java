@@ -3,6 +3,7 @@ package dev.sterner.brewinandchewin.common.registry;
 import com.nhoryzon.mc.farmersdelight.item.ConsumableItem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.*;
+import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
 import dev.sterner.brewinandchewin.common.item.BoozeItem;
 import dev.sterner.brewinandchewin.common.item.DreadNogItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -10,6 +11,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -26,7 +28,9 @@ public interface BCObjects {
 
     Item TANKARD = register("tankard", new Item(settings()));
 
-    Item BEER = register("beer", new BoozeItem(1, 8, drinkItem()));
+    Block BEER_TANKARD_BLOCK = register("beer_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.BEER), settings(), false);
+
+    Item BEER = register("beer", new BoozeBlockItem(BEER_TANKARD_BLOCK, 1, 8, drinkItem()));
     Item VODKA = register("vodka", new BoozeItem(1, 12, drinkItem()));
     Item MEAD = register("mead", new BoozeItem(1, 8, drinkItem()));
     Item RICE_WINE = register("rice_wine", new BoozeItem(1, 5, drinkItem().food(BCFoodComponents.RICE_WINE)));
@@ -62,7 +66,7 @@ public interface BCObjects {
     Item CREAMY_ONION_SOUP = register("creamy_onion_soup", new ConsumableItem(bowlFoodItem().food(BCFoodComponents.CREAMY_ONION_SOUP)));
     Item SCARLET_PIEROGIES = register("scarlet_pierogies", new ConsumableItem(bowlFoodItem().food(BCFoodComponents.SCARLET_PIEROGIES)));
     Item HORROR_LASAGNA = register("horror_lasagna", new ConsumableItem(bowlFoodItem().food(BCFoodComponents.HORROR_LASAGNA)));
-    
+
     Block QUICHE = register("quiche", new QuicheBlock(AbstractBlock.Settings.copy(Blocks.CAULDRON)), settings(), true);
     Block FIERY_FONDUE_POT = register("fiery_fondue_pot", new FieryFonduePotBlock(AbstractBlock.Settings.copy(Blocks.CAKE)), settings().maxCount(1), true);
 
@@ -80,7 +84,7 @@ public interface BCObjects {
     Block KEG = register("keg", new KegBlock(), settings(), true);
     Block COASTER = register("item_coaster", new ItemCoasterBlock(), settings(), true);
     Block FERMENTATION_CONTROLLER = register("fermentation_controller", new FermentationControllerBlock(), settings(), true);
-    
+
     static Item.Settings drinkItem() {
         return (new Item.Settings()).recipeRemainder(TANKARD).maxCount(16);
     }

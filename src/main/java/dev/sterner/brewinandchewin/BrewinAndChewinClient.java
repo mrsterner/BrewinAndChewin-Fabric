@@ -3,13 +3,18 @@ package dev.sterner.brewinandchewin;
 import dev.sterner.brewinandchewin.client.renderer.FermentationControllerBlockEntityRenderer;
 import dev.sterner.brewinandchewin.client.renderer.ItemCoasterRenderer;
 import dev.sterner.brewinandchewin.client.screen.KegScreen;
+import dev.sterner.brewinandchewin.common.block.TankardBlock;
+import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
+import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCScreenHandlerTypes;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 
 public class BrewinAndChewinClient implements ClientModInitializer {
 
@@ -20,5 +25,11 @@ public class BrewinAndChewinClient implements ClientModInitializer {
         HandledScreens.register(BCScreenHandlerTypes.KEG_SCREEN_HANDLER, KegScreen::new);
         EntityModelLayerRegistry.registerModelLayer(FermentationControllerBlockEntityRenderer.Indicator.LAYER, FermentationControllerBlockEntityRenderer.Indicator::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(FermentationControllerBlockEntityRenderer.Indicator.LAYER_SMALL, FermentationControllerBlockEntityRenderer.Indicator::getTexturedModelDataSmall);
+
+        for (Block block : BCObjects.BLOCKS.keySet()) {
+            if (block instanceof TankardBlock) {
+                BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout());
+            }
+        }
     }
 }

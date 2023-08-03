@@ -1,21 +1,18 @@
 package dev.sterner.brewinandchewin.common.block;
 
-import com.nhoryzon.mc.farmersdelight.block.StoveBlock;
 import dev.sterner.brewinandchewin.common.block.entity.FermentationControllerBlockEntity;
-import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
-import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.stat.Stat;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -29,10 +26,11 @@ import org.jetbrains.annotations.Nullable;
 public class FermentationControllerBlock extends BlockWithEntity {
 
     public static final EnumProperty<State> STATE = EnumProperty.of("state", State.class);
+    public static final BooleanProperty VERTICAL = BooleanProperty.of("vertical");
 
     public FermentationControllerBlock() {
         super(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(2, 4).sounds(BlockSoundGroup.METAL).nonOpaque());
-        setDefaultState(this.stateManager.getDefaultState().with(HorizontalFacingBlock.FACING, Direction.NORTH).with(STATE, State.NONE));
+        setDefaultState(this.stateManager.getDefaultState().with(HorizontalFacingBlock.FACING, Direction.NORTH).with(STATE, State.NONE).with(VERTICAL, true));
     }
 
     @Nullable
@@ -63,11 +61,13 @@ public class FermentationControllerBlock extends BlockWithEntity {
         super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
     }
 
-    private void updateTemp(World world, BlockPos pos, BlockState state){
+    private void updateTemp(World world, BlockPos pos, BlockState state) {
         if (world.getBlockEntity(pos) instanceof FermentationControllerBlockEntity blockEntity) {
             Direction facing = state.get(HorizontalFacingBlock.FACING);
+
             Direction right = facing.rotateYClockwise();
             Direction left = facing.rotateYCounterclockwise();
+
             int coldPower = getReceivedRedstonePower(world, pos, right);
             int hotPower = getReceivedRedstonePower(world, pos, left);
             int totalPower = hotPower - coldPower;
@@ -91,12 +91,14 @@ public class FermentationControllerBlock extends BlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HorizontalFacingBlock.FACING, STATE);
+        builder.add(HorizontalFacingBlock.FACING, STATE, VERTICAL);
     }
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return this.getDefaultState().with(HorizontalFacingBlock.FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STATE, State.NONE);
+        PlayerEntity player = ctx.getPlayer();
+        boolean bl = player == null || !player.isSneaking();
+        return this.getDefaultState().with(HorizontalFacingBlock.FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STATE, State.NONE).with(VERTICAL, bl);
     }
 
     @Override

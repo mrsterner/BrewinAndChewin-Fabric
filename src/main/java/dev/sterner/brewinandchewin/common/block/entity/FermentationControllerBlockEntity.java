@@ -5,7 +5,6 @@ import dev.sterner.brewinandchewin.common.block.FermentationControllerBlock;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ChiseledBookshelfBlock;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,7 +16,7 @@ public class FermentationControllerBlockEntity extends SyncedBlockEntity {
     private int targetTemp = 0;
     private int temperature = 0;
     private final int MAX_TEMP = 16;
-    private final int MIN_TEMP = - MAX_TEMP;
+    private final int MIN_TEMP = -MAX_TEMP;
 
     private int ticker = 0;
 
@@ -71,7 +70,7 @@ public class FermentationControllerBlockEntity extends SyncedBlockEntity {
         nbt.putInt("TargetTemperature", getTargetTemperature());
     }
 
-    private void sync(){
+    private void sync() {
         this.markDirty();
         if (this.world != null) {
             this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), 3);
@@ -96,13 +95,13 @@ public class FermentationControllerBlockEntity extends SyncedBlockEntity {
         sync();
     }
 
-    public void increaseTemp(){
+    public void increaseTemp() {
         if (getTemperature() < MAX_TEMP) {
             setTemperature(getTemperature() + 1);
         }
     }
 
-    public void decreaseTemp(){
+    public void decreaseTemp() {
         if (getTemperature() > MIN_TEMP) {
             setTemperature(getTemperature() - 1);
         }

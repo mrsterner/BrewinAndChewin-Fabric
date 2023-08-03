@@ -5,19 +5,19 @@ import com.nhoryzon.mc.farmersdelight.entity.block.SyncedBlockEntity;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.mixin.accessors.RecipeManagerAccessorMixin;
 import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
+import dev.sterner.brewinandchewin.common.block.FermentationControllerBlock;
 import dev.sterner.brewinandchewin.common.block.KegBlock;
 import dev.sterner.brewinandchewin.common.block.screen.KegBlockScreenHandler;
 import dev.sterner.brewinandchewin.common.recipe.KegRecipe;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
-import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCRecipeTypes;
 import dev.sterner.brewinandchewin.common.registry.BCTags;
 import dev.sterner.brewinandchewin.common.util.BCTextUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -217,9 +217,20 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
         }
 
         int fcTemp = 0;
-        if (this.world.getBlockEntity(pos.down()) instanceof FermentationControllerBlockEntity blockEntity) {
+        if (this.world.getBlockEntity(pos.down()) instanceof FermentationControllerBlockEntity blockEntity && world.getBlockState(pos.down()).get(FermentationControllerBlock.VERTICAL)) {
             fcTemp = blockEntity.getTemperature();
+        } else {
+            for (Direction direction : Direction.Type.HORIZONTAL) {
+                BlockPos pos1 = pos.offset(direction);
+                if (world.getBlockEntity(pos1) instanceof FermentationControllerBlockEntity blockEntity && !world.getBlockState(pos1).get(FermentationControllerBlock.VERTICAL)) {
+                    if (direction.getOpposite() == world.getBlockState(pos1).get(HorizontalFacingBlock.FACING)) {
+                        fcTemp = blockEntity.getTemperature();
+                        break;
+                    }
+                }
+            }
         }
+
         this.kegTemperature = heat - cold + fcTemp;
     }
 

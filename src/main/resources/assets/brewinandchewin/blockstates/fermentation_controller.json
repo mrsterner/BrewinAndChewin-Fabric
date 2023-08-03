@@ -1,49 +1,92 @@
 {
   "variants": {
-    "facing=north,state=none": {
+    "facing=north,state=none,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_vertical"
+    },
+    "facing=south,state=none,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_vertical",
+      "y": 180
+    },
+    "facing=west,state=none,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_vertical",
+      "y": 270
+    },
+    "facing=east,state=none,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_vertical",
+      "y": 90
+    },
+    "facing=north,state=cold,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_cold_vertical"
+    },
+    "facing=south,state=cold,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_cold_vertical",
+      "y": 180
+    },
+    "facing=west,state=cold,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_cold_vertical",
+      "y": 270
+    },
+    "facing=east,state=cold,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_cold_vertical",
+      "y": 90
+    },
+    "facing=north,state=hot,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_hot_vertical"
+    },
+    "facing=south,state=hot,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_hot_vertical",
+      "y": 180
+    },
+    "facing=west,state=hot,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_hot_vertical",
+      "y": 270
+    },
+    "facing=east,state=hot,vertical=true": {
+      "model": "brewinandchewin:block/fermentation_controller_hot_vertical",
+      "y": 90
+    },
+    "facing=north,state=none,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller"
     },
-    "facing=south,state=none": {
+    "facing=south,state=none,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller",
       "y": 180
     },
-    "facing=west,state=none": {
+    "facing=west,state=none,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller",
       "y": 270
     },
-    "facing=east,state=none": {
+    "facing=east,state=none,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller",
       "y": 90
     },
-
-    "facing=north,state=cold": {
+    "facing=north,state=cold,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_cold"
     },
-    "facing=south,state=cold": {
+    "facing=south,state=cold,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_cold",
       "y": 180
     },
-    "facing=west,state=cold": {
+    "facing=west,state=cold,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_cold",
       "y": 270
     },
-    "facing=east,state=cold": {
+    "facing=east,state=cold,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_cold",
       "y": 90
     },
-
-    "facing=north,state=hot": {
+    "facing=north,state=hot,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_hot"
     },
-    "facing=south,state=hot": {
+    "facing=south,state=hot,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_hot",
       "y": 180
     },
-    "facing=west,state=hot": {
+    "facing=west,state=hot,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_hot",
       "y": 270
     },
-    "facing=east,state=hot": {
+    "facing=east,state=hot,vertical=false": {
       "model": "brewinandchewin:block/fermentation_controller_hot",
       "y": 90
     }

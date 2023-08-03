@@ -1,28 +1,20 @@
 package dev.sterner.brewinandchewin.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.FermentationControllerBlock;
 import dev.sterner.brewinandchewin.common.block.entity.FermentationControllerBlockEntity;
 import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.EnchantingTableBlockEntityRenderer;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
@@ -43,8 +35,6 @@ public class FermentationControllerBlockEntityRenderer implements BlockEntityRen
         this.MODEL_SMALL = new Indicator(ctx.getLayerModelPart(Indicator.LAYER_SMALL));
     }
 
-
-
     @Override
     public void render(FermentationControllerBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (BrewinAndChewin.DEBUG_MODE) {
@@ -56,25 +46,42 @@ public class FermentationControllerBlockEntityRenderer implements BlockEntityRen
 
         matrices.push();
 
-        matrices.translate(0.5,0.5,0.5);
+        matrices.translate(0.5, 0.5, 0.5);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-entity.getCachedState().get(HorizontalFacingBlock.FACING).asRotation()));
 
-        matrices.translate(xOffset / MAGIC_OFFSET_NUMBER, - ((double) (7 + 16) / 16), 0.501);
-        MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(TEXTURE)), 15728880, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
 
-        matrices.translate((xOffsetTarget / MAGIC_OFFSET_NUMBER) - xOffset / MAGIC_OFFSET_NUMBER, - ((double) 5 / 16), 0);
-        MODEL_SMALL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(TEXTURE)), 15728880, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+        if (!entity.getCachedState().get(FermentationControllerBlock.VERTICAL)) {
+            matrices.push();
+
+            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
+
+            renderIndicator(matrices, vertexConsumers, xOffset, xOffsetTarget, overlay);
+            matrices.pop();
+        } else {
+            matrices.push();
+            renderIndicator(matrices, vertexConsumers, xOffset, xOffsetTarget, overlay);
+            matrices.pop();
+        }
 
         matrices.pop();
     }
 
-    private void renderDebugText(FermentationControllerBlockEntity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
+    private void renderIndicator(MatrixStack matrices, VertexConsumerProvider vertexConsumers, float xOffset, float xOffsetTarget, int overlay) {
+        matrices.translate(xOffset / MAGIC_OFFSET_NUMBER, -((double) (7 + 16) / 16), 0.501);
+        MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(TEXTURE)), 15728880, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+
+        matrices.translate((xOffsetTarget / MAGIC_OFFSET_NUMBER) - xOffset / MAGIC_OFFSET_NUMBER, -((double) 5 / 16), 0);
+        MODEL_SMALL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(TEXTURE)), 15728880, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    private void renderDebugText(FermentationControllerBlockEntity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
         setTextAngles(matrices, new Vec3d(0, 2, 0));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-entity.getCachedState().get(HorizontalFacingBlock.FACING).asRotation()));
 
         var orderedText = Text.translatable(entity.getTargetTemperature() + " : " + entity.getTemperature());
-        float f = (float)(-this.textRenderer.getWidth(orderedText) / 2);
+        float f = (float) (-this.textRenderer.getWidth(orderedText) / 2);
 
         this.textRenderer.draw(orderedText, f, 1, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.POLYGON_OFFSET, 0, light);
         matrices.pop();

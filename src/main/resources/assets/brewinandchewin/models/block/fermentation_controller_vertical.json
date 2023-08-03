@@ -1,0 +1,11 @@
+{
+  "parent": "brewinandchewin:block/orientable_with_bottom_side",
+  "textures": {
+    "side": "farmersdelight:block/stove_side",
+    "front": "brewinandchewin:block/fc_front",
+    "bottom": "block/bricks",
+    "top": "farmersdelight:block/stove_top",
+    "left_side": "brewinandchewin:block/fc_hot",
+    "right_side": "brewinandchewin:block/fc_cold"
+  }
+}

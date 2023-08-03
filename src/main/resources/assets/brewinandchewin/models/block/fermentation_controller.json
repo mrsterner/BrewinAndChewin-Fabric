@@ -1,11 +1,11 @@
 {
   "parent": "brewinandchewin:block/orientable_with_bottom_side",
   "textures": {
-    "side": "farmersdelight:block/stove_side",
-    "front": "brewinandchewin:block/fc_front",
-    "bottom": "block/bricks",
-    "top": "farmersdelight:block/stove_top",
-    "left_side": "brewinandchewin:block/fc_hot",
-    "right_side": "brewinandchewin:block/fc_cold"
+    "side": "block/bricks",
+    "top": "brewinandchewin:block/fc_front",
+    "bottom": "brewinandchewin:block/fc_bottom",
+    "front": "farmersdelight:block/stove_top",
+    "left_side": "brewinandchewin:block/fc_hot_side",
+    "right_side": "brewinandchewin:block/fc_cold_side"
   }
 }
