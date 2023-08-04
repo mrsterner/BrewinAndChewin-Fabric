@@ -1,8 +1,9 @@
 {
+  "credit": "Made with Blockbench",
   "textures": {
     "tankard": "brewinandchewin:block/tankard",
-    "topping": "block/air",
-    "particle": "brewinandchewin:block/tankard"
+    "topping": "brewinandchewin:block/strongrot_ale_topping",
+    "particle": "brewinandchewin:block/salty_folly_topping"
   },
   "elements": [
     {
@@ -81,39 +82,40 @@
       "from": [6.5, 6, 6.5],
       "to": [9.5, 6, 9.5],
       "faces": {
-        "north": {"uv": [0, 0, 3, 0], "texture": "#missing"},
-        "east": {"uv": [0, 0, 3, 0], "texture": "#missing"},
-        "south": {"uv": [0, 0, 3, 0], "texture": "#missing"},
-        "west": {"uv": [0, 0, 3, 0], "texture": "#missing"},
-        "up": {"uv": [16, 3, 13, 0], "texture": "#topping"},
-        "down": {"uv": [3, 3, 0, 6], "texture": "#missing"}
+        "north": {"uv": [0, 0, 3, 0], "texture": "#topping"},
+        "east": {"uv": [0, 0, 3, 0], "texture": "#topping"},
+        "south": {"uv": [0, 0, 3, 0], "texture": "#topping"},
+        "west": {"uv": [0, 0, 3, 0], "texture": "#topping"},
+        "up": {"uv": [3, 14, 0, 11], "texture": "#topping"},
+        "down": {"uv": [6, 11, 3, 14], "texture": "#topping"}
       }
     },
     {
       "from": [5.2, 4.7, 5.2],
       "to": [10.8, 8.3, 10.8],
       "faces": {
-        "north": {"uv": [5, 0, 10, 3], "texture": "#topping"},
-        "east": {"uv": [5, 3, 10, 6], "texture": "#topping"},
-        "south": {"uv": [5, 6, 10, 9], "texture": "#topping"},
-        "west": {"uv": [5, 9, 10, 12], "texture": "#topping"},
-        "up": {"uv": [5, 5, 0, 0], "texture": "#topping"},
-        "down": {"uv": [5, 5, 0, 10], "texture": "#topping"}
+        "north": {"uv": [10, 0, 15, 3], "texture": "#topping"},
+        "east": {"uv": [10, 3, 15, 6], "texture": "#topping"},
+        "south": {"uv": [10, 6, 15, 9], "texture": "#topping"},
+        "west": {"uv": [10, 9, 15, 12], "texture": "#topping"},
+        "up": {"uv": [5, 11, 0, 6], "texture": "#topping"},
+        "down": {"uv": [10, 6, 5, 11], "texture": "#topping"}
       }
     },
     {
-      "from": [8, 7, 7],
-      "to": [8, 13, 12],
+      "from": [8, 6, 7],
+      "to": [8, 12, 12],
       "faces": {
         "north": {"uv": [0, 0, 0, 6], "texture": "#topping"},
-        "east": {"uv": [10, 10, 15, 16], "texture": "#topping"},
+        "east": {"uv": [0, 0, 5, 6], "texture": "#topping"},
         "south": {"uv": [0, 0, 0, 6], "texture": "#topping"},
-        "west": {"uv": [0, 10, 5, 16], "texture": "#topping"},
-        "up": {"uv": [0, 0, 0, 5], "texture": "#topping"},
+        "west": {"uv": [5, 0, 10, 6], "texture": "#topping"},
+        "up": {"uv": [0, 5, 0, 0], "texture": "#topping"},
         "down": {"uv": [0, 0, 0, 5], "texture": "#topping"}
       }
     }
   ],
+  "display": {},
   "groups": [
     {
       "name": "tankard",
@@ -125,7 +127,7 @@
       "name": "topping",
       "origin": [0, 0, 0],
       "color": 0,
-      "children": [6, 7]
+      "children": [6, 7, 8]
     }
   ]
 }

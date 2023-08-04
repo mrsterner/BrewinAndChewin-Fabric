@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "brewinandchewin:block/egg_grog_tankard"
+    },
+    "facing=south": {
+      "model": "brewinandchewin:block/egg_grog_tankard",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "brewinandchewin:block/egg_grog_tankard",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "brewinandchewin:block/egg_grog_tankard",
+      "y": 90
+    }
+  }
+}

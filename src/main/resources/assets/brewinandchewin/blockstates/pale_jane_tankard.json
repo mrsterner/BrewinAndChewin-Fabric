@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "brewinandchewin:block/pale_jane_tankard"
+    },
+    "facing=south": {
+      "model": "brewinandchewin:block/pale_jane_tankard",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "brewinandchewin:block/pale_jane_tankard",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "brewinandchewin:block/pale_jane_tankard",
+      "y": 90
+    }
+  }
+}

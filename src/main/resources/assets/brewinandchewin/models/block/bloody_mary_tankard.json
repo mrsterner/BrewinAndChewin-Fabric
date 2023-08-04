@@ -1,0 +1,6 @@
+{
+  "parent": "brewinandchewin:block/tankard_template",
+  "textures": {
+    "topping": "brewinandchewin:block/bloody_mary_topping"
+  }
+}

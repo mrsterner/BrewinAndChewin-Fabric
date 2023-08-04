@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "brewinandchewin:block/strongrot_ale_tankard"
+    },
+    "facing=south": {
+      "model": "brewinandchewin:block/strongrot_ale_tankard",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "brewinandchewin:block/strongrot_ale_tankard",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "brewinandchewin:block/strongrot_ale_tankard",
+      "y": 90
+    }
+  }
+}

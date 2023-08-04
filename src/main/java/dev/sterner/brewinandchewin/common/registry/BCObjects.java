@@ -29,23 +29,35 @@ public interface BCObjects {
     Item TANKARD = register("tankard", new Item(settings()));
 
     Block BEER_TANKARD_BLOCK = register("beer_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.BEER), settings(), false);
+    Block BLOODY_MARY_TANKARD_BLOCK = register("bloody_mary_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.BLOODY_MARY), settings(), false);
+    Block GLITTERING_GRENADINE_TANKARD_BLOCK = register("glittering_grenadine_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.GLITTERING_GRENADINE), settings(), false);
+    Block EGG_GROG_TANKARD_BLOCK = register("egg_grog_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.EGG_GROG), settings(), false);
+    Block MEAD_TANKARD_BLOCK = register("mead_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.MEAD), settings(), false);
+    Block RED_RUM_TANKARD_BLOCK = register("red_rum_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.RED_RUM), settings(), false);
+    Block PALE_JANE_TANKARD_BLOCK = register("pale_jane_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.PALE_JANE), settings(), false);
+    Block RICE_WINE_TANKARD_BLOCK = register("rice_wine_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.RICE_WINE), settings(), false);
+    Block SACCHARINE_RUM_TANKARD_BLOCK = register("saccharine_rum_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.SACCHARINE_RUM), settings(), false);
+    Block SALTY_FOLLY_TANKARD_BLOCK = register("salty_folly_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.SALTY_FOLLY), settings(), false);
+    Block STEEL_TOE_STOUT_TANKARD_BLOCK = register("steel_toe_stout_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.STEEL_TOE_STOUT), settings(), false);
+    Block STRONGROT_ALE_TANKARD_BLOCK = register("strongrot_ale_tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS), () -> BCObjects.STRONGROOT_ALE), settings(), false);
+
 
     Item BEER = register("beer", new BoozeBlockItem(BEER_TANKARD_BLOCK, 1, 8, drinkItem()));
     Item VODKA = register("vodka", new BoozeItem(1, 12, drinkItem()));
-    Item MEAD = register("mead", new BoozeItem(1, 8, drinkItem()));
-    Item RICE_WINE = register("rice_wine", new BoozeItem(1, 5, drinkItem().food(BCFoodComponents.RICE_WINE)));
-    Item EGG_GROG = register("egg_grog", new BoozeItem(1, 0, drinkItem().food(BCFoodComponents.EGG_GROG)));
-    Item STRONGROOT_ALE = register("strongroot_ale", new BoozeItem(2, 12, drinkItem().food(BCFoodComponents.STRONGROOT_ALE)));
-    Item SACCHARINE_RUM = register("saccharine_rum", new BoozeItem(2, 8, drinkItem().food(BCFoodComponents.SACCHARINE_RUM)));
-    Item PALE_JANE = register("pale_jane", new BoozeItem(2, 5, drinkItem().food(BCFoodComponents.PALE_JANE)));
+    Item MEAD = register("mead", new BoozeBlockItem(MEAD_TANKARD_BLOCK, 1, 8, drinkItem()));
+    Item RICE_WINE = register("rice_wine", new BoozeBlockItem(RICE_WINE_TANKARD_BLOCK, 1, 5, drinkItem().food(BCFoodComponents.RICE_WINE)));
+    Item EGG_GROG = register("egg_grog", new BoozeBlockItem(EGG_GROG_TANKARD_BLOCK, 1, 0, drinkItem().food(BCFoodComponents.EGG_GROG)));
+    Item STRONGROOT_ALE = register("strongroot_ale", new BoozeBlockItem(STRONGROT_ALE_TANKARD_BLOCK, 2, 12, drinkItem().food(BCFoodComponents.STRONGROOT_ALE)));
+    Item SACCHARINE_RUM = register("saccharine_rum", new BoozeBlockItem(SACCHARINE_RUM_TANKARD_BLOCK, 2, 8, drinkItem().food(BCFoodComponents.SACCHARINE_RUM)));
+    Item PALE_JANE = register("pale_jane", new BoozeBlockItem(PALE_JANE_TANKARD_BLOCK, 2, 5, drinkItem().food(BCFoodComponents.PALE_JANE)));
 
     Item DREAD_NOG = register("dread_nog", new DreadNogItem(3, 5, drinkItem()));
 
-    Item SALTY_FOLLY = register("salty_folly", new BoozeItem(2, 10, drinkItem().food(BCFoodComponents.SALTY_FOLLY)));
-    Item STEEL_TOE_STOUT = register("steel_toe_stout", new BoozeItem(3, 10, drinkItem().food(BCFoodComponents.STEEL_TOE_STOUT)));
-    Item GLITTERING_GRENADINE = register("glittering_grenadine", new BoozeItem(1, 5, drinkItem().food(BCFoodComponents.GLITTERING_GRENADINE)));
-    Item BLOODY_MARY = register("bloody_mary", new BoozeItem(1, 12, drinkItem().food(BCFoodComponents.BLOODY_MARY)));
-    Item RED_RUM = register("red_rum", new BoozeItem(1, 18, drinkItem().food(BCFoodComponents.RED_RUM)));
+    Item SALTY_FOLLY = register("salty_folly", new BoozeBlockItem(SALTY_FOLLY_TANKARD_BLOCK, 2, 10, drinkItem().food(BCFoodComponents.SALTY_FOLLY)));
+    Item STEEL_TOE_STOUT = register("steel_toe_stout", new BoozeBlockItem(STEEL_TOE_STOUT_TANKARD_BLOCK, 3, 10, drinkItem().food(BCFoodComponents.STEEL_TOE_STOUT)));
+    Item GLITTERING_GRENADINE = register("glittering_grenadine", new BoozeBlockItem(GLITTERING_GRENADINE_TANKARD_BLOCK, 1, 5, drinkItem().food(BCFoodComponents.GLITTERING_GRENADINE)));
+    Item BLOODY_MARY = register("bloody_mary", new BoozeBlockItem(BLOODY_MARY_TANKARD_BLOCK, 1, 12, drinkItem().food(BCFoodComponents.BLOODY_MARY)));
+    Item RED_RUM = register("red_rum", new BoozeBlockItem(RED_RUM_TANKARD_BLOCK, 1, 18, drinkItem().food(BCFoodComponents.RED_RUM)));
     Item WITHERING_DROSS = register("withering_dross", new BoozeItem(3, 20, drinkItem().food(BCFoodComponents.WITHERING_DROSS)));
     Item KOMBUCHA = register("kombucha", new BoozeItem(1, 5, drinkItem().food(BCFoodComponents.KOMBUHCA)));
 
