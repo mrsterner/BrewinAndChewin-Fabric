@@ -1,8 +1,10 @@
 package dev.sterner.brewinandchewin.common.item;
 
+import dev.sterner.brewinandchewin.common.block.TankardBlock;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SeaPickleBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
@@ -26,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+
 public class BoozeBlockItem extends BoozeItem {
     private final Block block;
 
@@ -36,6 +39,16 @@ public class BoozeBlockItem extends BoozeItem {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+
+        World world = context.getWorld();
+        BlockPos pos = context.getBlockPos();
+        BlockState blockState = world.getBlockState(pos);
+
+        if (blockState.isOf(this.block)) {
+            return ActionResult.CONSUME;
+        }
+
+
         ActionResult actionResult = this.place(new ItemPlacementContext(context));
         if (!actionResult.isAccepted() && this.isFood()) {
             ActionResult actionResult2 = this.use(context.getWorld(), context.getPlayer(), context.getHand()).getResult();

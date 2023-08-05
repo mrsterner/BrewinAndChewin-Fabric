@@ -4,6 +4,7 @@ import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.entity.FermentationControllerBlockEntity;
 import dev.sterner.brewinandchewin.common.block.entity.ItemCoasterBlockEntity;
 import dev.sterner.brewinandchewin.common.block.entity.KegBlockEntity;
+import dev.sterner.brewinandchewin.common.block.entity.TankardBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -22,6 +23,11 @@ public interface BCBlockEntityTypes {
     BlockEntityType<ItemCoasterBlockEntity> COASTER = register("coaster", FabricBlockEntityTypeBuilder.create(ItemCoasterBlockEntity::new, BCObjects.COASTER).build());
 
     BlockEntityType<FermentationControllerBlockEntity> FERMENTATION_CONTROLLER = register("fermentation_controller", FabricBlockEntityTypeBuilder.create(FermentationControllerBlockEntity::new, BCObjects.FERMENTATION_CONTROLLER).build());
+
+    BlockEntityType<TankardBlockEntity> TANKARD = register("tankard", FabricBlockEntityTypeBuilder.create(TankardBlockEntity::new,
+            BCObjects.TANKARD_BLOCK
+    ).build());
+
 
     static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
         BLOCK_ENTITY_TYPES.put(type, new Identifier(BrewinAndChewin.MODID, name));

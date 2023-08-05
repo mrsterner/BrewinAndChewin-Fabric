@@ -1,19 +1,7 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "brewinandchewin:block/glittering_grenadine_tankard"
-    },
-    "facing=south": {
-      "model": "brewinandchewin:block/glittering_grenadine_tankard",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "brewinandchewin:block/glittering_grenadine_tankard",
-      "y": 270
-    },
-    "facing=east": {
-      "model": "brewinandchewin:block/glittering_grenadine_tankard",
-      "y": 90
+    "": {
+        "model": "brewinandchewin:block/glittering_grenadine_tankard"
     }
   }
 }

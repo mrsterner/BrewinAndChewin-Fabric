@@ -2,6 +2,7 @@ package dev.sterner.brewinandchewin;
 
 import dev.sterner.brewinandchewin.client.renderer.FermentationControllerBlockEntityRenderer;
 import dev.sterner.brewinandchewin.client.renderer.ItemCoasterRenderer;
+import dev.sterner.brewinandchewin.client.renderer.TankardBlockEntityRenderer;
 import dev.sterner.brewinandchewin.client.screen.KegScreen;
 import dev.sterner.brewinandchewin.common.block.TankardBlock;
 import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
@@ -22,6 +23,7 @@ public class BrewinAndChewinClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockEntityRendererFactories.register(BCBlockEntityTypes.COASTER, ItemCoasterRenderer::new);
         BlockEntityRendererFactories.register(BCBlockEntityTypes.FERMENTATION_CONTROLLER, FermentationControllerBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BCBlockEntityTypes.TANKARD, TankardBlockEntityRenderer::new);
         HandledScreens.register(BCScreenHandlerTypes.KEG_SCREEN_HANDLER, KegScreen::new);
         EntityModelLayerRegistry.registerModelLayer(FermentationControllerBlockEntityRenderer.Indicator.LAYER, FermentationControllerBlockEntityRenderer.Indicator::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(FermentationControllerBlockEntityRenderer.Indicator.LAYER_SMALL, FermentationControllerBlockEntityRenderer.Indicator::getTexturedModelDataSmall);
