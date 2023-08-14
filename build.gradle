@@ -31,25 +31,25 @@ sourceSets.main.resources.srcDirs += ['src/main/generated']
 
 repositories {
 	maven {
-		name "cloth config, rei"
+		name "Cloth Config, REI"
 		url "https://maven.shedaniel.me"
 	}
 	maven {
-		name = "Jitpack, ASM"
+		name = "Jitpack, ASM, MixinExtras"
 		url  = "https://jitpack.io"
 	}
 	maven {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
-		content {
-			includeGroup "maven.modrinth"
-		}
 	}
 	maven {
 		name = "EMI"
 		url  = "https://maven.terraformersmc.com/"
 	}
-	maven { url 'https://www.cursemaven.com' }
+	maven {
+		name = "Curse Forge"
+		url = "https://www.cursemaven.com"
+	}
 }
 
 dependencies {
@@ -71,6 +71,9 @@ dependencies {
 
 	//Fabric ASM
 	modImplementation include ("com.github.Chocohead:Fabric-ASM:v2.3")
+
+	//Mixin Extras
+	include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")))
 
 	//EMI
 	modImplementation "dev.emi:emi-fabric:${project.emi_version}"

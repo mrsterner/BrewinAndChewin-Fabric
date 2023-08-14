@@ -48,7 +48,6 @@ public class BoozeBlockItem extends BoozeItem {
             return ActionResult.CONSUME;
         }
 
-
         ActionResult actionResult = this.place(new ItemPlacementContext(context));
         if (!actionResult.isAccepted() && this.isFood()) {
             ActionResult actionResult2 = this.use(context.getWorld(), context.getPlayer(), context.getHand()).getResult();
@@ -181,11 +180,6 @@ public class BoozeBlockItem extends BoozeItem {
 
             return false;
         }
-    }
-
-    @Override
-    public String getTranslationKey() {
-        return this.getBlock().getTranslationKey();
     }
 
     @Override

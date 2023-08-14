@@ -39,6 +39,11 @@ public class TankardBlockEntityRenderer implements BlockEntityRenderer<TankardBl
             map.put(BCObjects.SALTY_FOLLY, BCObjects.SALTY_FOLLY_TANKARD_BLOCK.getDefaultState());
             map.put(BCObjects.STEEL_TOE_STOUT, BCObjects.STEEL_TOE_STOUT_TANKARD_BLOCK.getDefaultState());
             map.put(BCObjects.STRONGROOT_ALE, BCObjects.STRONGROT_ALE_TANKARD_BLOCK.getDefaultState());
+
+            map.put(BCObjects.WITHERING_DROSS, BCObjects.WITHERING_DROSS_TANKARD_BLOCK.getDefaultState());
+            map.put(BCObjects.KOMBUCHA, BCObjects.KOMBUCHA_TANKARD_BLOCK.getDefaultState());
+            map.put(BCObjects.VODKA, BCObjects.VODKA_TANKARD_BLOCK.getDefaultState());
+            map.put(BCObjects.DREAD_NOG, BCObjects.DREAD_NOG_TANKARD_BLOCK.getDefaultState());
         });
     }
 

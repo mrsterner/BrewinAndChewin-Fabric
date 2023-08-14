@@ -4,6 +4,7 @@ import com.nhoryzon.mc.farmersdelight.entity.block.SyncedBlockEntity;
 import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SkullBlock;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,19 +29,23 @@ public class TankardBlockEntity extends SyncedBlockEntity {
     public ActionResult onUse(World world, BlockState state, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getMainHandStack();
         int occupiedCount = (int)getItems().stream().filter(i -> !i.isEmpty()).count();
-        if (player.isSneaking()) {
+        if (player.isSneaking() && hand == Hand.MAIN_HAND) {
+            if (occupiedCount == 0) {
+                return ActionResult.PASS;
+            }
+
             boolean bl = false;
-            if (itemStack.getItem() instanceof BoozeBlockItem boozeItem && inventory.get(occupiedCount).isOf(itemStack.getItem())) {
+            if (ItemStack.canCombine(inventory.get(occupiedCount - 1), itemStack)) {
                 itemStack.increment(1);
-                inventory.set(occupiedCount, ItemStack.EMPTY);
+                inventory.set(occupiedCount - 1, ItemStack.EMPTY);
                 bl = true;
             } else if (itemStack.isEmpty()) {
-                player.setStackInHand(Hand.MAIN_HAND, inventory.get(occupiedCount));
-                inventory.set(occupiedCount, ItemStack.EMPTY);
+                player.setStackInHand(Hand.MAIN_HAND, inventory.get(occupiedCount - 1));
+                inventory.set(occupiedCount - 1, ItemStack.EMPTY);
                 bl = true;
             }
             if (occupiedCount == 1 && bl) {
-                world.breakBlock(pos, false);
+                world.setBlockState(pos, Blocks.AIR.getDefaultState());
             }
         } else {
             if (itemStack.getItem() instanceof BoozeBlockItem boozeItem) {

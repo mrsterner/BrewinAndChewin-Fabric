@@ -4,8 +4,6 @@ import com.nhoryzon.mc.farmersdelight.item.ConsumableItem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.*;
 import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
-import dev.sterner.brewinandchewin.common.item.BoozeItem;
-import dev.sterner.brewinandchewin.common.item.DreadNogItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
@@ -28,7 +26,7 @@ public interface BCObjects {
 
     Item TANKARD = register("tankard", new Item(settings()));
 
-    Block TANKARD_BLOCK = register("tankard_block", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
+    Block TANKARD_BLOCK = register("tankard", new TankardBlock(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
 
     Block BEER_TANKARD_BLOCK = register("beer_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
     Block BLOODY_MARY_TANKARD_BLOCK = register("bloody_mary_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
@@ -43,9 +41,14 @@ public interface BCObjects {
     Block STEEL_TOE_STOUT_TANKARD_BLOCK = register("steel_toe_stout_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
     Block STRONGROT_ALE_TANKARD_BLOCK = register("strongrot_ale_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
 
+    Block VODKA_TANKARD_BLOCK = register("vodka_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
+    Block WITHERING_DROSS_TANKARD_BLOCK = register("withering_dross_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
+    Block KOMBUCHA_TANKARD_BLOCK = register("kombucha_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
+    Block DREAD_NOG_TANKARD_BLOCK = register("dread_nog_tankard", new Block(FabricBlockSettings.copy(Blocks.SPRUCE_PLANKS)), settings(), false);
+
 
     Item BEER = register("beer", new BoozeBlockItem(TANKARD_BLOCK, 1, 8, drinkItem()));
-    Item VODKA = register("vodka", new BoozeItem(1, 12, drinkItem()));
+    Item VODKA = register("vodka", new BoozeBlockItem(TANKARD_BLOCK, 1, 12, drinkItem()));
     Item MEAD = register("mead", new BoozeBlockItem(TANKARD_BLOCK, 1, 8, drinkItem()));
     Item RICE_WINE = register("rice_wine", new BoozeBlockItem(TANKARD_BLOCK, 1, 5, drinkItem().food(BCFoodComponents.RICE_WINE)));
     Item EGG_GROG = register("egg_grog", new BoozeBlockItem(TANKARD_BLOCK, 1, 0, drinkItem().food(BCFoodComponents.EGG_GROG)));
@@ -53,15 +56,15 @@ public interface BCObjects {
     Item SACCHARINE_RUM = register("saccharine_rum", new BoozeBlockItem(TANKARD_BLOCK, 2, 8, drinkItem().food(BCFoodComponents.SACCHARINE_RUM)));
     Item PALE_JANE = register("pale_jane", new BoozeBlockItem(TANKARD_BLOCK, 2, 5, drinkItem().food(BCFoodComponents.PALE_JANE)));
 
-    Item DREAD_NOG = register("dread_nog", new DreadNogItem(3, 5, drinkItem()));
+    Item DREAD_NOG = register("dread_nog", new BoozeBlockItem(TANKARD_BLOCK,3, 5, drinkItem()));
 
     Item SALTY_FOLLY = register("salty_folly", new BoozeBlockItem(TANKARD_BLOCK, 2, 10, drinkItem().food(BCFoodComponents.SALTY_FOLLY)));
     Item STEEL_TOE_STOUT = register("steel_toe_stout", new BoozeBlockItem(TANKARD_BLOCK, 3, 10, drinkItem().food(BCFoodComponents.STEEL_TOE_STOUT)));
     Item GLITTERING_GRENADINE = register("glittering_grenadine", new BoozeBlockItem(TANKARD_BLOCK, 1, 5, drinkItem().food(BCFoodComponents.GLITTERING_GRENADINE)));
     Item BLOODY_MARY = register("bloody_mary", new BoozeBlockItem(TANKARD_BLOCK, 1, 12, drinkItem().food(BCFoodComponents.BLOODY_MARY)));
     Item RED_RUM = register("red_rum", new BoozeBlockItem(TANKARD_BLOCK, 1, 18, drinkItem().food(BCFoodComponents.RED_RUM)));
-    Item WITHERING_DROSS = register("withering_dross", new BoozeItem(3, 20, drinkItem().food(BCFoodComponents.WITHERING_DROSS)));
-    Item KOMBUCHA = register("kombucha", new BoozeItem(1, 5, drinkItem().food(BCFoodComponents.KOMBUHCA)));
+    Item WITHERING_DROSS = register("withering_dross", new BoozeBlockItem(TANKARD_BLOCK, 3, 20, drinkItem().food(BCFoodComponents.WITHERING_DROSS)));
+    Item KOMBUCHA = register("kombucha", new BoozeBlockItem(TANKARD_BLOCK, 1, 5, drinkItem().food(BCFoodComponents.KOMBUHCA)));
 
     Item KIMCHI = register("kimchi", new Item(settings().food(BCFoodComponents.KIMCHI)));
     Item JERKY = register("jerky", new Item(settings().food(BCFoodComponents.JERKY)));
