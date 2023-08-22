@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -56,7 +55,7 @@ public interface BCObjects {
     Item SACCHARINE_RUM = register("saccharine_rum", new BoozeBlockItem(TANKARD_BLOCK, 2, 8, drinkItem().food(BCFoodComponents.SACCHARINE_RUM)));
     Item PALE_JANE = register("pale_jane", new BoozeBlockItem(TANKARD_BLOCK, 2, 5, drinkItem().food(BCFoodComponents.PALE_JANE)));
 
-    Item DREAD_NOG = register("dread_nog", new BoozeBlockItem(TANKARD_BLOCK,3, 5, drinkItem()));
+    Item DREAD_NOG = register("dread_nog", new BoozeBlockItem(TANKARD_BLOCK, 3, 5, drinkItem()));
 
     Item SALTY_FOLLY = register("salty_folly", new BoozeBlockItem(TANKARD_BLOCK, 2, 10, drinkItem().food(BCFoodComponents.SALTY_FOLLY)));
     Item STEEL_TOE_STOUT = register("steel_toe_stout", new BoozeBlockItem(TANKARD_BLOCK, 3, 10, drinkItem().food(BCFoodComponents.STEEL_TOE_STOUT)));

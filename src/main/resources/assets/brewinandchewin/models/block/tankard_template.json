@@ -3,7 +3,7 @@
   "textures": {
     "tankard": "brewinandchewin:block/tankard",
     "topping": "brewinandchewin:block/strongrot_ale_topping",
-    "particle": "brewinandchewin:block/salty_folly_topping"
+    "particle": "block/spruce_planks"
   },
   "elements": [
     {

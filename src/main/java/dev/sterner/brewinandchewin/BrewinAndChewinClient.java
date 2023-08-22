@@ -5,7 +5,6 @@ import dev.sterner.brewinandchewin.client.renderer.ItemCoasterRenderer;
 import dev.sterner.brewinandchewin.client.renderer.TankardBlockEntityRenderer;
 import dev.sterner.brewinandchewin.client.screen.KegScreen;
 import dev.sterner.brewinandchewin.common.block.TankardBlock;
-import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
 import dev.sterner.brewinandchewin.common.registry.BCBlockEntityTypes;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCScreenHandlerTypes;

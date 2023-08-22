@@ -5,17 +5,14 @@ import dev.sterner.brewinandchewin.common.block.TankardBlock;
 import dev.sterner.brewinandchewin.common.block.entity.TankardBlockEntity;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.RotationPropertyHelper;
@@ -60,7 +57,7 @@ public class TankardBlockEntityRenderer implements BlockEntityRenderer<TankardBl
         float[] z = {0};
         int[] rot = {0};
 
-        int count = (int)entity.getItems().stream().filter(i -> !i.isEmpty()).count();
+        int count = (int) entity.getItems().stream().filter(i -> !i.isEmpty()).count();
         /*
         if (count == 2) {
             x = new float[]{2f / 16, -12.5f / 16};
@@ -89,13 +86,13 @@ public class TankardBlockEntityRenderer implements BlockEntityRenderer<TankardBl
             ItemStack itemStack = entity.getItems().get(i);
             if (itemBlockStateMap().containsKey(itemStack.getItem())) {
                 matrices.push();
-                matrices.translate(0.5,0,0.5);
+                matrices.translate(0.5, 0, 0.5);
                 matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rot[i]));
                 float rotation = RotationPropertyHelper.toDegrees(entity.getCachedState().get(TankardBlock.ROTATION));
                 matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
-                matrices.translate(-0.5,0,-0.5);
+                matrices.translate(-0.5, 0, -0.5);
 
-                matrices.translate(x[i]/2, 0, z[i]/2);
+                matrices.translate(x[i] / 2, 0, z[i] / 2);
                 blockRenderer.renderBlock(itemBlockStateMap().get(itemStack.getItem()), entity.getPos(), entity.getWorld(), matrices, vertexConsumers.getBuffer(RenderLayer.getCutout()), true, entity.getWorld().getRandom());
                 matrices.pop();
             }

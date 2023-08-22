@@ -1,15 +1,15 @@
 package dev.sterner.brewinandchewin.common.item;
 
-import dev.sterner.brewinandchewin.common.block.TankardBlock;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SeaPickleBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.MinecraftServer;
@@ -79,7 +79,7 @@ public class BoozeBlockItem extends BoozeItem {
                     writeNbtToBlockEntity(world, playerEntity, blockPos, itemStack);
                     blockState2.getBlock().onPlaced(world, blockPos, blockState2, playerEntity, itemStack);
                     if (playerEntity instanceof ServerPlayerEntity) {
-                        Criteria.PLACED_BLOCK.trigger((ServerPlayerEntity)playerEntity, blockPos, itemStack);
+                        Criteria.PLACED_BLOCK.trigger((ServerPlayerEntity) playerEntity, blockPos, itemStack);
                     }
                 }
 
@@ -119,7 +119,7 @@ public class BoozeBlockItem extends BoozeItem {
             NbtCompound nbtCompound2 = nbtCompound.getCompound("BlockStateTag");
             StateManager<Block, BlockState> stateManager = state.getBlock().getStateManager();
 
-            for(String string : nbtCompound2.getKeys()) {
+            for (String string : nbtCompound2.getKeys()) {
                 Property<?> property = stateManager.getProperty(string);
                 if (property != null) {
                     String string2 = nbtCompound2.get(string).asString();

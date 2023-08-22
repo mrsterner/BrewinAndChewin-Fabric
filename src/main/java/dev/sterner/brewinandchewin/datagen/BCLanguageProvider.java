@@ -1,7 +1,6 @@
 package dev.sterner.brewinandchewin.datagen;
 
 import dev.sterner.brewinandchewin.BrewinAndChewin;
-import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCStatusEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
