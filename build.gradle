@@ -60,8 +60,8 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 
-	modApi "dev.architectury:architectury-fabric:9.1.10"
-	modApi("me.shedaniel.cloth:cloth-config-fabric:11.1.106") {
+	modApi "dev.architectury:architectury-fabric:6.5.85"
+	modApi ("me.shedaniel.cloth:cloth-config-fabric:8.3.103") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 

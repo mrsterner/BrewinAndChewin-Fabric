@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import dev.sterner.brewinandchewin.common.block.TankardBlock;
 import dev.sterner.brewinandchewin.common.block.entity.TankardBlockEntity;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
+import dev.sterner.brewinandchewin.common.util.RotationPropertyHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
