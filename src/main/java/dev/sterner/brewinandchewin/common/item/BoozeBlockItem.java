@@ -7,11 +7,11 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
@@ -58,9 +58,7 @@ public class BoozeBlockItem extends BoozeItem {
     }
 
     public ActionResult place(ItemPlacementContext itemPlacementContext) {
-        if (!this.getBlock().isEnabled(itemPlacementContext.getWorld().getEnabledFeatures())) {
-            return ActionResult.FAIL;
-        } else if (!itemPlacementContext.canPlace()) {
+        if (!itemPlacementContext.canPlace()) {
             return ActionResult.FAIL;
         } else {
             BlockState blockState = this.getPlacementState(itemPlacementContext);
@@ -197,8 +195,4 @@ public class BoozeBlockItem extends BoozeItem {
         return stack.getSubNbt("BlockEntityTag");
     }
 
-    @Override
-    public FeatureSet getRequiredFeatures() {
-        return this.getBlock().getRequiredFeatures();
-    }
 }

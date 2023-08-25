@@ -17,8 +17,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 
 
 public class FermentationControllerBlockEntityRenderer implements BlockEntityRenderer<FermentationControllerBlockEntity> {
@@ -37,9 +37,6 @@ public class FermentationControllerBlockEntityRenderer implements BlockEntityRen
 
     @Override
     public void render(FermentationControllerBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (BrewinAndChewin.DEBUG_MODE) {
-            renderDebugText(entity, matrices, vertexConsumers, light);
-        }
 
         float xOffset = entity.getTemperature();
         float xOffsetTarget = entity.getTargetTemperature();
@@ -47,14 +44,14 @@ public class FermentationControllerBlockEntityRenderer implements BlockEntityRen
         matrices.push();
 
         matrices.translate(0.5, 0.5, 0.5);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-entity.getCachedState().get(HorizontalFacingBlock.FACING).asRotation()));
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-entity.getCachedState().get(HorizontalFacingBlock.FACING).asRotation()));
 
 
         if (!entity.getCachedState().get(FermentationControllerBlock.VERTICAL)) {
             matrices.push();
 
-            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180));
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
 
             renderIndicator(matrices, vertexConsumers, xOffset, xOffsetTarget, overlay);
             matrices.pop();
@@ -73,18 +70,6 @@ public class FermentationControllerBlockEntityRenderer implements BlockEntityRen
 
         matrices.translate((xOffsetTarget / MAGIC_OFFSET_NUMBER) - xOffset / MAGIC_OFFSET_NUMBER, -((double) 5 / 16), 0);
         MODEL_SMALL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(TEXTURE)), 15728880, overlay, 1.0F, 1.0F, 1.0F, 1.0F);
-    }
-
-    private void renderDebugText(FermentationControllerBlockEntity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        matrices.push();
-        setTextAngles(matrices, new Vec3d(0, 2, 0));
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-entity.getCachedState().get(HorizontalFacingBlock.FACING).asRotation()));
-
-        var orderedText = Text.translatable(entity.getTargetTemperature() + " : " + entity.getTemperature());
-        float f = (float) (-this.textRenderer.getWidth(orderedText) / 2);
-
-        this.textRenderer.draw(orderedText, f, 1, 0, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.POLYGON_OFFSET, 0, light);
-        matrices.pop();
     }
 
     private void setTextAngles(MatrixStack matrices, Vec3d translation) {

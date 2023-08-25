@@ -104,8 +104,9 @@ public class KegBlockScreenHandler extends ScreenHandler {
         return canUse(canInteractWithCallable, playerIn, BCObjects.KEG);
     }
 
+
     @Override
-    public ItemStack quickMove(PlayerEntity playerIn, int index) {
+    public ItemStack transferSlot(PlayerEntity playerIn, int index) {
         int indexDrinkDisplay = 4;
         int indexFluidItemInput = 5;
         int indexContainerInput = 6;

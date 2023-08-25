@@ -123,15 +123,15 @@ public class KegBlock extends BlockWithEntity {
         Direction direction = ctx.getPlayerLookDirection();
         FluidState fluid = ctx.getWorld().getFluidState(ctx.getBlockPos());
         if (direction == Direction.UP || direction == Direction.DOWN) {
-            return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(VERTICAL, true).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
+            return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(VERTICAL, true).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
         }
-        return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(WATERLOGGED, fluid.getFluid() == Fluids.WATER);
     }
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         if (world.getBlockEntity(pos) instanceof KegBlockEntity blockEntity) {
             blockEntity.updateTemperature();

@@ -3,7 +3,7 @@ package dev.sterner.brewinandchewin.datagen;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.registry.BCObjects;
 import dev.sterner.brewinandchewin.common.registry.BCStatusEffects;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallSignBlock;
@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BCLanguageProvider extends FabricLanguageProvider {
-    protected BCLanguageProvider(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public BCLanguageProvider(FabricDataGenerator dataGenerator) {
+        super(dataGenerator);
     }
 
     @Override

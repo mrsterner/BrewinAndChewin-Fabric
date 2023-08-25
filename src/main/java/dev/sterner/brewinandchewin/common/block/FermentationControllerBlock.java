@@ -98,7 +98,7 @@ public class FermentationControllerBlock extends BlockWithEntity {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         PlayerEntity player = ctx.getPlayer();
         boolean bl = player == null || !player.isSneaking();
-        return this.getDefaultState().with(HorizontalFacingBlock.FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(STATE, State.NONE).with(VERTICAL, bl);
+        return this.getDefaultState().with(HorizontalFacingBlock.FACING, ctx.getPlayerFacing().getOpposite()).with(STATE, State.NONE).with(VERTICAL, bl);
     }
 
     @Override

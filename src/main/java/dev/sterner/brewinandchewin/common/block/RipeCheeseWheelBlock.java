@@ -99,7 +99,7 @@ public class RipeCheeseWheelBlock extends Block {
     }
 
     @Override
-    public boolean canMobSpawnInside(BlockState state) {
+    public boolean canMobSpawnInside() {
         return false;
     }
 }

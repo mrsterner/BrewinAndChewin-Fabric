@@ -10,12 +10,12 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.RotationPropertyHelper;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.Map;
 
@@ -87,9 +87,10 @@ public class TankardBlockEntityRenderer implements BlockEntityRenderer<TankardBl
             if (itemBlockStateMap().containsKey(itemStack.getItem())) {
                 matrices.push();
                 matrices.translate(0.5, 0, 0.5);
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rot[i]));
+                SkullBlockEntityRenderer
+                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(rot[i]));
                 float rotation = RotationPropertyHelper.toDegrees(entity.getCachedState().get(TankardBlock.ROTATION));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
+                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-rotation));
                 matrices.translate(-0.5, 0, -0.5);
 
                 matrices.translate(x[i] / 2, 0, z[i] / 2);

@@ -4,7 +4,6 @@ import com.nhoryzon.mc.farmersdelight.item.ConsumableItem;
 import dev.sterner.brewinandchewin.BrewinAndChewin;
 import dev.sterner.brewinandchewin.common.block.*;
 import dev.sterner.brewinandchewin.common.item.BoozeBlockItem;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -12,9 +11,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -102,15 +100,15 @@ public interface BCObjects {
     Block FERMENTATION_CONTROLLER = register("fermentation_controller", new FermentationControllerBlock(), settings(), true);
 
     static Item.Settings drinkItem() {
-        return (new Item.Settings()).recipeRemainder(TANKARD).maxCount(16);
+        return (new Item.Settings()).recipeRemainder(TANKARD).maxCount(16).group(BrewinAndChewin.ITEM_GROUP);
     }
 
     static Item.Settings bowlFoodItem() {
-        return (new Item.Settings()).recipeRemainder(Items.BOWL).maxCount(16);
+        return (new Item.Settings()).recipeRemainder(Items.BOWL).maxCount(16).group(BrewinAndChewin.ITEM_GROUP);
     }
 
     static Item.Settings settings() {
-        return new Item.Settings();
+        return new Item.Settings().group(BrewinAndChewin.ITEM_GROUP);
     }
 
     static <T extends Item> T register(String name, T item) {
@@ -127,8 +125,7 @@ public interface BCObjects {
     }
 
     static void init() {
-        BLOCKS.keySet().forEach(block -> Registry.register(Registries.BLOCK, BLOCKS.get(block), block));
-        ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
-        ItemGroupEvents.modifyEntriesEvent(BrewinAndChewin.ITEM_GROUP).register(entries -> ITEMS.keySet().forEach(entries::add));
+        BLOCKS.keySet().forEach(block -> Registry.register(Registry.BLOCK, BLOCKS.get(block), block));
+        ITEMS.keySet().forEach(item -> Registry.register(Registry.ITEM, ITEMS.get(item), item));
     }
 }

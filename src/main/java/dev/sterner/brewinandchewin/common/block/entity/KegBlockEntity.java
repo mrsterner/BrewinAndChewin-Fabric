@@ -262,7 +262,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
                 if (recipe.matches(inventoryWrapper, world)) {
                     return Optional.of((KegRecipe) recipe);
                 }
-                if (ItemStack.areItemsEqual(recipe.getOutput(world.getRegistryManager()), getDrink())) {
+                if (ItemStack.areItemsEqual(recipe.getOutput(), getDrink())) {
                     return Optional.empty();
                 }
             }
@@ -311,7 +311,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
 
         int recipeTemp = recipe.getTemperature();
         if (this.hasInput() && (recipeTemp == 3 || recipeTemp == this.getTemperature())) {
-            ItemStack resultStack = recipe.getOutput(world.getRegistryManager());
+            ItemStack resultStack = recipe.getOutput();
             if (resultStack.isEmpty()) {
                 return false;
             } else {
@@ -350,7 +350,7 @@ public class KegBlockEntity extends SyncedBlockEntity implements KegBlockInvento
             } else {
                 this.fermentTime = 0;
                 this.drinkContainerStack = recipe.getOutputContainer();
-                ItemStack resultStack = recipe.getOutput(world.getRegistryManager());
+                ItemStack resultStack = recipe.getOutput();
                 ItemStack storedMealStack = this.getStack(5);
                 if (storedMealStack.isEmpty()) {
                     this.setStack(5, resultStack.copy());

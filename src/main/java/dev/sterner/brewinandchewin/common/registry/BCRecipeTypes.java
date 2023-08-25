@@ -5,9 +5,8 @@ import dev.sterner.brewinandchewin.common.recipe.KegRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,7 +35,7 @@ public interface BCRecipeTypes {
     }
 
     static void init() {
-        RECIPE_SERIALIZERS.keySet().forEach(recipeSerializer -> Registry.register(Registries.RECIPE_SERIALIZER, RECIPE_SERIALIZERS.get(recipeSerializer), recipeSerializer));
-        RECIPE_TYPES.keySet().forEach(recipeType -> Registry.register(Registries.RECIPE_TYPE, RECIPE_TYPES.get(recipeType), recipeType));
+        RECIPE_SERIALIZERS.keySet().forEach(recipeSerializer -> Registry.register(Registry.RECIPE_SERIALIZER, RECIPE_SERIALIZERS.get(recipeSerializer), recipeSerializer));
+        RECIPE_TYPES.keySet().forEach(recipeType -> Registry.register(Registry.RECIPE_TYPE, RECIPE_TYPES.get(recipeType), recipeType));
     }
 }

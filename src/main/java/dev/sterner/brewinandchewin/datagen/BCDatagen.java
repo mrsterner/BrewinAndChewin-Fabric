@@ -7,8 +7,6 @@ public class BCDatagen implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        var v = fabricDataGenerator.createPack();
-        v.addProvider(BCLanguageProvider::new);
-        //v.addProvider(BCRecipeProvider::new);
+        fabricDataGenerator.addProvider(BCLanguageProvider::new);
     }
 }
