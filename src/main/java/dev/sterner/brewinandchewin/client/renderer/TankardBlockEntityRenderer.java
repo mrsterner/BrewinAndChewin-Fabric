@@ -87,7 +87,7 @@ public class TankardBlockEntityRenderer implements BlockEntityRenderer<TankardBl
             if (itemBlockStateMap().containsKey(itemStack.getItem())) {
                 matrices.push();
                 matrices.translate(0.5, 0, 0.5);
-                SkullBlockEntityRenderer
+
                 matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(rot[i]));
                 float rotation = RotationPropertyHelper.toDegrees(entity.getCachedState().get(TankardBlock.ROTATION));
                 matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-rotation));
