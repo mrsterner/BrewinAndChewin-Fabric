@@ -12,14 +12,14 @@ public interface KegBlockInventory extends ItemStackInventory, SidedInventory {
     @Override
     default int[] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
-            return new int[]{KegBlockEntity.OUTPUT_SLOT};
+            return new int[]{KegBlockEntity.CONTAINER_SLOT, KegBlockEntity.OUTPUT_SLOT};
         }
 
         if (side == Direction.UP) {
             return IntStream.range(0, KegBlockEntity.MEAL_DISPLAY_SLOT).toArray();
         }
 
-        return new int[]{KegBlockEntity.CONTAINER_SLOT};
+        return new int[]{KegBlockEntity.CONTAINER_SLOT - 1};
     }
 
     @Override
@@ -27,7 +27,7 @@ public interface KegBlockInventory extends ItemStackInventory, SidedInventory {
         if (dir == null || dir.equals(Direction.UP)) {
             return slot < KegBlockEntity.MEAL_DISPLAY_SLOT;
         } else {
-            return slot == KegBlockEntity.CONTAINER_SLOT;
+            return slot == KegBlockEntity.CONTAINER_SLOT - 1;
         }
     }
 
@@ -36,7 +36,7 @@ public interface KegBlockInventory extends ItemStackInventory, SidedInventory {
         if (dir == null || dir.equals(Direction.UP)) {
             return slot < KegBlockEntity.MEAL_DISPLAY_SLOT;
         } else {
-            return slot == KegBlockEntity.OUTPUT_SLOT;
+            return slot == KegBlockEntity.OUTPUT_SLOT || slot == KegBlockEntity.CONTAINER_SLOT;
         }
     }
 
